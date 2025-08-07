@@ -1,0 +1,492 @@
+- nom du parcours :
+le théatre 
+
+--------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------
+
+étapes :
+- nombre d'étape :
+5
+
+--------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------
+
+étape 1
+- nom de l'étape 1 :
+Prologue
+
+- mp3 de l'étape 1 :
+acte_0_prologue.mp3
+
+- indice textuel de l'étape 1 : 
+vide
+
+- indice visuel de l'étape 1 :
+vide
+
+- Question de l'étape 1 :
+vide
+
+- Réponse de l'étape 1 :
+vide
+
+- coordonnées géographique de l'étape 1 :
+vide
+
+- nombre de chapitre dans l'étape 1 :
+1
+
+chapitre 1
+----------
+- nom du chapitre 1 :
+vide
+
+- image du chapitre 1 :
+fin.webp
+
+- texte du chapitre 1 :
+Madame, Monsieur, bienvenue dans l'histoire du théâtre arrageois !
+Selon l'historien Adolphe de Cardevacque, "l'histoire du théâtre d'Arras forme un des principaux chapitres des annales littéraires de cette ville".
+Elle marque aussi l'un des tournants majeurs de l'histoire même du théâtre occidental.
+Au XIIe siècle, le genre dramatique s'émancipe avec ses jongleurs, ses ménestrels, ses trouvères...
+Arras, alors ville prospère aux 80 poètes, n'y est pas étrangère avec des auteurs comme Baude Fastoul, Jehan Bodel ou encore Adam de la Halle.
+Vous vous apprêtez à participer à un jeu de piste en centre ville. Chaque bonne réponse vous mènera vers un nouveau site.
+Prêt à entrer dans l'histoire ?
+Alors… En scène !
+
+---------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------
+
+étape 2
+- nom de l'étape 2 :
+Acte I
+la convocation
+
+- mp3 de l'étape 2 :
+acte_1.mp3
+
+- indice textuel de l'étape 2 : 
+vide
+
+- indice visuel de l'étape 2 :
+hotel_de_guines_indice.webp
+
+- Question de l'étape 2 :
+Quelle est l'année de construction de l'Hôtel de Guînes ?
+
+- coordonnées géographique de l'étape 2 :
+50.29109332630313, 2.7739664929693832
+
+- Réponse de l'étape 2 :
+1738
+
+- nombre de chapitre dans l'étape 2 :
+2
+
+chapitre 1
+----------
+- nom du chapitre 1 :
+Scène I
+
+- image du chapitre 1 :
+prologue.webp
+
+- texte du chapitre 1 :
+Paris, 1950. Vous êtes comédien, un festival d'art dramatique est programmé à Arras dans quelques mois pour le VIIe centenaire d'Adam de la Halle.
+Vous candidatez auprès de comité d'organisation.
+Ce festival pourrait être le tremplin pour lancer votre carrière !
+Quelques semaines passent, vous n'y croyez plus.
+Lorsqu'un matin, dans votre courrier...
+
+chapitre 2
+----------
+- nom du chapitre 2 :
+Scène II
+
+- image du chapitre 2 :
+vide
+
+- texte du chapitre 2 :
+Arras, le jeudi 4 Janvier 1951.
+Presque deux heures de train pour venir de Paris, et il vous reste moins d’une demi-heure pour trouver la rue des Jongleurs dans cette ville que vous découvrez dans la brume glaciale d’un matin de janvier.
+“Un plan, chercher un plan… Pas de plan ?! Bon, eh bien nous ferons sans !”
+Vous traversez la place du Maréchal Foch et choisissez de prendre l’axe principal, la rue Gambetta.
+Votre pas s’accélère, vos pensées vagabondent, votre regard traverse le café de la Poste. Un homme termine son café en feuilletant un magazine: A la une du Soir illustré, Jean Marais.
+Vous l’aviez admiré dans la Belle et la Bête, vous irez voir son dernier film, le Château de verre. Il donne la réplique à Michèle Morgan :
+“- Madame, Bonjour ! Excusez-moi, je cherche la rue des jongleurs.”
+- Alors… La rue des jongleurs… Vous passez devant la Poste. Continuez jusqu’à la Banque de France. Là vous tournez à droite dans la rue Désiré Delansorne. Puis première à gauche. Au bout, vous serez dans la Rue des Jongleurs. Il y a l’Hôtel de Guines dans cette rue: Vous ne pouvez pas le rater !
+- Merci ! Bonne journée, Madame.”
+Très vite, vous descendez l’axe principal du centre-ville, et arrivez au lieu de rendez-vous.
+Rendez-vous au lieu de la convocation !
+
+---------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------
+
+étape 3
+- nom de l'étape 3 :
+Acte 2
+Au café Arthur
+
+
+- mp3 de l'étape 3 :
+acte_2.mp3
+
+- indice textuel de l'étape 3 : 
+Le marché y est fréquenté les mercredis et samedis, La place porte le nom “des Héros” depuis 1945.
+La Sainte Chandelle est représentée sur une plaque scellée au sol, les fondations sont pavées de bleu.
+Dirigez vous vers cette place, trouvez cette plaque, pour répondre à la prochaine question.
+A tout de suite !
+
+- indice visuel de l'étape 3 :
+acte_2_indice.webp
+
+- Question de l'étape 3 :
+En quelle année la chapelle de la Sainte Chandelle fut-elle détruite ?
+
+- Réponse de l'étape 3 :
+1791
+
+- coordonnées géographique de l'étape 3 :
+50.29109332630313, 2.7739664929693832
+
+- nombre de chapitre dans l'étape 3 :
+3
+
+chapitre 1
+----------
+- nom du chapitre 1 :
+Scène I
+
+- image du chapitre 1 :
+acte_1.webp
+
+- texte du chapitre 1 :
+Toute petite, cette rue des jongleurs est bien vide pour une journée d’audition !
+Une porte cochère: C’est l’Hôtel de Guines sur lequel figurent quatre plaques: associations des prisonniers de guerre, des déportés du travail, Rhin et Danube et Fédération nationale des déportés internés, résistants et patriotes…
+Mais personne pour une quelconque audition ! Les volets du café Arthur, juste à côté, se lèvent. Peut-être sauront-ils vous renseigner.
+“-Bonjour ! Qu’est-ce que je vous sers ?
+- Rien, Merci Monsieur. Avez-vous entendu parler d’auditions aujourd’hui, ici, rue des jongleurs ?
+- Des auditions ? Ici ? Je ne vois pas, non. Au théâtre peut-être ? C’est André Reybaz qui s’occupe de ça, non ? Monsieur ? Monsieur ? Vous m’entendez ?”
+A cet instant, la parole vous manque, le sol se défile, vos sens se brouillent. Dans l’agitation ambiante, vous perdez connaissance. Dans la chute, votre tête heurte le sol. Le néant…
+
+
+chapitre 2
+----------
+- nom du chapitre 2 :
+Scène II
+
+- image du chapitre 2 :
+hotel_de_guines.webp
+
+- texte du chapitre 2 :
+“-Hep là, il ne faut pas dormir ici, jeune homme! C’est jour de marché aujourd’hui ! Allez debout !”
+Effectivement, l’agitation bat son plein autour de vous: des cris, des étals, des odeurs. Et quelles odeurs ! Encore endolori de votre chute, vous levez les yeux sur la place du Théâtre. Plus de Théâtre, plus de café Arthur, plus d’Hôtel de Guines... Un marché aux poissons anime la Place.
+“- On est bien sur la place du Théâtre, n’est-ce-pas ?
+- La place du Châtelain, vous voulez dire ??! Vous êtes jongleur, vous ?
+- Jongleur ?
+- Vous préférez “ménestrel”, “trouvère”, “troubadour” ? Dites-moi, vous êtes bien venu réciter vos vers ? Une chanson ? Des fabliaux, peut-être ? De quel instrument jouez-vous ? 
+- Euh, pas tout à fait ! Je suis venu de Paris pour le festival d’Adam de la Halle! On est bien le Jeudi 4 j… ?
+- Le jeudi 4 juin de l’année 1276, Monsieur. Moi aussi, je viens de Paris ! Eude de la Courroirie, clerc du Comte Robert II d’Artois. Quant à Maître Adam, il est fort occupé ! Le Bossu prépare la grande représentation de ce soir: Le Jeu de la Feuillée. Voyez comme Adam écrit. Vous êtes nouveau membre de la charité Notre-Dame, n’est-ce pas ?
+Ce soir ? Le jeudi 4 juin 1276 ?
+Quelle charité ? Excusez-moi, mais vous êtes là pour l’audition aussi ?
+- La Charité de Notre-Dame des Ardents, enfin ! En l’an 1105, une terrible maladie, un feu ardent, a décimé la population arrageoise. La Sainte Vierge confia à deux jongleurs, Norman et Itier, un cierge qui guérit les malades. 
+La Sainte Chandelle et sa chapelle ont été érigées sur le petit marché en mémoire du Miracle des Ardents et qui, mieux qu’une confrérie de jongleurs, pourraient célébrer ce miracle sur la place publique, dites-moi ?
+Vous n’êtes donc pas poète pour ignorer cela ?!
+- Enfin ! vous comprenez... Je ne suis pas poète et j’ignore tout de ce miracle ! Alors si on pouvait revenir à l’audition pour le septième centenaire d’Adam de la Halle, je préférerais !
+- Le septième centenaire ? Vous me semblez très confus, cher confrère ! Allez donc au Petit Marché ! Vous pourrez y admirer la Pyramide de la Sainte-Chandelle, les halles aux draps et les Maisiaux. Vous y trouverez Adam, il est loin d’avoir 700 ans !  A tantôt mon ami !”
+Vous ne voyez déjà plus que les talons de cet homme pour le moins atypique, que vous réalisez:
+Le Petit Marché, je veux bien, mais où est-il ? Une pyramide a-t-il dit, Je devrais trouver…
+
+chapitre 3
+----------
+- nom du chapitre 3 :
+Scène III
+
+- image du chapitre 3 :
+vide
+
+- texte du chapitre 3 :
+Heureusement, vous aviez pris la bonne direction en cherchant à rejoindre Eude de la Courroirie. A votre gauche, une énorme bâtisse et une église se dessinent : l'abbaye Saint Vaast ne ressemble pas à ça dans les guides Ravet-Anceau ?!!
+Vous décidez de suivre quelques badauds. Le spectacle d’Adam de la Halle de ce soir va attirer les foules, c’est certain, et si le Petit Marché est bien le coeur de la ville, il ne sera pas difficile à trouver.
+Encore quelques pas et vous découvrez la place, cette fameuse chapelle des Ardents, qui n’a rien d’une pyramide, ces halles aux draps qui évoquent plutôt… L'hôtel de ville ? Où est le lion du beffroi ?!
+Vous remontez votre col, il fait plutôt frais pour un mois de juin.
+Votre retard à l’audition, désormais évident, vous agace. Les aiguilles de votre montre restent figées à 8h53.
+“- C’est fichu pour l’audition… Quelle poisse ! Ou c’est une très mauvaise blague ! Quelle heure est-il ? Pffff…” Maugréez-vous.
+
+--------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------
+
+étape 4
+- nom de l'étape 4 :
+Acte III
+Jour de fête
+
+- mp3 de l'étape 4 :
+acte_3.mp3
+
+- indice textuel de l'étape 4 : 
+Lorsque le préau des ardents servait de jeu de paume, la noblesse et la bourgeoisie y perdirent fortune. La rue qui traversait le domaine des ardents fut alors désignée comme la “rue du tripot”. Elle a aujourd’hui repris son nom d’origine, rue Neuve des Ardents. Mais ne vous bornez pas à emprunter cette rue: Vers l’Ancienne Comédie vous emmener, nous aurions DÉSIRÉ.
+Levez les yeux et observez les masques pour avancer.
+A tout de suite !
+
+- indice visuel de l'étape 4 :
+indice acte 3.webp
+
+- Question de l'étape 4 :
+Combien de masques décorent la façade de la maison aux volets bleus ?
+
+- Réponse de l'étape 4 :
+7
+
+- coordonnées géographique de l'étape 4 :
+50.29221304041246, 2.775991930771325
+
+- nombre de chapitre dans l'étape 4 :
+2
+
+chapitre 1
+----------
+- nom du chapitre 1 :
+Scène I
+
+- image du chapitre 1 :
+place_des_heros.webp
+
+- texte du chapitre 1 :
+Un passant vous interpelle :
+"- Eh bien l’ami ? Tu sembles bien pensif pour un jour de fête ! Allez, viens donc profiter de la semaine grasse ! L'abbé ne devrait plus tarder maintenant. Et après le spectacle, le banquet !
+- Je n’en ai que faire de votre abbé ! C’est Adam que je cherche !
+- Tu n'es pas pensif, plutôt désagréable, je trouve !
+- Oui, pardonnez-moi… Je viens à Arras pour une audition. J’ai perdu connaissance et depuis j’ai l’impression d’être dans une énorme farce ! C’est incohérent !
+- Tu es tout pardonné… Même si je dois t’avouer: Ce sont tes propos qui me paraissent incohérents ! Bon ! Qui dois-tu voir ici ?
+- Je ne sais plus trop, mais j’ai rencontré le clerc du comte qui m’a dit de venir ici à la rencontre d’Adam de la Halle !
+- Aaaahhh ! Adam ? Sacré costume, cette année ! Vas donc voir là-bas : Il doit se préparer pour la représentation !
+- Aaahh ! Donc il y a bien une représentation ? On est bien le 4 Juin 1276, n’est-ce pas ? Au fait, il n’y avait pas une horloge sur ce beffroi ?
+- La semaine grasse en juin ? Tu divagues ? Nous sommes en mars de l’année 1541 ! Une horloge ? C’est que Jacques Halot est bien difficile à convaincre… Allez ! Bon vent l'ami !”
+Enfin! Vous avez trouvé: un étendard rouge aux armes de l'abbaye flotte devant l’hôtel de ville, une foule se presse autour d’un homme à la crosse d’argent doré, escorté de pages et de laquais.
+A proximité, un héraut en cotte d'armes de damas violet somme tambours et trompettes de faire silence pour sa déclaration.
+
+chapitre 2
+----------
+- nom du chapitre 2 :
+Scène II
+
+- image du chapitre 2 :
+vide
+
+- texte du chapitre 2 :
+“- C’est Adam de la Halle ? ” demandez-vous à votre voisin.
+“- Que nenni ! C’est l’abbé de Liesse ! Ou l’abbé de la joie, si vous préférez. Et pour ma part, j’ai beau m’appeler Adam, je ne suis pas poète ! Toutes les confréries se rassemblent sur la place en ce jour du lundi gras, c’est banquet après le spectacle. Avec ses suppôts déguisés en moines, il mène les festivités une année durant.
+- Toutes les confréries se rassemblent ici ? Vraiment ? Celle de Notre Dame-des-Ardents aussi, donc ?
+- Probablement, leur domaine est juste à côté ! Vous voyez là ? C’est le préau des ardents. La salle des assemblées est si grande qu’on peut y voir des pièces de théâtre et même jouer au jeu de paume.
+- Et il y a une troupe en ce moment ?
+- Probablement… Allez donc voir ! Lorsque vous ferez face à l’hôtel de ville, contournez-le sur la droite, faites quelques mètres et vous verrez le Préau des Ardents sur votre droite.
+
+--------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------
+
+étape 5
+- nom de l'étape 5 :
+acte IV
+la troupe
+
+- mp3 de l'étape 5 :
+acte_4.mp3
+
+- indice textuel de l'étape 5 : 
+Un retour aux sources s’impose. le Café Arthur, la chute, les jongleurs… Le théâtre, bien sûr, le théâtre...
+A tout de suite !
+
+- indice visuel de l'étape 5 :
+theatre_indice.webp
+
+- Question de l'étape 5 :
+En quelle année débutent les travaux de construction du théâtre ?
+
+- Réponse de l'étape 5 :
+1780
+
+- coordonnées géographique de l'étape 5 :
+50.29040798544895, 2.7736027375197043
+
+- nombre de chapitre dans l'étape 5:
+2
+
+chapitre 1
+----------
+- nom du chapitre 1 :
+Scène I
+
+- image du chapitre 1 :
+desire_bras.webp
+
+- texte du chapitre 1 :
+Vous levez les yeux. Comme ces masques sont expressifs !  Ils  vous rappellent ceux du théâtre antique. Planté à l’angle de ce qui fut le préau des Ardents, vous tentez de saisir le terme de la discussion entre un homme et une jeune femme. Ce Monsieur Watelet semble plus que nerveux.
+“ - Je vous abandonne, Mademoiselle Mercier. Justement, je pars defendre mes intérêts. Prenez garde aux locaux: Votre avarice m’empêche même de les assurer ! Et portes closes à 20 heures précises.
+- Mon pauvre Monsieur Watelet… Aucune inquiétude, voyons ! Vos amis échevins y nuiront bien avant notre troupe ! Enfin, vous pouvez être assuré que nous entretiendrons vos rapports de bon voisinage !
+- à défaut de bon payeur, Mademoiselle !” Clame le propriétaire de la salle de spectacle en tournant les talons, un dossier sous le bras.
+“ - Aaah, ces provinciaux…” s’écrie-t-elle en hochant la tête, les bras au ciel.
+“- Je viens de Paris, Mademoiselle !” Déclarez-vous surgissant de nulle-part.
+“ - Ooooohhhh ! Sacrebleu ! Vous m’avez fait peur ! Êtes-vous tombé sur la tête jeune homme?
+ - Vous ne croyez pas mieux dire, Mademoiselle. C’était le directeur du Festival ?” Répondez-vous en grimaçant.
+
+chapitre 2
+----------
+- nom du chapitre 2 :
+Scène II
+
+- image du chapitre 2 :
+acte_4_indice.webp
+
+- texte du chapitre 2 :
+- Sieur Watelet ? Nooon ! C’est le propriétaire des lieux !  Tout le monde le sait ici ! C’est la passion de l’argent et non celle du théâtre qui fait battre le coeur de ce bourgeois. Et c’est bien pour ça qu’il presse le pas! Il n’en dit mot, mais il doit aujourd’hui démontrer au magistrat qu’une salle de spectacle est inutile à Arras, sans omettre d’aborder l’immense préjudice qu’il aurait à subir si un théâtre venait à sortir de terre, à l’évidence !
+- Pardonnez-moi, Mademoiselle, mais j’ai bien vu un théâtre en arrivant à Arras !
+- En êtes-vous bien sûr mon garçon ?! Croyez-vous que ma troupe se contenterait de cet ancien jeu de paume, si la ville était dotée d’un théâtre ? De la raison, voyons ! Allez, au travail !  Nous allons prendre du retard: Le Magistrat de la ville a décidé que les représentations auraient désormais lieu entre 17h00 et 20h00 ! C’est dire si la rue était animée tantôt. Le voisinage a eu raison de l’art dramatique et du divertissement en cette ville…” soupire la jeune femme au charme enchanteur. Cependant chaque syllabe de “l’art dramatique” résonne comme un antidote.
+Cette fois, avant de vous ridiculiser en évoquant le festival, vous vous assurez de la date:
+“- Excusez- moi, Mademoiselle, mais quel jour sommes-nous ?
+- Le vendredi 1er mars 1754: C’est aujourd’hui que Monsieur Watelet dissuadera les échevins de construire un vrai théâtre. Je vous l’ai dit, voyons ! N’avez vous donc rien compris ?”
+Plus de théâtre ? Plus de festival ! Plus de carrière ?! Il faut arrêter le Sieur Watelet ! Il en va de ma carrière ! Réalisez-vous.
+Vous dévalez la rue à sa poursuite.
+Vous reconnaissez l’abbaye Saint-Vaast, instinctivement, vous tournez à gauche.
+C’est certain : Le théâtre est par là !
+Vous n’avez pas pu rêver ! 
+Vous l’avez vu ce matin avant de tomber au café Arthur !
+Vous devez vérifier !
+
+--------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------
+
+étape 6
+- nom de l'étape 6 :
+acte V
+L'audition
+
+- mp3 de l'étape 6 :
+acte_5.mp3
+
+- indice textuel de l'étape 6 : 
+La compagnie théâtrale de Catherine Toth et André Reybaz ont investi la cour de l'Abbaye Saint-Vaast pour interpréter la pièce de Molière "Le Sicilien ou l'Amour peintre" le samedi 30 juin et le dimanche 1er juillet 1951.
+A tout de suite !
+
+- indice visuel de l'étape 6 :
+acte_5.webp
+
+- Question de l'étape 6 :
+Qui a reconstruit l'Abbaye Saint-Vaast après la 1ère Guerre mondiale ?
+
+- coordonnées géographique de l'étape 6 :
+50.29166163720709, 2.773262971437295
+
+- Réponse de l'étape 6 :
+Pierre Paquet
+
+- nombre de chapitre dans l'étape 6 :
+2
+
+chapitre 1
+----------
+- nom du chapitre 1 :
+Scène I
+
+- image du chapitre 1 :
+acte_4_question.webp
+
+- texte du chapitre 1 :
+Les mains sur les genoux, vous reprenez péniblement votre souffle. Vous fermez les yeux, vous secouez la tête: quelle journée fantasmagorique…
+ Une tape sur l’épaule vous extirpe de vos pensées :
+“- Bon alors ? Tu fais quoi ? Tu entres ou pas ?
+- Pardon ?”
+La pétulance du jeune homme trouble la quiétude de la place.
+“- Tu viens au théâtre ? Allez ! Viens vite ! Ça va bientôt commencer !”
+Vous levez alors des yeux écarquillés sur une sobre façade de calcaire blanc:
+“- Le théâtre ? C’est le théâtre ? Monsieur Watelet a donc échoué !?
+- Probablement ! Tu en sembles convaincu ?! Un magnifique théâtre à l’italienne, non ? Dire qu’il y avait là d’anciennes prisons, un corps de garde, la bourse commune des pauvres et les minques !
+- Ne m’en parle pas : Cette odeur de poisson, je m’en souviens ! En quoi est-ce un théâtre à l’italienne ? Je ne vois pas ce que ce théâtre a d’italien !
+Derrière cette façade néo-classique, se cache une étonnante salle en ovale tronqué au décor chatoyant dans le style Louis XVI avec trois étages de balcons et le poulailler. La scène est surélevée, vois-tu ? Son plancher, légèrement incliné vers le parterre, permet au public d'apprécier le jeu des artistes, comme l’interprétation des œuvres musicales d’ailleurs !  Et la cage de scène est impressionnante d’ingéniosité pour changer les décors. Il était grand temps pour la ville d’Arras de se doter d’un théâtre ! En plus, un espace est prévu pour accueillir le Quand on pense à l’état du jeu de Paume et à son propriétaire si cupide… Pfff.
+- Justement, je voul…
+- Savais-tu qu’un professeur de mathématiques, Adrien Gillet, aurait été sollicité pour un projet de théâtre en novembre 1782 ? Ceci dit, lorsqu’on connaît le montant des émoluments versés à l’architecte Laurent Guislain Joseph Linque, quelque chose comme 17000 livres je crois, cela ne laisse guère de doute sur la paternité du théâtre arrageois, non ?
+J’ai même vu sa signature sur l’un des plans, un coupe transversale de la salle au niveau de la fosse d’orchestre, tu vois ? Impressionnant…
+- Oui, je vois, je vois… La dame là-bas ?
+- Ah ! C’est Madame de Boiry ! Elle y a perdu son garde-manger dans ce théâtre !
+Madame de Boiry avait une propriété située à l’arrière du théâtre.
+La ville a d’abord racheté le bâtiment de la Bourse commune à raison d’une rente annuelle de 200 livres en argent, je crois.
+En avril 1783, c’est le garde-manger de Madame de Boiry qui entre en scène ! Enfin, si tu me permets l’expression ? Je te fatigue avec tout ça, non ?”
+
+chapitre 2
+----------
+- nom du chapitre 2 :
+Scène I
+
+- image du chapitre 2 :
+acte_4_pc.webp
+
+- texte du chapitre 2 :
+Vous restez muet, mais votre regard fuyant suffit. Vous scrutez cette place que vous connaissez. Encore que… Elle vous semble différente.
+Votre compagnon reprend de plus belle:
+“- Oh ! Regarde ! Messieurs Garnier et Durand ! La troupe arrive: ça va bientôt commencer ! Comme j’ai hâte !
+- Attends-moi ! Que se passe-t-il ?”
+Le jeune homme ouvre et vous tend un petit livre tout juste sorti de sa poche:
+“- L’inauguration de la nouvelle salle de spectacle eut lieu le mercredi 30 Novembre 1785, sans cérémonie ni apparat en présence des membres du magistrat. C’est écrit là !”
+La page de titre indique:
+Le Théâtre à Arras avant et après la Révolution.
+Par Adolphe de Cardevacque.
+- Arras: Typographie de Sède, 1884.
+1884 ??? Le moteur d’une Renault 4CV démarre. Vous réalisez aussitôt:
+“- Une 4CV, en 1785 ?
+- On est en 1951 ! 1785... Quelle idée ! L’inauguration du théâtre n’est qu’une reconstitution !
+- 1951… Dis, tu aurais entendu parler d’audition pour le festival du VIIe Centenaire d’Adam de la Halle ?
+- André Reybaz doit encore être à l’abbaye Saint-Vaast à cette heure. Vas voir ! Tu passes devant l'Hôtel de Guines et à gauche toute !”
+Vous le remerciez d’une chaleureuse poignée de main avant de rebrousser chemin.
+
+--------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------
+
+étape 7
+- nom de l'étape 7 :
+épilogue
+
+- mp3 de l'étape 7 :
+acte_0_prologue.mp3
+
+- indice textuel de l'étape 7 : 
+vide
+
+- indice visuel de l'étape 7 :
+vide
+
+- Question de l'étape 7 :
+vide
+
+- Réponse de l'étape 7 :
+vide
+
+- coordonnées géographique de l'étape 7 :
+vide
+
+- nombre de chapitre dans l'étape 7:
+1
+
+chapitre 1
+----------
+- nom du chapitre 1 :
+vide
+
+- image du chapitre 1 :
+epilogue.webp
+
+- texte du chapitre 1 :
+Plus que quelques mètres et vous connaîtrez le verdict. Par la grande porte entrebâillée de l’abbaye Saint-Vaast, vous apercevez le jeu d’une troupe de comédiens costumés. Aucun doute, cette fois, ce sont des comédiens, plus de voyages dans le temps: Les uns chantent, les autres alternent grands battements et pirouettes pendant qu’un petit comité joue et rejoue la même scène avec emphase.
+“- Allez-y, avancez, jeune homme, André vous attend, là-bas, devant l’entrée du Musée des Beaux-Arts.
+“- Ah André ? Monsieur André Reybaz ?” demandez-vous. Deux messieurs en costume cravate observent les répétitions. Comme l’un d’eux vous serre la main, l’angoisse vous serre la poitrine. Si le metteur en scène du festival vous attend, c’est que l’audition, c’est pour…
+MAINTENANT !!!
+“- Ooohhh, laissez le donc avancer, voyons ! C’est qu’il vient de bien loin pour participer à l’audition.” Vient vers vous, un homme élégant aux cheveux bruns. Une charmante jeune femme lui emboîte le pas. Il vous tend la main :
+“- Bonjour ! Vous voici donc! Heureux de vous rencontrer. Je vous présente Messieurs René Durant, secrétaire de la Chambre de Commerce, et le Docteur Baudry, commissaire délégué du comité. Enfin, Catherine Toth, ma compagne. Et moi, pardon ! André Reybaz, heureux de faire enfin votre connaissance. Alors ? Ce voyage pour arriver jusqu’ici ? Pas trop éprouvant ?
+- Nooon !” Répondez-vous en vous frottant la tête, en signe d’hésitation.
+“- Vous avez apprécié ?
+- La répétition ? oui, bien sûr, Monsieur Reybaz ! Comme je serais honoré de monter sur scène auprès de vous.
+- Quel jour sommes-nous ?
+- Euh, le 4 janvier, Monsieur Reybaz. Enfin, je crois ! Le 4 janvier 1951.
+- Saviez-vous que la pièce que nous répétons aujourd’hui, Le Sicilien ou l’Amour peintre de Molière a été représentée pour la première fois, le 5 Janvier 1667 à Saint-Germain en Laye ? Certains y verraient un signe du destin.
+- Je l’ignorais, Monsieur Reybaz.” Répondez-vous embarrassé.
+Accompagné d’un geste amical sur l’épaule, André Reybaz vous invite à entrer au Musée :
+“- Alors ? On la fait cette audition ?! Il ne manquait plus que vous !"

@@ -1,0 +1,48 @@
+/arrasgo/                            # Dossier racine du projet
+
+│
+├── /frontend/                       # Partie publique accessible aux joueurs
+│   ├── index.html                   # Page d’accueil du site
+│   ├── parcours.html                # Page de présentation des parcours
+│   ├── jeu.html                     # Page de jeu pour les parcours actifs
+│   ├── css/
+│   │   └── style.css                # Styles généraux du site public
+│   └── js/
+│       └── script.js               # JS pour interactions (cartes, chronos, questions…)
+
+│
+├── /backend/                        # Scripts PHP connectés à la BDD
+│   ├── config/
+│   │   └── database.php             # Connexion PDO à MariaDB
+│   ├── functions/
+│   │   └── parcours.php            # Fonctions liées aux parcours (CRUD)
+│   ├── api/
+│   │   └── get_parcours.php        # Exemple d’API REST retournant les parcours
+│   └── security/
+│       └── check_auth.php          # Vérifie si l’admin est connecté via session
+│
+├── /backoffice/                     # Interface d'administration (sécurisée)
+│   ├── login.php                    # Formulaire de connexion admin
+│   ├── logout.php                   # Script de déconnexion
+│   ├── dashboard.php                # Page principale du back-office
+│   ├── add_parcours.php            # Formulaire d’ajout de parcours
+│   ├── list_parcours.php           # Liste et gestion des parcours
+│   ├── css/
+│   │   └── admin.css               # Styles propres au back-office
+│   ├── js/
+│   │   └── admin.js                # Comportement JS (modales, confirmations, etc.)
+│   └── assets/
+│       └── icons/                  # Icônes, images spécifiques au back-office
+
+│
+├── /data/                           # Données non publiques
+│   └── uploads/                     # Uploads éventuels (images d’étapes, audios…)
+
+│
+├── /sql/                            # Scripts SQL
+│   └── arrasgo_create_tables.sql    # Script complet de création de la base de données
+
+│
+├── .env                             # Variables d’environnement (ex. DB_USER, DB_PASS)
+├── .gitignore                       # Pour Git : ignore les fichiers sensibles (ex: /data/)
+└── README.md                        # Documentation du projet, installation, objectifs
