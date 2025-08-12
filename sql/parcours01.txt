@@ -66,7 +66,10 @@ la convocation
 acte_1.mp3
 
 - indice textuel de l'étape 2 : 
-vide
+L'hôtel particulier de la famille De Guînes, reprend le modèle de l’hôtel parisien bâti entre cour et jardin.
+Si les portes sont ouvertes, vous pourrez admirer les visages mutins de la façade et sa cour pavée.
+Dirigez-vous vers l'hôtel et trouvez sa plaque pour répondre à la prochaine question.
+A tout de suite !
 
 - indice visuel de l'étape 2 :
 hotel_de_guines_indice.webp

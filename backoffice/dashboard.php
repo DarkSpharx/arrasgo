@@ -1,12 +1,18 @@
 <?php
 session_start();
 require_once '../backend/security/check_auth.php';
+require_once '../backend/config/database.php'; // <-- AJOUTE CETTE LIGNE
 require_once '../backend/functions/parcours.php';
+require_once '../backend/functions/etapes.php';
+require_once '../backend/functions/chapitres.php';
+require_once '../backend/functions/personnages.php';
 
 // Récupération des statistiques et informations de gestion
-$parcoursCount = getParcoursCount(); // Fonction à définir dans parcours.php
-$usersCount = getUsersCount(); // Fonction à définir pour récupérer le nombre d'utilisateurs
-
+$parcoursCount = getParcoursCount($pdo);
+$usersCount = getUsersCount($pdo);
+$etapesCount = getEtapesCount($pdo);
+$chapitresCount = getChapitresCount($pdo);
+$personnagesCount = getPersonnagesCount($pdo);
 ?>
 
 <!DOCTYPE html>
@@ -23,7 +29,9 @@ $usersCount = getUsersCount(); // Fonction à définir pour récupérer le nombr
         <nav>
             <ul>
                 <li><a href="list_parcours.php">Gérer les parcours</a></li>
-                <li><a href="add_parcours.php">Ajouter un parcours</a></li>
+                <li><a href="list_etapes.php">Gérer les étapes</a></li>
+                <li><a href="list_chapitres.php">Gérer les chapitres</a></li>
+                <li><a href="list_personnages.php">Gérer les personnages</a></li>
                 <li><a href="logout.php">Déconnexion</a></li>
             </ul>
         </nav>
@@ -34,6 +42,9 @@ $usersCount = getUsersCount(); // Fonction à définir pour récupérer le nombr
             <h2>Statistiques</h2>
             <p>Nombre de parcours : <?php echo $parcoursCount; ?></p>
             <p>Nombre d'utilisateurs : <?php echo $usersCount; ?></p>
+            <p>Nombre d'étapes : <?php echo $etapesCount; ?></p>
+            <p>Nombre de chapitres : <?php echo $chapitresCount; ?></p>
+            <p>Nombre de personnages : <?php echo $personnagesCount; ?></p>
         </section>
         
         <section>

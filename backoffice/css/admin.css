@@ -1,112 +1,156 @@
-/arrasgo/arrasgo/backoffice/css/admin.css
-
 /* Styles généraux pour l'interface d'administration */
 
 /* Corps de la page */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    margin: 0;
-    padding: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 0;
 }
 
 /* En-tête */
 header {
-    background: #35424a;
-    color: #ffffff;
-    padding: 10px 0;
-    text-align: center;
+  background: #35424a;
+  color: #ffffff;
+  padding: 10px 0;
+  text-align: center;
 }
 
 /* Liens de navigation */
 nav {
-    margin: 20px 0;
+  margin: 20px 0;
 }
 
 nav a {
-    color: #ffffff;
-    text-decoration: none;
-    padding: 10px 15px;
+  color: #ffffff;
+  text-decoration: none;
+  padding: 10px 15px;
 }
 
 nav a:hover {
-    background: #e8491d;
+  background: #e8491d;
 }
 
 /* Contenu principal */
 .main-content {
-    padding: 20px;
-    background: #ffffff;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  background: #ffffff;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 /* Boutons */
 .button {
-    display: inline-block;
-    padding: 10px 15px;
-    background: #35424a;
-    color: #ffffff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+  display: inline-block;
+  padding: 10px 15px;
+  background: #35424a;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
 .button:hover {
-    background: #e8491d;
+  background: #e8491d;
 }
 
 /* Tableaux */
 table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 20px 0;
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
 }
 
-table th, table td {
-    border: 1px solid #dddddd;
-    text-align: left;
-    padding: 8px;
+table th,
+table td {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
 }
 
 table th {
-    background-color: #35424a;
-    color: white;
+  background-color: #35424a;
+  color: white;
 }
 
 /* Modales */
 .modal {
-    display: none;
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgb(0,0,0);
-    background-color: rgba(0,0,0,0.4);
-    padding-top: 60px;
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.4);
+  padding-top: 60px;
 }
 
 .modal-content {
-    background-color: #fefefe;
-    margin: 5% auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%;
+  background-color: #fefefe;
+  margin: 5% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
 }
 
 .close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
 }
 
 .close:hover,
 .close:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* Mise en page du formulaire d'étape */
+.form-etape {
+  max-width: 500px;
+  margin: 30px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.form-etape .form-group {
+  margin-bottom: 15px;
+}
+
+.form-etape label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.form-etape input[type="text"],
+.form-etape input[type="number"],
+.form-etape input[type="file"] {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.form-etape .button {
+  width: 100%;
+  padding: 10px;
+  background: #35424a;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 18px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.form-etape .button:hover {
+  background: #e8491d;
 }

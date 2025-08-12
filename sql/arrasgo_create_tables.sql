@@ -5,6 +5,7 @@ USE arrasgo;
 -- Suppression des tables si elles existent déjà (ordre important à cause des clés étrangères)
 DROP TABLE IF EXISTS sessions;
 DROP TABLE IF EXISTS chapitres;
+DROP TABLE IF EXISTS indices;
 DROP TABLE IF EXISTS etapes;
 DROP TABLE IF EXISTS parcours;
 DROP TABLE IF EXISTS users_admins;
@@ -19,6 +20,10 @@ CREATE TABLE users_admins (
     role_user VARCHAR(50) NOT NULL DEFAULT 'admin',
     date_creation_user TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+-- Insertion de l'utilisateur admin par défaut
+INSERT INTO users_admins (nom_user, email_user, mot_de_passe_user)
+VALUES ('Admin', 'admin@exemple.com', '$2y$12$6mL8LYyKct1YZEAWmnsF5ew56CVcGGYpd.9bb67vWa7LO9yUopkXe');
 
 -- Table des parcours
 CREATE TABLE parcours (
@@ -54,6 +59,7 @@ CREATE TABLE chapitres (
     titre_chapitre VARCHAR(255) DEFAULT NULL,
     texte_chapitre TEXT,
     ordre_chapitre INT,
+    image_chapitre VARCHAR(255), -- AJOUTE CETTE LIGNE
     FOREIGN KEY (id_etape) REFERENCES etapes(id_etape) ON DELETE CASCADE
 );
 
@@ -69,6 +75,6 @@ CREATE TABLE personnages (
 CREATE TABLE sessions (
     id_session CHAR(36) PRIMARY KEY, -- UUID (ex: généré en JS ou PHP)
     date_creation TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    derniere_etape_validee INT,
-    FOREIGN KEY (derniere_etape_validee) REFERENCES etapes(id_etape) ON DELETE SET NULL
+    derniere_etape_validee INT NULL,
+    FOREIGN KEY (derniere_etape_validee) REFERENCES etapes(id_etape) ON DELETE SET NULL ON UPDATE CASCADE
 );

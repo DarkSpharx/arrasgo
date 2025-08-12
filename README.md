@@ -9,6 +9,10 @@ Arras Go est une application web interactive permettant aux utilisateurs de déc
 Le projet est organisé en plusieurs dossiers, chacun ayant un rôle spécifique :
 
 - **frontend/** : Partie publique de l’application accessible aux utilisateurs.
+  -- ...existing code...
+  DROP TABLE IF EXISTS indices;
+  DROP TABLE IF EXISTS etapes;
+  -- ...existing code...
 
   - `index.html` : Page d’accueil du site.
   - `parcours.html` : Présentation des parcours disponibles.
@@ -71,3 +75,22 @@ Le projet est organisé en plusieurs dossiers, chacun ayant un rôle spécifique
 ## Licence
 
 Ce projet est sous licence MIT - voir le fichier LICENSE pour plus de détails.
+
+## Présentation du projet
+
+## Structure de la base de données
+
+Le script SQL `sql/arrasgo_create_tables.sql` crée toutes les tables nécessaires :
+
+- `users_admins` : gestion des administrateurs
+- `parcours` : parcours du jeu
+- `etapes` : étapes des parcours
+- `chapitres` : chapitres liés aux étapes
+- `personnages` : personnages du jeu
+- `sessions` : sessions anonymes des joueurs
+
+Pour initialiser la base, exécute la commande suivante dans MariaDB/MySQL :
+
+```bash
+mysql -u root -p < sql/arrasgo_create_tables.sql
+```

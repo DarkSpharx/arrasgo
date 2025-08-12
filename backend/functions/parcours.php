@@ -28,4 +28,19 @@ function deleteParcours($pdo, $id) {
     $stmt->bindParam(':id', $id);
     return $stmt->execute();
 }
+
+function getParcoursCount($pdo) {
+    $stmt = $pdo->query("SELECT COUNT(*) FROM parcours");
+    return $stmt->fetchColumn();
+}
+
+function getUsersCount($pdo) {
+    $stmt = $pdo->query("SELECT COUNT(*) FROM users_admins");
+    return $stmt->fetchColumn();
+}
+
+function get_all_parcours($pdo) {
+    $stmt = $pdo->query("SELECT id_parcours AS id, nom_parcours AS nom, description_parcours AS description FROM parcours");
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
 ?>

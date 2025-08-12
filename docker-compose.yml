@@ -1,0 +1,30 @@
+version: "3.8"
+
+services:
+  mariadb:
+    image: mariadb:latest
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: Hrus1q8u@123
+      MYSQL_DATABASE: arrasgo
+      MYSQL_USER: fred
+      MYSQL_PASSWORD: '@dminFred123'
+    ports:
+      - "3307:3306"     # port 3307 sur ta machine redirigé vers 3306 dans le conteneur
+    volumes:
+      - ./sql:/docker-entrypoint-initdb.d
+
+  php:
+    build: .
+    ports:
+      - "8000:80"
+    volumes:
+      - ./:/var/www/html
+      - ./data:/var/www/html/data
+    depends_on:
+      - mariadb
+    environment:
+      DB_HOST: mariadb
+      DB_NAME: arrasgo
+      DB_USER: fred
+      DB_PASS: '@dminFred123'

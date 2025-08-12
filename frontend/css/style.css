@@ -2,65 +2,231 @@
 
 /* Reset des marges et des paddings */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 /* Styles du corps */
 body {
-    font-family: Arial, sans-serif;
-    line-height: 1.6;
-    background-color: #f4f4f4;
-    color: #333;
+  font-family: "Montserrat", Arial, sans-serif;
+  line-height: 1.6;
+  background-color: #f4f4f4;
+  color: #333;
 }
 
 /* En-tête */
 header {
-    background: #35424a;
-    color: #ffffff;
-    padding: 10px 0;
-    text-align: center;
+  background: #35424a;
+  color: #ffffff;
+  padding: 10px 0;
+  text-align: center;
+}
+
+/* Liens dans le header */
+header nav a {
+  color: #fff !important;
+}
+
+header nav a:hover {
+  background: #e8491d;
+  color: #fff !important;
 }
 
 /* Liens */
 a {
-    color: #35424a;
-    text-decoration: none;
+  color: #35424a;
+  text-decoration: none;
 }
 
 a:hover {
-    text-decoration: underline;
+  text-decoration: underline;
 }
 
 /* Conteneur principal */
 .container {
-    width: 80%;
-    margin: auto;
-    overflow: hidden;
+  width: 80%;
+  margin: auto;
+  overflow: hidden;
 }
 
 /* Sections */
 section {
-    margin: 20px 0;
-    padding: 20px;
-    background: #ffffff;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin: 20px 0;
+  padding: 20px;
+  background: #ffffff;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 /* Boutons */
 .button {
-    display: inline-block;
-    font-size: 18px;
-    color: #ffffff;
-    background: #35424a;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+  display: inline-block;
+  font-size: 18px;
+  color: #ffffff;
+  background: #35424a;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
 .button:hover {
-    background: #2c3e50;
+  background: #2c3e50;
+}
+
+/* Pour le formulaire de réponse */
+.reponse-form {
+  margin-top: 10px;
+  display: flex;
+  gap: 10px;
+}
+
+.reponse-form input[type="text"] {
+  flex: 1;
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+.geo-info {
+  margin-top: 5px;
+  color: #e8491d;
+  font-size: 0.95em;
+}
+
+/* Etapes */
+.etape-row {
+  display: flex;
+  gap: 30px;
+  align-items: flex-start;
+}
+
+.etape-img {
+  flex: 0 0 33%;
+  max-width: 33%;
+}
+
+.etape-img img {
+  width: 100%;
+  max-width: 300px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.etape-content {
+  flex: 0 0 66%;
+  max-width: 66%;
+}
+
+/* Chapitre : image à gauche, texte à droite */
+.chapitre-row {
+  display: flex;
+  gap: 30px;
+  align-items: flex-start;
+  margin-bottom: 30px;
+}
+.chapitre-img {
+  flex: 0 0 33%;
+  max-width: 33%;
+}
+.chapitre-img img {
+  width: 100%;
+  max-width: 300px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+.chapitre-content {
+  flex: 0 0 66%;
+  max-width: 66%;
+}
+
+/* Popups */
+.popup {
+  display: block;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+}
+.popup-content {
+  background: #fff;
+  margin: 10% auto;
+  padding: 30px;
+  border-radius: 8px;
+  max-width: 400px;
+  position: relative;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  text-align: center;
+}
+.popup .close {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 28px;
+  font-weight: bold;
+  color: #e8491d;
+  cursor: pointer;
+}
+
+/* Player audio fixe en bas */
+.audio-fixed {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100vw;
+  background: #35424a;
+  z-index: 999;
+  box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.15);
+  padding: 0;
+}
+.audio-fixed audio {
+  width: 100%;
+  display: block;
+  background: #35424a;
+}
+
+/* Question et réponse */
+.QuestionReponse {
+  display: flex;
+  width: 100%;
+  margin: 20px 0;
+  gap: 20px;
+}
+.question-text {
+  flex: 0 0 70%;
+  max-width: 70%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.reponse-form-container {
+  flex: 0 0 30%;
+  max-width: 30%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.reponse-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Boutons indices centrés */
+.indices-btns {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  margin-bottom: 30px;
+}
+.indices-btns .button {
+  width: 120px;
+  margin: 0 auto;
+  text-align: center;
 }
