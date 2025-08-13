@@ -41,7 +41,7 @@ Le projet est organisé en plusieurs dossiers, chacun ayant un rôle spécifique
   - `add_parcours.php` : Formulaire d’ajout de nouveaux parcours.
   - `list_parcours.php` : Liste et gestion des parcours existants.
   - **css/** : Styles spécifiques au backoffice.
-    - `admin.css` : Styles pour l’interface admin.
+    - `style_backoffice.css` : Styles pour l’interface admin.
   - **js/** : Scripts JavaScript pour les interactions admin.
     - `admin.js` : Gère les modales, confirmations et autres interactions admin.
   - **assets/** : Icônes et images pour le backoffice.

@@ -37,8 +37,50 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     }
 
+    // Gestion de l'image header
+    $image_header = '';
+    if (isset($_FILES['image_header']) && $_FILES['image_header']['error'] == UPLOAD_ERR_OK) {
+        $img_name = uniqid() . '_' . basename($_FILES['image_header']['name']);
+        $img_path = __DIR__ . '/../data/images/' . $img_name;
+        if (move_uploaded_file($_FILES['image_header']['tmp_name'], $img_path)) {
+            $image_header = $img_name;
+        }
+    }
+
+    // Gestion de l'image question
+    $image_question = '';
+    if (isset($_FILES['image_question']) && $_FILES['image_question']['error'] == UPLOAD_ERR_OK) {
+        $img_name = uniqid() . '_' . basename($_FILES['image_question']['name']);
+        $img_path = __DIR__ . '/../data/images/' . $img_name;
+        if (move_uploaded_file($_FILES['image_question']['tmp_name'], $img_path)) {
+            $image_question = $img_name;
+        }
+    }
+
     if (!empty($titre)) {
-        update_etape($pdo, $id_etape, $titre, $mp3, $indice_texte, $image, $question, $reponse, $lat, $lng, $ordre, $type_validation);
+        // Si pas de nouvel upload, on garde l'ancienne valeur
+        if (empty($image_header)) $image_header = $etape['image_header'] ?? '';
+        if (empty($image_question)) $image_question = $etape['image_question'] ?? '';
+
+        $lat = ($lat === '' ? null : $lat);
+        $lng = ($lng === '' ? null : $lng);
+
+        update_etape(
+            $pdo,
+            $id_etape,
+            $titre,
+            $mp3,
+            $image_header,
+            $image_question,
+            $indice_texte,
+            $image,
+            $question,
+            $reponse,
+            $lat,
+            $lng,
+            $ordre,
+            $type_validation
+        );
         header('Location: list_etapes.php?id_parcours=' . $etape['id_parcours']);
         exit();
     } else {
@@ -46,6 +88,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 }
 ?>
+
+<head>
+    <link rel="stylesheet" href="css/style_backoffice.css">
+    <script src="js/admin.js" defer></script>
+</head>
+<?php include 'header.php'; ?>
 <?php if ($error): ?>
     <div class="error"><?= htmlspecialchars($error) ?></div>
 <?php endif; ?>
@@ -78,6 +126,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <small>Fichier actuel : <?= htmlspecialchars($etape['indice_etape_image']) ?></small>
         <?php endif; ?>
         <input type="file" id="indice_etape_image" name="indice_etape_image" accept="image/*">
+    </div>
+
+    <div class="form-group">
+        <label for="image_header">Image d'illustration de la page étape :</label>
+        <input type="file" id="image_header" name="image_header" accept="image/*">
+    </div>
+    <div class="form-group">
+        <label for="image_question">Image d'illustration de la page question :</label>
+        <input type="file" id="image_question" name="image_question" accept="image/*">
     </div>
 
     <div class="form-group">

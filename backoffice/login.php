@@ -56,28 +56,31 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/admin.css">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/style_backoffice.css">
     <title>Connexion Admin</title>
 </head>
 
 <body>
-    <div class="login-container">
-        <h2>Connexion Administrateur</h2>
-        <?php if (isset($login_error)) {
-            echo '<p class="error">' . $login_error . '</p>';
-        } ?>
-        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-            <div class="form-group">
-                <label for="username">Nom d'utilisateur</label>
-                <input type="text" name="username" id="username" required>
-            </div>
-            <div class="form-group">
-                <label for="password">Mot de passe</label>
-                <input type="password" name="password" id="password" required>
-            </div>
-            <button type="submit">Se connecter</button>
-        </form>
-    </div>
+    <main>
+        <div class="login-container">
+            <h1>Connexion Backoffice</h1>
+            <?php if (isset($login_error)) {
+                echo '<p class="error">' . $login_error . '</p>';
+            } ?>
+            <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+                <div class="form-group">
+                    <label for="username">Nom d'utilisateur</label>
+                    <input type="text" name="username" id="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Mot de passe</label>
+                    <input type="password" name="password" id="password" required>
+                </div>
+                <button type="submit">Se connecter</button>
+            </form>
+        </div>
+    </main>
 </body>
 
 </html>

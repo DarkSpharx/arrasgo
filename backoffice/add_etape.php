@@ -39,8 +39,43 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     }
 
+    // Gestion de l'image header
+    $image_header = '';
+    if (isset($_FILES['image_header']) && $_FILES['image_header']['error'] == UPLOAD_ERR_OK) {
+        $img_name = uniqid() . '_' . basename($_FILES['image_header']['name']);
+        $img_path = __DIR__ . '/../data/images/' . $img_name;
+        if (move_uploaded_file($_FILES['image_header']['tmp_name'], $img_path)) {
+            $image_header = $img_name;
+        }
+    }
+
+    // Gestion de l'image question
+    $image_question = '';
+    if (isset($_FILES['image_question']) && $_FILES['image_question']['error'] == UPLOAD_ERR_OK) {
+        $img_name = uniqid() . '_' . basename($_FILES['image_question']['name']);
+        $img_path = __DIR__ . '/../data/images/' . $img_name;
+        if (move_uploaded_file($_FILES['image_question']['tmp_name'], $img_path)) {
+            $image_question = $img_name;
+        }
+    }
+
     if (!empty($titre)) {
-        add_etape($pdo, $id_parcours, $titre, $mp3, $indice_texte, $image, $question, $reponse, $lat, $lng, $ordre, 'reponse');
+        add_etape(
+            $pdo,
+            $id_parcours,
+            $titre,
+            $mp3,
+            $image_header,
+            $image_question,
+            $indice_texte,
+            $image,
+            $question,
+            $reponse,
+            $lat,
+            $lng,
+            $ordre,
+            'reponse'
+        );
         header('Location: list_etapes.php?id_parcours=' . $id_parcours);
         exit();
     } else {
@@ -48,6 +83,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 }
 ?>
+
+<head>
+    <link rel="stylesheet" href="css/style_backoffice.css">
+    <script src="js/admin.js" defer></script>
+</head>
+<?php include 'header.php'; ?>
 <?php if ($error): ?>
     <div class="error"><?= htmlspecialchars($error) ?></div>
 <?php endif; ?>
@@ -87,6 +128,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <div class="form-group">
         <label for="ordre_etape">Ordre :</label>
         <input type="number" id="ordre_etape" name="ordre_etape" min="1">
+    </div>
+    <div class="form-group">
+        <label for="image_header">Image d'illustration de la page étape :</label>
+        <input type="file" id="image_header" name="image_header" accept="image/*">
+    </div>
+    <div class="form-group">
+        <label for="image_question">Image d'illustration de la page question :</label>
+        <input type="file" id="image_question" name="image_question" accept="image/*">
     </div>
     <button type="submit" class="button">Ajouter l'étape</button>
 </form>

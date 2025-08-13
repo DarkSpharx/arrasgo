@@ -16,11 +16,13 @@ $parcours = get_all_parcours($pdo);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/admin.css">
+    <link rel="stylesheet" href="css/style_backoffice.css">
+    <script src="js/admin.js" defer></script>
     <title>Liste des Parcours</title>
 </head>
 
 <body>
+    <?php include 'header.php'; ?>
     <h1>Liste des Parcours</h1>
     <table>
         <thead>
@@ -28,6 +30,7 @@ $parcours = get_all_parcours($pdo);
                 <th>ID</th>
                 <th>Nom</th>
                 <th>Description</th>
+                <th>Image</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -37,6 +40,11 @@ $parcours = get_all_parcours($pdo);
                     <td><?php echo htmlspecialchars($p['id']); ?></td>
                     <td><?php echo htmlspecialchars($p['nom']); ?></td>
                     <td><?php echo htmlspecialchars($p['description']); ?></td>
+                    <td>
+                        <?php if (!empty($p['image_parcours'])): ?>
+                            <img src="/data/images/<?= htmlspecialchars($p['image_parcours']) ?>" alt="Image parcours" style="max-width:80px;max-height:80px;">
+                        <?php endif; ?>
+                    </td>
                     <td>
                         <a href="edit_parcours.php?id=<?php echo $p['id']; ?>">Modifier</a>
                         <a href="delete_parcours.php?id=<?php echo $p['id']; ?>" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce parcours ?');">Supprimer</a>

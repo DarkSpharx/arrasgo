@@ -3,14 +3,43 @@ require_once '../backend/config/database.php';
 require_once '../backend/functions/etapes.php';
 require_once '../backend/functions/chapitres.php';
 
+// --- 1. Gestion de la session anonyme ---
+if (!isset($_COOKIE['session_id'])) {
+    $session_id = bin2hex(random_bytes(16));
+    setcookie('session_id', $session_id, time() + 3600 * 24 * 30, "/");
+} else {
+    $session_id = $_COOKIE['session_id'];
+}
+
 $id_parcours = isset($_GET['id_parcours']) ? intval($_GET['id_parcours']) : 0;
 $mode_geo = isset($_GET['mode_geo']) ? $_GET['mode_geo'] === 'true' : false;
-$ordre = isset($_GET['ordre']) ? intval($_GET['ordre']) : 1;
 
-// Récupère toutes les étapes du parcours
+// --- 2. Récupère toutes les étapes du parcours ---
 $etapes = get_etapes_by_parcours($pdo, $id_parcours);
 
-// Sélectionne l’étape courante
+// --- 3. Récupère la dernière étape validée pour cette session ---
+$stmt = $pdo->prepare("SELECT derniere_etape_validee FROM sessions WHERE id_session = ?");
+$stmt->execute([$session_id]);
+$last_validated = $stmt->fetchColumn();
+
+// --- 4. Détermine l'ordre de l'étape à afficher ---
+if (isset($_GET['ordre'])) {
+    $ordre = intval($_GET['ordre']);
+} elseif ($last_validated) {
+    // Passe à l'étape suivante après la dernière validée
+    $ordre = null;
+    foreach ($etapes as $e) {
+        if ($e['id_etape'] == $last_validated) {
+            $ordre = $e['ordre_etape'] + 1;
+            break;
+        }
+    }
+    if ($ordre === null) $ordre = 1;
+} else {
+    $ordre = 1;
+}
+
+// --- 5. Sélectionne l’étape courante ---
 $etape = null;
 foreach ($etapes as $e) {
     if ($e['ordre_etape'] == $ordre) {
@@ -20,19 +49,16 @@ foreach ($etapes as $e) {
 }
 
 if (!$etape) {
-    echo "<h2>Félication vous aves terminé le parcours !</h2>";
+    echo "<h2>Félicitations, vous avez terminé le parcours !</h2>";
     echo "<p>Vous pouvez retourner à l'accueil ou choisir un autre parcours.</p>";
-
     echo "<div style='margin-top:20px;'>";
     echo "<a href='index.php' class='button' style='margin-right:10px;'>Retour à l'accueil</a>";
-    echo "<a href='parcours.php' class='button'>Voir nos parcours</a>";
+    echo "<a href='list_parcours.php' class='button'>Voir nos parcours</a>";
     echo "</div>";
-
     exit;
 }
 
-
-// Gestion du formulaire de réponse
+// --- 6. Gestion du formulaire de réponse ---
 $message = '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($etape['question_etape'])) {
     $reponse = trim($_POST['reponse']);
@@ -52,21 +78,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($etape['question_etape'])) {
         }
     }
 
-    $next_ordre = $ordre + 1; // Ajoute cette ligne ici
+    $next_ordre = $ordre + 1;
 
     if ($reponse_ok && $geo_ok) {
+        // --- 7. Enregistre la progression dans la table sessions ---
+        $stmt = $pdo->prepare("INSERT INTO sessions (id_session, derniere_etape_validee) VALUES (?, ?)
+            ON DUPLICATE KEY UPDATE derniere_etape_validee = ?");
+        $stmt->execute([$session_id, $etape['id_etape'], $etape['id_etape']]);
+
         // Affiche le popup et redirige automatiquement
         $message = "<div id='popup-success' class='popup'>
             <div class='popup-content'>
                 <span class='close' onclick=\"document.getElementById('popup-success').style.display='none';\">&times;</span>
                 <h3>Bravo, vous avez bien répondu !</h3>
-                <p>La suite de l'aventure vous attends...</p>
+                <p>La suite de l'aventure vous attend...</p>
             </div>
         </div>
         <script>
             setTimeout(function() {
                 window.location.href = 'etapes.php?id_parcours=$id_parcours&mode_geo=" . ($mode_geo ? 'true' : 'false') . "&ordre=$next_ordre';
-            }, 4000);
+            }, 2000);
         </script>";
     } elseif (!$reponse_ok) {
         $message = "<div class='error'>Mauvaise réponse !</div>";

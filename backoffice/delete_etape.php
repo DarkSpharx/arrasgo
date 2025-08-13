@@ -11,4 +11,3 @@ if ($id_etape) {
 }
 header('Location: list_etapes.php?id_parcours=' . $id_parcours);
 exit();
-?>

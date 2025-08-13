@@ -13,13 +13,15 @@ function get_etape($pdo, $id_etape)
     return $stmt->fetch(PDO::FETCH_ASSOC);
 }
 
-function add_etape($pdo, $id_parcours, $titre, $mp3, $indice_texte, $indice_image, $question, $reponse, $lat, $lng, $ordre, $type_validation)
+function add_etape($pdo, $id_parcours, $titre, $mp3, $image_header, $image_question, $indice_texte, $indice_image, $question, $reponse, $lat, $lng, $ordre, $type_validation)
 {
-    $stmt = $pdo->prepare("INSERT INTO etapes (id_parcours, titre_etape, mp3_etape, indice_etape_texte, indice_etape_image, question_etape, reponse_attendue, latitude, longitude, ordre_etape, type_validation) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    $stmt = $pdo->prepare("INSERT INTO etapes (id_parcours, titre_etape, mp3_etape, image_header, image_question, indice_etape_texte, indice_etape_image, question_etape, reponse_attendue, latitude, longitude, ordre_etape, type_validation) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
     return $stmt->execute([
         $id_parcours,
         $titre,
         $mp3,
+        $image_header,
+        $image_question,
         $indice_texte,
         $indice_image,
         $question,
@@ -31,10 +33,28 @@ function add_etape($pdo, $id_parcours, $titre, $mp3, $indice_texte, $indice_imag
     ]);
 }
 
-function update_etape($pdo, $id_etape, $titre, $mp3, $indice_texte, $indice_image, $question, $reponse, $lat, $lng, $ordre, $type_validation)
+function update_etape($pdo, $id_etape, $titre, $mp3, $image_header, $image_question, $indice_texte, $indice_image, $question, $reponse, $lat, $lng, $ordre, $type_validation)
 {
-    $stmt = $pdo->prepare("UPDATE etapes SET titre_etape=?, mp3_etape=?, indice_etape_texte=?, indice_etape_image=?, question_etape=?, reponse_attendue=?, latitude=?, longitude=?, ordre_etape=?, type_validation=? WHERE id_etape=?");
-    return $stmt->execute([$titre, $mp3, $indice_texte, $indice_image, $question, $reponse, $lat, $lng, $ordre, $type_validation, $id_etape]);
+    // Correction : transformer les champs vides en null
+    $lat = ($lat === '' ? null : $lat);
+    $lng = ($lng === '' ? null : $lng);
+
+    $stmt = $pdo->prepare("UPDATE etapes SET titre_etape=?, mp3_etape=?, image_header=?, image_question=?, indice_etape_texte=?, indice_etape_image=?, question_etape=?, reponse_attendue=?, latitude=?, longitude=?, ordre_etape=?, type_validation=? WHERE id_etape=?");
+    return $stmt->execute([
+        $titre,
+        $mp3,
+        $image_header,
+        $image_question,
+        $indice_texte,
+        $indice_image,
+        $question,
+        $reponse,
+        $lat,
+        $lng,
+        $ordre,
+        $type_validation,
+        $id_etape
+    ]);
 }
 
 function delete_etape($pdo, $id_etape)

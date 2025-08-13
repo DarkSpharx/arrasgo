@@ -22,7 +22,7 @@ $parcours = get_all_parcours($pdo);
     <nav>
       <ul>
         <li><a href="index.php">Accueil</a></li>
-        <li><a href="parcours.php">Parcours</a></li>
+        <li><a href="list_parcours.php">Parcours</a></li>
         <li><a href="jeu.php">Jeu</a></li>
       </ul>
     </nav>
@@ -36,7 +36,10 @@ $parcours = get_all_parcours($pdo);
           <li>
             <h3><?= htmlspecialchars($p['nom']) ?></h3>
             <p><?= htmlspecialchars($p['description']) ?></p>
-            <form method="get" action="etapes.php">
+            <?php if (!empty($p['image_parcours'])): ?>
+              <img src="/data/images/<?= htmlspecialchars($p['image_parcours']) ?>" alt="Image parcours" style="max-width:150px;max-height:150px;">
+            <?php endif; ?>
+            <form method="get" action="etape.php">
               <input type="hidden" name="id_parcours" value="<?= $p['id'] ?>">
               <label>
                 <input type="radio" name="mode_geo" value="false" checked> Sans géolocalisation
@@ -102,3 +105,8 @@ $parcours = get_all_parcours($pdo);
 </body>
 
 </html>
+<script>
+  <?php if (isset($_GET['id_parcours'])): ?>
+    window.location.href = 'etape.php?id_parcours=' + <?= json_encode($_GET['id_parcours']) ?>;
+  <?php endif; ?>
+</script>

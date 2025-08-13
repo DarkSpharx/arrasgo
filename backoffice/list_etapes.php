@@ -13,58 +13,53 @@ $etapes = get_etapes_by_parcours($pdo, $id_parcours);
 <head>
     <meta charset="UTF-8">
     <title>Liste des étapes</title>
-    <link rel="stylesheet" href="css/admin.css">
+    <link rel="stylesheet" href="css/style_backoffice.css">
+    <script src="js/admin.js" defer></script>
 </head>
 
 <body>
+    <?php include 'header.php'; ?>
     <h1>Étapes du parcours</h1>
     <a href="add_etape.php?id_parcours=<?php echo $id_parcours; ?>">Ajouter une étape</a>
-    <table>
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Titre</th>
-                <th>MP3</th>
-                <th>Indice texte</th>
-                <th>Indice image</th>
-                <th>Question</th>
-                <th>Réponse attendue</th>
-                <th>Latitude</th>
-                <th>Longitude</th>
-                <th>Ordre</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php foreach ($etapes as $e): ?>
-                <tr>
-                    <td><?= $e['id_etape'] ?></td>
-                    <td><?= htmlspecialchars($e['titre_etape']) ?></td>
-                    <td>
-                        <?php if (!empty($e['mp3_etape'])): ?>
-                            <audio src="/data/mp3/<?= htmlspecialchars($e['mp3_etape']) ?>" controls></audio>
-                        <?php endif; ?>
-                    </td>
-                    <td><?= htmlspecialchars($e['indice_etape_texte']) ?></td>
-                    <td>
-                        <?php if (!empty($e['indice_etape_image'])): ?>
+    <div class="etapes-cards">
+        <?php foreach ($etapes as $e): ?>
+            <div class="etape-card">
+                <div class="etape-card-header">
+                    <strong>#<?= $e['id_etape'] ?> - <?= htmlspecialchars($e['titre_etape']) ?></strong>
+                    <span>Ordre : <?= $e['ordre_etape'] ?></span>
+                </div>
+                <?php if (!empty($e['image_header'])): ?>
+                    <div class="etape-card-img">
+                        <img src="/data/images/<?= htmlspecialchars($e['image_header']) ?>" alt="Illustration étape">
+                    </div>
+                <?php endif; ?>
+                <?php if (!empty($e['image_question'])): ?>
+                    <div class="etape-card-img">
+                        <img src="/data/images/<?= htmlspecialchars($e['image_question']) ?>" alt="Illustration question">
+                    </div>
+                <?php endif; ?>
+                <div class="etape-card-body">
+                    <?php if (!empty($e['mp3_etape'])): ?>
+                        <div><audio src="/data/mp3/<?= htmlspecialchars($e['mp3_etape']) ?>" controls></audio></div>
+                    <?php endif; ?>
+                    <div><strong>Indice texte :</strong> <?= htmlspecialchars($e['indice_etape_texte']) ?></div>
+                    <?php if (!empty($e['indice_etape_image'])): ?>
+                        <div>
                             <img src="/data/images/<?= htmlspecialchars($e['indice_etape_image']) ?>" alt="Indice image" style="max-width:80px;max-height:80px;">
-                        <?php endif; ?>
-                    </td>
-                    <td><?= htmlspecialchars($e['question_etape']) ?></td>
-                    <td><?= htmlspecialchars($e['reponse_attendue']) ?></td>
-                    <td><?= htmlspecialchars($e['latitude'] ?? '') ?></td>
-                    <td><?= htmlspecialchars($e['longitude'] ?? '') ?></td>
-                    <td><?= $e['ordre_etape'] ?></td>
-                    <td>
-                        <a href="edit_etape.php?id=<?php echo $e['id_etape']; ?>">Modifier</a>
-                        <a href="delete_etape.php?id=<?php echo $e['id_etape']; ?>&id_parcours=<?php echo $id_parcours; ?>" onclick="return confirm('Supprimer cette étape ?');">Supprimer</a>
-                        <a href="list_chapitres.php?id_etape=<?php echo $e['id_etape']; ?>" class="button">Voir les chapitres</a>
-                    </td>
-                </tr>
-            <?php endforeach; ?>
-        </tbody>
-    </table>
+                        </div>
+                    <?php endif; ?>
+                    <div><strong>Question :</strong> <?= htmlspecialchars($e['question_etape']) ?></div>
+                    <div><strong>Réponse attendue :</strong> <?= htmlspecialchars($e['reponse_attendue']) ?></div>
+                    <div><strong>Latitude :</strong> <?= htmlspecialchars($e['latitude'] ?? '') ?> | <strong>Longitude :</strong> <?= htmlspecialchars($e['longitude'] ?? '') ?></div>
+                </div>
+                <div class="etape-card-actions">
+                    <a href="edit_etape.php?id=<?= $e['id_etape']; ?>">Modifier</a>
+                    <a href="delete_etape.php?id=<?= $e['id_etape']; ?>&id_parcours=<?= $id_parcours; ?>" onclick="return confirm('Supprimer cette étape ?');">Supprimer</a>
+                    <a href="list_chapitres.php?id_etape=<?= $e['id_etape']; ?>" class="button">Voir les chapitres</a>
+                </div>
+            </div>
+        <?php endforeach; ?>
+    </div>
     <a href="list_parcours.php">Retour aux parcours</a>
 </body>
 

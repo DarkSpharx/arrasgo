@@ -28,7 +28,7 @@
 │   ├── add_parcours.php            # Formulaire d’ajout de parcours
 │   ├── list_parcours.php           # Liste et gestion des parcours
 │   ├── css/
-│   │   └── admin.css               # Styles propres au back-office
+│   │   └── style_backoffice.css               # Styles propres au back-office
 │   ├── js/
 │   │   └── admin.js                # Comportement JS (modales, confirmations, etc.)
 │   └── assets/

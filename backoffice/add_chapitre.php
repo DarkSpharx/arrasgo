@@ -30,6 +30,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 }
 ?>
+
+<head>
+    <link rel="stylesheet" href="css/style_backoffice.css">
+    <script src="js/admin.js" defer></script>
+</head>
+<?php include 'header.php'; ?>
 <?php if ($error): ?>
     <div class="error"><?= htmlspecialchars($error) ?></div>
 <?php endif; ?>

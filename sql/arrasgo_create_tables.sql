@@ -31,6 +31,7 @@ CREATE TABLE parcours (
     id_user INT NOT NULL,
     nom_parcours VARCHAR(100) NOT NULL,
     description_parcours TEXT,
+    image_parcours VARCHAR(255),
     mode_geo_parcours BOOLEAN NOT NULL DEFAULT TRUE,
     FOREIGN KEY (id_user) REFERENCES users_admins(id_user) ON DELETE CASCADE
 );
@@ -41,6 +42,8 @@ CREATE TABLE etapes (
     id_parcours INT NOT NULL,
     titre_etape VARCHAR(255) NOT NULL,
     mp3_etape VARCHAR(255),
+    image_header VARCHAR(255),
+    image_question VARCHAR(255),
     indice_etape_texte TEXT,
     indice_etape_image VARCHAR(255),
     question_etape TEXT,

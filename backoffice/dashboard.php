@@ -13,30 +13,29 @@ $usersCount = getUsersCount($pdo);
 $etapesCount = getEtapesCount($pdo);
 $chapitresCount = getChapitresCount($pdo);
 $personnagesCount = getPersonnagesCount($pdo);
+
+// Récupération des 5 derniers parcours et étapes
+$recentParcours = $pdo->query("SELECT nom_parcours, date_creation_user FROM parcours JOIN users_admins ON parcours.id_user = users_admins.id_user ORDER BY parcours.id_parcours DESC LIMIT 5")->fetchAll(PDO::FETCH_ASSOC);
+$recentEtapes = $pdo->query("SELECT titre_etape, id_etape FROM etapes ORDER BY id_etape DESC LIMIT 5")->fetchAll(PDO::FETCH_ASSOC);
+
+// Exemple simple
+$parcoursSansEtape = $pdo->query("SELECT nom_parcours FROM parcours WHERE id_parcours NOT IN (SELECT DISTINCT id_parcours FROM etapes)")->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/admin.css">
+    <link rel="stylesheet" href="css/style_backoffice.css">
+    <script src="js/admin.js" defer></script>
     <title>Dashboard - Backoffice</title>
 </head>
+
 <body>
-    <header>
-        <h1>Tableau de bord</h1>
-        <nav>
-            <ul>
-                <li><a href="list_parcours.php">Gérer les parcours</a></li>
-                <li><a href="list_etapes.php">Gérer les étapes</a></li>
-                <li><a href="list_chapitres.php">Gérer les chapitres</a></li>
-                <li><a href="list_personnages.php">Gérer les personnages</a></li>
-                <li><a href="logout.php">Déconnexion</a></li>
-            </ul>
-        </nav>
-    </header>
-    
+    <?php include 'header.php'; ?>
+
     <main>
         <section>
             <h2>Statistiques</h2>
@@ -46,18 +45,43 @@ $personnagesCount = getPersonnagesCount($pdo);
             <p>Nombre de chapitres : <?php echo $chapitresCount; ?></p>
             <p>Nombre de personnages : <?php echo $personnagesCount; ?></p>
         </section>
-        
+
         <section>
             <h2>Informations de gestion</h2>
-            <p>Dernières activités...</p>
-            <!-- Ajouter des informations supplémentaires ici -->
+            <h3>Derniers parcours ajoutés</h3>
+            <ul>
+                <?php foreach ($recentParcours as $p): ?>
+                    <li><?= htmlspecialchars($p['nom_parcours']) ?></li>
+                <?php endforeach; ?>
+            </ul>
+            <h3>Dernières étapes créées</h3>
+            <ul>
+                <?php foreach ($recentEtapes as $e): ?>
+                    <li><?= htmlspecialchars($e['titre_etape']) ?></li>
+                <?php endforeach; ?>
+            </ul>
         </section>
+
+        <?php if (count($parcoursSansEtape) > 0): ?>
+            <div class="alert">
+                <strong>Attention :</strong> Les parcours suivants n'ont aucune étape :
+                <ul>
+                    <?php foreach ($parcoursSansEtape as $p): ?>
+                        <li><?= htmlspecialchars($p['nom_parcours']) ?></li>
+                    <?php endforeach; ?>
+                </ul>
+            </div>
+        <?php endif; ?>
+
+        <div class="admin-shortcuts" style="margin-bottom:18px;">
+            <a href="add_parcours.php" class="button">+ Nouveau parcours</a>
+        </div>
     </main>
-    
+
     <footer>
         <p>&copy; <?php echo date("Y"); ?> Arras Go. Tous droits réservés.</p>
     </footer>
-    
-    <script src="js/admin.js"></script>
+
 </body>
+
 </html>

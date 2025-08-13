@@ -1,0 +1,67 @@
+/* Cards pour les étapes */
+/* Conteneur pour les liens de navigation */
+.liens-container {
+  margin-bottom: 18px;
+  display: flex;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+
+.etapes-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  margin: 24px 0;
+}
+
+.etape-card {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px #0001;
+  width: 340px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.etape-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.etape-card-img img {
+  width: 100%;
+  max-height: 120px;
+  object-fit: cover;
+  border-radius: 6px;
+  margin-bottom: 8px;
+}
+
+.etape-card-body {
+  font-size: 0.95em;
+  margin-bottom: 12px;
+}
+
+.etape-card-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.etape-card-actions a.button {
+  background: #007bff;
+  color: #fff;
+  padding: 4px 10px;
+  border-radius: 4px;
+  text-decoration: none;
+}
+
+.etape-card-actions a {
+  color: #007bff;
+  text-decoration: underline;
+  font-size: 0.95em;
+}

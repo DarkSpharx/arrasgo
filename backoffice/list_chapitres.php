@@ -18,10 +18,12 @@ $chapitres = get_chapitres_by_etape($pdo, $id_etape);
 <head>
     <meta charset="UTF-8">
     <title>Liste des chapitres</title>
-    <link rel="stylesheet" href="css/admin.css">
+    <link rel="stylesheet" href="css/style_backoffice.css">
+    <script src="js/admin.js" defer></script>
 </head>
 
 <body>
+    <?php include 'header.php'; ?>
     <h1>Chapitres de l'étape</h1>
     <a href="add_chapitre.php?id_etape=<?= $id_etape ?>">Ajouter un chapitre</a>
     <table>
