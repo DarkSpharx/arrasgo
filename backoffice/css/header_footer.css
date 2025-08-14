@@ -1,59 +1,60 @@
 /* En-tête */
 header {
+  font-size: 16px;
   background: #1d1d1b;
-  color: #ffffff;
+  color: #fff;
   text-align: center;
-  border-radius: 0 0 12px 12px;
 }
 
 .nav-admin {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 24px;
-  padding: 12px 0;
+  gap: 16px;
+  padding: 8px 0;
   flex-wrap: wrap;
 }
 
 .nav-admin a {
   color: #fff;
+  border: 1px solid #1d1d1b;
   text-decoration: none;
   font-weight: 600;
-  font-size: 1.08em;
-  padding: 8px 18px;
-  border-radius: 6px;
+  padding: 8px 16px;
+  border-radius: 5px;
   transition: background 0.2s, color 0.2s;
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 5px;
 }
 
 .nav-admin a:hover,
 .nav-admin a.active {
-  background: #e8491d;
-  color: #fff;
+  border: 1px solid #fff;
+  background: #fff;
+  color: #1d1d1d;
 }
 
 .nav-admin .logout-link {
-  background: #fff2f2;
-  color: #e8491d;
-  border: 1px solid #e8491d;
-  margin: 0 8px;
+  background: #fff;
+  color: #1d1d1b;
+  border: 1px solid #fff;
+  margin: 0;
   padding-left: 10px;
 }
 
 .nav-admin .logout-link:hover {
-  background: #e8491d;
+  background: #1d1d1b;
   color: #fff;
 }
 
 #logo-nav {
   color: #1d1d1b;
+  border: 1px solid #fff;
   background-color: #fff;
-  padding: 12px 18px;
-  border-radius: 6px;
+  padding: 8px 16px;
+  border-radius: 5px;
   font-weight: 600;
-  font-size: 1.08em;
 }
 
 @media (max-width: 700px) {
@@ -65,12 +66,8 @@ header {
     flex-direction: column;
     align-items: stretch;
     gap: 8px;
-    /* border-radius: 0 0 8px 8px; */
-    /* padding: 8px; */
   }
   .nav-admin a {
-    font-size: 1em;
-    /* padding: 10px 8px; */
     justify-content: flex-start;
   }
   #logo-nav {
@@ -81,10 +78,11 @@ header {
 
 /* Burger menu */
 .burger {
+  font-size: 20px;
+  padding: 8px;
   display: none;
   background: #1d1d1b;
   border: none;
-  font-size: 2.2em;
   color: #fff;
   position: absolute;
   top: 18px;
@@ -108,16 +106,23 @@ header {
     top: 0;
     left: 0;
     width: 100vw;
-    padding: 18px 0 18px 0;
-    border-radius: 0 0 12px 12px;
     z-index: 1000;
-    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.12);
+    box-shadow: 8px 8px 8px rgba(0, 0, 0, 0.1);
   }
   .nav-admin.open {
     display: flex;
     color: #fff;
+    padding: 16px;
   }
   header {
     position: relative;
   }
+}
+
+footer {
+  font-size: 16px;
+  background: #1d1d1b;
+  color: #fff;
+  text-align: center;
+  padding: 16px 0;
 }

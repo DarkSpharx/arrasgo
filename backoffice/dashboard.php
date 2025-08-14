@@ -28,53 +28,57 @@ $parcoursSansEtape = $pdo->query("SELECT nom_parcours FROM parcours WHERE id_par
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/style_backoffice.css">
+    <link rel="stylesheet" href="css/header_footer.css">
     <script src="js/admin.js" defer></script>
-    <title>Dashboard - Backoffice</title>
+    <title>Dashboard - ARRAS GO</title>
 </head>
 
 <body>
     <?php include 'header.php'; ?>
 
     <main>
-        <section>
-            <h2>Statistiques</h2>
-            <p>Nombre de parcours : <?php echo $parcoursCount; ?></p>
-            <p>Nombre d'utilisateurs : <?php echo $usersCount; ?></p>
-            <p>Nombre d'étapes : <?php echo $etapesCount; ?></p>
-            <p>Nombre de chapitres : <?php echo $chapitresCount; ?></p>
-            <p>Nombre de personnages : <?php echo $personnagesCount; ?></p>
-        </section>
-
-        <section>
-            <h2>Informations de gestion</h2>
-            <h3>Derniers parcours ajoutés</h3>
-            <ul>
-                <?php foreach ($recentParcours as $p): ?>
-                    <li><?= htmlspecialchars($p['nom_parcours']) ?></li>
-                <?php endforeach; ?>
-            </ul>
-            <h3>Dernières étapes créées</h3>
-            <ul>
-                <?php foreach ($recentEtapes as $e): ?>
-                    <li><?= htmlspecialchars($e['titre_etape']) ?></li>
-                <?php endforeach; ?>
-            </ul>
-        </section>
-
-        <?php if (count($parcoursSansEtape) > 0): ?>
-            <div class="alert">
-                <strong>Attention :</strong> Les parcours suivants n'ont aucune étape :
+        <h1>Tableau de bord</h1>
+        <div class="container-horizontal">
+            <div class="container-vertical">
+                <h2>Informations de gestion</h2>
+                <h3>Derniers parcours ajoutés</h3>
                 <ul>
-                    <?php foreach ($parcoursSansEtape as $p): ?>
+                    <?php foreach ($recentParcours as $p): ?>
                         <li><?= htmlspecialchars($p['nom_parcours']) ?></li>
                     <?php endforeach; ?>
                 </ul>
-            </div>
-        <?php endif; ?>
+                <h3>Dernières étapes créées</h3>
+                <ul>
+                    <?php foreach ($recentEtapes as $e): ?>
+                        <li><?= htmlspecialchars($e['titre_etape']) ?></li>
+                    <?php endforeach; ?>
+                </ul>
+                <div>
+                    <a href="add_parcours.php" class="button">+ Nouveau parcours</a>
+                </div>
 
-        <div class="admin-shortcuts" style="margin-bottom:18px;">
-            <a href="add_parcours.php" class="button">+ Nouveau parcours</a>
+                <?php if (count($parcoursSansEtape) > 0): ?>
+                    <div class="alert">
+                        <strong>Attention :</strong> Les parcours suivants n'ont aucune étape :
+                        <ul>
+                            <?php foreach ($parcoursSansEtape as $p): ?>
+                                <li><?= htmlspecialchars($p['nom_parcours']) ?></li>
+                            <?php endforeach; ?>
+                        </ul>
+                    </div>
+                <?php endif; ?>
+            </div>
+
+            <div class="container-vertical">
+                <h2>Statistiques</h2>
+                <p>Nombre de parcours : <strong><?php echo $parcoursCount; ?></strong></p>
+                <p>Nombre d'utilisateurs : <strong><?php echo $usersCount; ?></strong></p>
+                <p>Nombre d'étapes : <strong><?php echo $etapesCount; ?></strong></p>
+                <p>Nombre de chapitres : <strong><?php echo $chapitresCount; ?></strong></p>
+                <p>Nombre de personnages : <strong><?php echo $personnagesCount; ?></strong></p>
+            </div>
         </div>
     </main>
 
