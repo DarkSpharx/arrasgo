@@ -24,7 +24,7 @@ td audio {
   display: block;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1024px) {
   table {
     display: block;
     overflow-x: auto;

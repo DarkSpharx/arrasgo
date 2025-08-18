@@ -38,9 +38,9 @@ $parcoursSansEtape = $pdo->query("SELECT nom_parcours FROM parcours WHERE id_par
 <body>
     <?php include 'header.php'; ?>
 
+    <h1 class="h1-sticky">Dashboard</h1>
     <main>
-        <h1>Tableau de bord</h1>
-        <div class="container-horizontal">
+        <section class="container-horizontal">
             <div class="container-vertical">
                 <h2>Informations de gestion</h2>
                 <h3>Derniers parcours ajoutés</h3>
@@ -79,7 +79,7 @@ $parcoursSansEtape = $pdo->query("SELECT nom_parcours FROM parcours WHERE id_par
                 <p>Nombre de chapitres : <strong><?php echo $chapitresCount; ?></strong></p>
                 <p>Nombre de personnages : <strong><?php echo $personnagesCount; ?></strong></p>
             </div>
-        </div>
+        </section>
     </main>
 
     <footer>

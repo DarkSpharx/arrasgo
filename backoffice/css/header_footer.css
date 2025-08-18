@@ -4,6 +4,8 @@ header {
   background: #1d1d1b;
   color: #fff;
   text-align: center;
+  position: sticky;
+  top: 0;
 }
 
 .nav-admin {
@@ -57,7 +59,7 @@ header {
   font-weight: 600;
 }
 
-@media (max-width: 700px) {
+@media (max-width: 1024px) {
   header {
     background-color: transparent;
     max-height: 0px;
@@ -78,23 +80,21 @@ header {
 
 /* Burger menu */
 .burger {
-  font-size: 20px;
-  padding: 8px;
   display: none;
-  background: #1d1d1b;
-  border: none;
-  color: #fff;
-  position: absolute;
-  top: 18px;
-  right: 18px;
-  z-index: 1001;
-  cursor: pointer;
-  border-radius: 8px;
 }
 
-@media (max-width: 700px) {
+@media (max-width: 1024px) {
   .burger {
+    font-size: 30px;
     display: block;
+    background: none;
+    border: none;
+    color: #e7d8c9;
+    top: 4px;
+    right: 8px;
+    z-index: 1001;
+    cursor: pointer;
+    position: fixed;
   }
   .nav-admin {
     display: none;
@@ -112,7 +112,8 @@ header {
   .nav-admin.open {
     display: flex;
     color: #fff;
-    padding: 16px;
+    padding: 8px;
+    margin-top: 42px;
   }
   header {
     position: relative;
@@ -120,9 +121,15 @@ header {
 }
 
 footer {
-  font-size: 16px;
+  margin-top: 24px;
+  font-size: 12px;
   background: #1d1d1b;
-  color: #fff;
-  text-align: center;
-  padding: 16px 0;
+  & p {
+    margin: 0;
+    padding: 12px 0;
+    width: 100%;
+    background: none;
+    color: #e7d8c9;
+    text-align: center;
+  }
 }

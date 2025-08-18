@@ -204,7 +204,7 @@
   background: #e8491d;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 1024px) {
   .form-parcours {
     padding: 18px 6px;
     max-width: 98vw;

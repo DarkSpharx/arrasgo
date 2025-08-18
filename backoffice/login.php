@@ -65,7 +65,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <main>
         <section>
             <div class="form-container">
-                <h1>Dashboard<br>ARRAS GO</h1>
+                <h1>Back-office<br>ARRAS GO</h1>
                 <?php if (isset($login_error)) {
                     echo '<p class="error">' . $login_error . '</p>';
                 } ?>
