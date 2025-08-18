@@ -8,22 +8,49 @@ body {
   font-size: 14px;
 
   display: flex;
+  justify-content: center;
   flex-direction: column;
-  width: 100%;
+  width: 100vw;
   min-height: 100vh;
+  overflow-x: hidden;
 }
 
 main {
+  width: 100%;
   padding: 16px;
-  max-width: 1200px;
+  max-width: 1920px;
+  display: flex;
+  justify-content: center;
   margin: auto;
-  overflow: hidden;
+}
 
-  & section {
-    margin: auto;
-    display: flex;
-    justify-content: center;
-  }
+.container-horizontal {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  gap: 32px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.container-vertical {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  border-radius: 8px;
+  border: 1px solid #1d1d1d;
+  padding: 16px;
+  max-width: 800px;
+}
+
+.container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  border-radius: 8px;
+  border: 1px solid #1d1d1d;
+  padding: 16px;
+  width: fit-content;
 }
 
 h1 {
@@ -44,8 +71,10 @@ h1 {
 h2 {
   font-size: 28px;
   font-weight: 600;
-  margin: 16px 0;
-  color: #1d1d1d;
+  margin-bottom: 16px;
+  color: #e7d8c9;
+  background-color: #1d1d1d;
+  padding: 8px;
   text-align: center;
 }
 
@@ -69,28 +98,10 @@ strong {
   font-weight: 700;
 }
 
-.container-horizontal {
-  display: flex;
-  align-items: flex-start;
-  gap: 32px;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-.container-vertical {
-  display: flex;
-  flex-direction: column;
-  border-radius: 8px;
-  border: 1px solid #1d1d1d;
-  padding: 16px;
-  width: 450px;
-}
-
 /* CSS login */
 .form-container {
   padding: 16px;
   max-width: 450px;
-  width: 100vw;
   background: #fff;
   border-radius: 8px;
   box-shadow: 8px 8px 8px rgba(0, 0, 0, 0.1);
@@ -205,8 +216,7 @@ section ul {
 
 @media (max-width: 1024px) {
   main {
-    padding: 16px;
-    max-width: 100%;
+    width: 100%;
   }
   .h1-sticky {
     text-transform: capitalize;
@@ -221,6 +231,6 @@ section ul {
     top: 0;
   }
   .container-vertical {
-    min-width: 100%;
+    max-width: 100%;
   }
 }
