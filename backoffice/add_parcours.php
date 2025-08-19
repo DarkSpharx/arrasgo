@@ -40,7 +40,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/style_backoffice.css">
+    <link rel="stylesheet" href="css/header_footer.css">
     <script src="js/admin.js" defer></script>
     <title>Ajouter un Parcours</title>
 </head>
@@ -48,28 +50,47 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <body>
     <?php include 'header.php'; ?>
 
-    <h1>Ajouter un Nouveau Parcours</h1>
-    <?php if (isset($error)): ?>
-        <div class="error"><?= htmlspecialchars($error) ?></div>
-    <?php endif; ?>
-    <form action="add_parcours.php" method="POST" enctype="multipart/form-data" class="form-parcours">
-        <div class="liens-container">
-            <a href="list_parcours.php" class="liens">🔙 Retour à la liste des parcours</a>
-        </div>
+    <h1 class="h1-sticky">Ajouter un Nouveau Parcours</h1>
+    <main>
+        <section class="container">
 
-        <label for="nom_parcours">Nom du Parcours:</label>
-        <input type="text" id="nom_parcours" name="nom_parcours" required>
+            <?php if (isset($error)): ?>
+                <div class="error"><?= htmlspecialchars($error) ?></div>
+            <?php endif; ?>
 
-        <label for="description">Description:</label>
-        <textarea id="description" name="description" required></textarea>
+            <div class="form-container">
+                <form action="add_parcours.php" method="POST" enctype="multipart/form-data">
+                    <a href="list_parcours.php" class="liens">🔙 Retour à la liste des parcours</a>
 
-        <div class="form-group">
-            <label for="image_parcours">Image d'illustration du parcours :</label>
-            <input type="file" id="image_parcours" name="image_parcours" accept="image/*">
-        </div>
+                    <div class="form-group">
+                        <label for="nom_parcours">Nom du Parcours:</label>
+                        <input type="text" id="nom_parcours" name="nom_parcours" required>
+                    </div>
 
-        <button type="submit">Ajouter</button>
-    </form>
+                    <div class="form-group">
+                        <label for="description">Description:</label>
+                        <textarea id="description" name="description" required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="image_parcours">Image d'illustration du parcours :</label>
+                        <input type="file" id="image_parcours" name="image_parcours" accept="image/*" style="display:none;">
+                        <label for="image_parcours" class="button-form">Choisir un fichier</label>
+                        <span id="file-chosen">Aucun fichier choisi</span>
+                    </div>
+
+                    <button class="button" type="submit">Ajouter</button>
+                </form>
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        document.getElementById('image_parcours').addEventListener('change', function() {
+            document.getElementById('file-chosen').textContent = this.files[0]?.name || 'Aucun fichier choisi';
+        });
+    </script>
 </body>
 
 </html>

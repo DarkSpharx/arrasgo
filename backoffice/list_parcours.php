@@ -29,39 +29,41 @@ $parcours = get_all_parcours($pdo);
     <h1 class="h1-sticky">Parcours</h1>
     <main>
         <section class="container">
-            <table>
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Nom</th>
-                        <th>Description</th>
-                        <th>Image</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($parcours as $p): ?>
-                        <tr>
-                            <td><?php echo htmlspecialchars($p['id']); ?></td>
-                            <td><?php echo htmlspecialchars($p['nom']); ?></td>
-                            <td><?php echo htmlspecialchars($p['description']); ?></td>
-                            <td>
-                                <?php if (!empty($p['image_parcours'])): ?>
-                                    <img src="/data/images/<?= htmlspecialchars($p['image_parcours']) ?>" alt="Image parcours" style="max-width:80px;max-height:80px;">
-                                <?php endif; ?>
-                            </td>
-                            <td>
-                                <a href="edit_parcours.php?id=<?php echo $p['id']; ?>">Modifier</a>
-                                <a href="delete_parcours.php?id=<?php echo $p['id']; ?>" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce parcours ?');">Supprimer</a>
-                                <a href="list_etapes.php?id_parcours=<?php echo $p['id']; ?>">Voir les étapes</a>
-                            </td>
-                        </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
-        </section>
+            <div class="cards-container">
 
-        <section class="container-horizontal">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nom</th>
+                            <th>Description</th>
+                            <th>Image</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($parcours as $p): ?>
+                            <tr>
+                                <td data-label="ID"><?= htmlspecialchars($p['id']); ?></td>
+                                <td data-label="Nom"><?= htmlspecialchars($p['nom']); ?></td>
+                                <td data-label="Description"><?= htmlspecialchars($p['description']); ?></td>
+                                <td data-label="Image">
+                                    <?php if (!empty($p['image_parcours'])): ?>
+                                        <img src="/data/images/<?= htmlspecialchars($p['image_parcours']) ?>" alt="Image parcours">
+                                    <?php endif; ?>
+                                </td>
+                                <td data-label="Actions">
+                                    <a class="button-tab" href="edit_parcours.php?id=<?= $p['id']; ?>">Modifier</a>
+                                    <a class="button-tab" href="delete_parcours.php?id=<?= $p['id']; ?>" onclick="return confirm('Êtes-vous sûr ?');">Supprimer</a>
+                                    <a class="button-tab" href="list_etapes.php?id_parcours=<?= $p['id']; ?>">Voir les étapes</a>
+                                </td>
+                            </tr>
+
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+
             <a href="add_parcours.php" class="button">Ajouter un nouveau parcours</a>
         </section>
     </main>

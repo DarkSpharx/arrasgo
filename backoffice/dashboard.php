@@ -15,11 +15,11 @@ $chapitresCount = getChapitresCount($pdo);
 $personnagesCount = getPersonnagesCount($pdo);
 
 // Récupération des 5 derniers parcours et étapes
-$recentParcours = $pdo->query("SELECT nom_parcours, date_creation_user FROM parcours JOIN users_admins ON parcours.id_user = users_admins.id_user ORDER BY parcours.id_parcours DESC LIMIT 5")->fetchAll(PDO::FETCH_ASSOC);
+$recentParcours = $pdo->query("SELECT parcours.id_parcours, nom_parcours, date_creation_user FROM parcours JOIN users_admins ON parcours.id_user = users_admins.id_user ORDER BY parcours.id_parcours DESC LIMIT 5")->fetchAll(PDO::FETCH_ASSOC);
 $recentEtapes = $pdo->query("SELECT titre_etape, id_etape FROM etapes ORDER BY id_etape DESC LIMIT 5")->fetchAll(PDO::FETCH_ASSOC);
 
-// Exemple simple
-$parcoursSansEtape = $pdo->query("SELECT nom_parcours FROM parcours WHERE id_parcours NOT IN (SELECT DISTINCT id_parcours FROM etapes)")->fetchAll(PDO::FETCH_ASSOC);
+// On récupère aussi l'id du parcours pour générer le lien correctement
+$parcoursSansEtape = $pdo->query("SELECT id_parcours, nom_parcours FROM parcours WHERE id_parcours NOT IN (SELECT DISTINCT id_parcours FROM etapes)")->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <!DOCTYPE html>
@@ -46,29 +46,49 @@ $parcoursSansEtape = $pdo->query("SELECT nom_parcours FROM parcours WHERE id_par
                 <h3>Derniers parcours ajoutés</h3>
                 <ul>
                     <?php foreach ($recentParcours as $p): ?>
-                        <li><?= htmlspecialchars($p['nom_parcours']) ?></li>
+                        <li>
+                            <?= htmlspecialchars($p['nom_parcours']) ?>
+                            <?php if (!empty($p['id_parcours'])): ?>
+                                <a href="list_etapes.php?id_parcours=<?= urlencode($p['id_parcours']) ?>" class="button-tab" style="margin-left:10px;">Voir les étapes</a>
+                            <?php else: ?>
+                                <span style="color: #b00; margin-left:10px;">ID parcours manquant</span>
+                            <?php endif; ?>
+                        </li>
                     <?php endforeach; ?>
                 </ul>
                 <h3>Dernières étapes créées</h3>
                 <ul>
                     <?php foreach ($recentEtapes as $e): ?>
-                        <li><?= htmlspecialchars($e['titre_etape']) ?></li>
+                        <li>
+                            <?= htmlspecialchars($e['titre_etape']) ?>
+                            <?php if (!empty($e['id_etape'])): ?>
+                                <a href="list_chapitres.php?id_etape=<?= urlencode($e['id_etape']) ?>" class="button-tab" style="margin-left:10px;">Voir les chapitres</a>
+                            <?php endif; ?>
+                        </li>
                     <?php endforeach; ?>
                 </ul>
-                <div>
-                    <a href="add_parcours.php" class="button">+ Nouveau parcours</a>
-                </div>
+
 
                 <?php if (count($parcoursSansEtape) > 0): ?>
                     <div class="alert">
                         <strong>Attention :</strong> Les parcours suivants n'ont aucune étape :
                         <ul>
                             <?php foreach ($parcoursSansEtape as $p): ?>
-                                <li><?= htmlspecialchars($p['nom_parcours']) ?></li>
+                                <li>
+                                    <?= htmlspecialchars($p['nom_parcours']) ?>
+                                    <?php if (!empty($p['id_parcours'])): ?>
+                                        <a href="list_etapes.php?id_parcours=<?= urlencode($p['id_parcours']) ?>" class="button-tab" style="margin-left:10px;">Voir les étapes</a>
+                                    <?php else: ?>
+                                        <span style="color: #b00; margin-left:10px;">ID parcours manquant</span>
+                                    <?php endif; ?>
+                                </li>
                             <?php endforeach; ?>
                         </ul>
                     </div>
                 <?php endif; ?>
+                <div class="container-horizontal">
+                    <a href="add_parcours.php" class="button">+ Nouveau parcours</a>
+                </div>
             </div>
 
             <div class="container-vertical">

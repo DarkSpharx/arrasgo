@@ -1,8 +1,9 @@
-/* Tableaux */
 table {
   border-collapse: collapse;
   table-layout: auto;
   width: auto;
+  border-spacing: 8px;
+  border-collapse: separate;
 }
 
 th,
@@ -18,15 +19,10 @@ th {
   font-weight: 700;
   text-transform: uppercase;
   text-align: center;
-}
-
-th {
   font-size: 14px;
-  background: #1d1d1d;
-  color: #fff;
-  font-weight: 700;
-  text-transform: uppercase;
-  text-align: center;
+}
+td {
+  border: 1px solid #1d1d1d;
 }
 
 td img,
@@ -37,9 +33,59 @@ td audio {
 }
 
 @media (max-width: 1024px) {
-  table {
+  table,
+  thead,
+  tbody,
+  th,
+  td,
+  tr {
     display: block;
-    /* overflow-x: auto; */
-    /* white-space: nowrap; */
+    width: 100%;
+  }
+
+  thead {
+    display: none;
+  }
+
+  tbody {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  @media (min-width: 600px) and (max-width: 1024px) {
+    tbody {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  tr {
+    display: block;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+    background: #fff;
+  }
+
+  td {
+    display: block;
+    padding: 8px 6px;
+    border: none;
+    border-bottom: 1px solid #eee;
+    word-break: break-word;
+  }
+
+  td:last-child {
+    border-bottom: none;
+  }
+
+  td::before {
+    content: attr(data-label);
+    display: block;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+    color: #333;
+    font-size: 13px;
   }
 }
