@@ -71,7 +71,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <?php include 'header.php'; ?>
     <h1 class="h1-sticky">Modifier le Parcours</h1>
     <main>
-        <section class="container">
+        <div class="container">
             <?php if ($success): ?>
                 <div class="success">Parcours modifié avec succès.</div>
             <?php endif; ?>
@@ -103,8 +103,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <button class="button" type="submit">Enregistrer</button>
                 </form>
             </div>
-        </section>
+        </div>
     </main>
+
+    <footer>
+        <p>&copy; <?php echo date("Y"); ?> Arras Go. Tous droits réservés.</p>
+    </footer>
+
     <script>
         document.getElementById('image_parcours').addEventListener('change', function() {
             document.getElementById('file-chosen').textContent = this.files[0]?.name || 'Aucun fichier choisi';

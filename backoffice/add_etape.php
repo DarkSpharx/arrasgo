@@ -84,81 +84,115 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 ?>
 
-<head>
-    <link rel="stylesheet" href="css/style_backoffice.css">
-    <script src="js/admin.js" defer></script>
-</head>
-<?php include 'header.php'; ?>
-<?php if ($error): ?>
-    <div class="error"><?= htmlspecialchars($error) ?></div>
-<?php endif; ?>
-<form method="POST" enctype="multipart/form-data" class="form-etape">
-    <div class="form-group">
-        <label for="titre_etape">Titre de l'étape :</label>
-        <input type="text" id="titre_etape" name="titre_etape" required>
-    </div>
-    <div class="form-group">
-        <label for="mp3_etape">Fichier MP3 :</label>
-        <input type="file" id="mp3_etape" name="mp3_etape" accept=".mp3">
-    </div>
-    <div class="form-group">
-        <label for="indice_etape_texte">Indice texte :</label>
-        <input type="text" id="indice_etape_texte" name="indice_etape_texte">
-    </div>
-    <div class="form-group">
-        <label for="indice_etape_image">Indice image :</label>
-        <input type="file" id="indice_etape_image" name="indice_etape_image" accept="image/*">
-    </div>
-    <div class="form-group">
-        <label for="question_etape">Question :</label>
-        <input type="text" id="question_etape" name="question_etape">
-    </div>
-    <div class="form-group">
-        <label for="reponse_attendue">Réponse attendue :</label>
-        <input type="text" id="reponse_attendue" name="reponse_attendue">
-    </div>
-    <div class="form-group">
-        <label for="latitude">Latitude :</label>
-        <input type="text" id="latitude" name="latitude">
-    </div>
-    <div class="form-group">
-        <label for="longitude">Longitude :</label>
-        <input type="text" id="longitude" name="longitude">
-    </div>
-    <div class="form-group">
-        <label for="ordre_etape">Ordre :</label>
-        <input type="number" id="ordre_etape" name="ordre_etape" min="1">
-    </div>
-    <div class="form-group">
-        <label for="image_header">Image d'illustration de la page étape :</label>
-        <input type="file" id="image_header" name="image_header" accept="image/*">
-    </div>
-    <div class="form-group">
-        <label for="image_question">Image d'illustration de la page question :</label>
-        <input type="file" id="image_question" name="image_question" accept="image/*">
-    </div>
-    <button type="submit" class="button">Ajouter l'étape</button>
-</form>
-<a href="list_etapes.php?id_parcours=<?= $id_parcours ?>">Retour à la liste des étapes</a>
-<?php
-// Affichage des étapes pour le parcours
-$stmt = $pdo->prepare("SELECT * FROM etapes WHERE id_parcours = :id_parcours ORDER BY ordre_etape");
-$stmt->execute(['id_parcours' => $id_parcours]);
-$etapes = $stmt->fetchAll();
 
-foreach ($etapes as $etape):
-?>
-    <div class="etape">
-        <h3><?= htmlspecialchars($etape['titre_etape'] ?? '') ?></h3>
-        <?php if (!empty($etape['indice_etape_image'])): ?>
-            <img src="/data/images/<?= htmlspecialchars($etape['indice_etape_image']) ?>" alt="Indice image">
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/style_backoffice.css">
+    <link rel="stylesheet" href="css/header_footer.css">
+    <script src="js/admin.js" defer></script>
+    <title>Ajouter une étape</title>
+</head>
+
+<body>
+    <?php include 'header.php'; ?>
+    <h1 class="h1-sticky">Ajouter une nouvelle étape</h1>
+    <main>
+        <?php if ($error): ?>
+            <div class="error"><?= htmlspecialchars($error) ?></div>
         <?php endif; ?>
-        <audio src="/data/mp3/<?= htmlspecialchars($etape['mp3_etape'] ?? '') ?>" controls></audio>
-        <p>Indice texte : <?= htmlspecialchars($etape['indice_etape_texte'] ?? '') ?></p>
-        <p>Question : <?= htmlspecialchars($etape['question_etape'] ?? '') ?></p>
-        <p>Réponse attendue : <?= htmlspecialchars($etape['reponse_attendue'] ?? '') ?></p>
-        <p>Latitude : <?= htmlspecialchars($etape['latitude'] ?? '') ?></p>
-        <p>Longitude : <?= htmlspecialchars($etape['longitude'] ?? '') ?></p>
-        <p>Ordre : <?= htmlspecialchars($etape['ordre_etape'] ?? '') ?></p>
-    </div>
-<?php endforeach; ?>
+        <div class="form-container">
+            <form action="add_etape.php?id_parcours=<?= $id_parcours ?>" method="POST" enctype="multipart/form-data">
+                <a href="list_etapes.php?id_parcours=<?= $id_parcours ?>" class="liens">🔙 Retour à la liste des étapes</a>
+
+                <div class="form-group-horizontal">
+                    <label for="titre_etape">Titre de l'étape :</label>
+                    <input type="text" id="titre_etape" name="titre_etape" required>
+                </div>
+
+                <div class="form-group-horizontal">
+                    <label for="mp3_etape">Fichier MP3 :</label>
+                    <input type="file" id="mp3_etape" name="mp3_etape" accept=".mp3" style="display:none;">
+                    <label for="mp3_etape" class="button-form">Choisir un fichier MP3</label>
+                    <span id="file-chosen-mp3">Aucun fichier choisi</span>
+                </div>
+
+                <div class="form-group-horizontal">
+                    <label for="indice_etape_texte">Indice texte :</label>
+                    <input type="text" id="indice_etape_texte" name="indice_etape_texte">
+                </div>
+
+                <div class="form-group-horizontal">
+                    <label for="indice_etape_image">Indice image :</label>
+                    <input type="file" id="indice_etape_image" name="indice_etape_image" accept="image/*" style="display:none;">
+                    <label for="indice_etape_image" class="button-form">Choisir une image</label>
+                    <span id="file-chosen-indice">Aucun fichier choisi</span>
+                </div>
+
+                <div class="form-group-horizontal">
+                    <label for="question_etape">Question :</label>
+                    <input type="text" id="question_etape" name="question_etape">
+                </div>
+
+                <div class="form-group-horizontal">
+                    <label for="reponse_attendue">Réponse attendue :</label>
+                    <input type="text" id="reponse_attendue" name="reponse_attendue">
+                </div>
+
+                <div class="form-group-horizontal">
+                    <label for="latitude">Latitude :</label>
+                    <input type="text" id="latitude" name="latitude">
+                </div>
+
+                <div class="form-group-horizontal">
+                    <label for="longitude">Longitude :</label>
+                    <input type="text" id="longitude" name="longitude">
+                </div>
+
+                <div class="form-group-horizontal">
+                    <label for="ordre_etape">Ordre :</label>
+                    <input type="number" id="ordre_etape" name="ordre_etape" min="1">
+                </div>
+
+                <div class="form-group-horizontal">
+                    <label for="image_header">Image d'illustration de la page étape :</label>
+                    <input type="file" id="image_header" name="image_header" accept="image/*" style="display:none;">
+                    <label for="image_header" class="button-form">Choisir une image</label>
+                    <span id="file-chosen-header">Aucun fichier choisi</span>
+                </div>
+
+                <div class="form-group-horizontal">
+                    <label for="image_question">Image d'illustration de la page question :</label>
+                    <input type="file" id="image_question" name="image_question" accept="image/*" style="display:none;">
+                    <label for="image_question" class="button-form">Choisir une image</label>
+                    <span id="file-chosen-question">Aucun fichier choisi</span>
+                </div>
+
+                <button class="button" type="submit">Ajouter l'étape</button>
+            </form>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; <?php echo date("Y"); ?> Arras Go. Tous droits réservés.</p>
+    </footer>
+    <script>
+        document.getElementById('mp3_etape').addEventListener('change', function() {
+            document.getElementById('file-chosen-mp3').textContent = this.files[0]?.name || 'Aucun fichier choisi';
+        });
+        document.getElementById('indice_etape_image').addEventListener('change', function() {
+            document.getElementById('file-chosen-indice').textContent = this.files[0]?.name || 'Aucun fichier choisi';
+        });
+        document.getElementById('image_header').addEventListener('change', function() {
+            document.getElementById('file-chosen-header').textContent = this.files[0]?.name || 'Aucun fichier choisi';
+        });
+        document.getElementById('image_question').addEventListener('change', function() {
+            document.getElementById('file-chosen-question').textContent = this.files[0]?.name || 'Aucun fichier choisi';
+        });
+    </script>
+</body>
+
+</html>

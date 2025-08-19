@@ -20,15 +20,15 @@
         </nav>
     </header>
     <main>
-        <section>
+        <div>
             <h2>À propos du jeu</h2>
             <p>Arras Go est un jeu interactif qui vous permet de découvrir des parcours passionnants tout en vous amusant.</p>
-        </section>
-        <section>
+        </div>
+        <div>
             <h2>Commencez votre aventure</h2>
             <p>Explorez nos parcours disponibles et choisissez celui qui vous intéresse le plus.</p>
             <a href="list_parcours.php" class="btn">Voir les parcours</a>
-        </section>
+        </div>
     </main>
     <footer>
         <p>&copy; <span id="year"></span> Arras Go. Tous droits réservés.</p>

@@ -1,3 +1,44 @@
+.cards-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+/* Limite la taille des images dans le tableau des étapes */
+
+.tab-img,
+.tab-indice-img {
+  max-width: 150px;
+  max-height: 150px;
+  display: block;
+  margin: 0 auto;
+}
+
+/* Limite la taille de l'audio dans le tableau des étapes */
+.tab-audio {
+  max-width: 150px;
+  display: block;
+  margin: 0 auto;
+}
+
+/* Boutons d'action dans le tableau des étapes */
+.tab-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+@media (min-width: 600px) {
+  .tab-actions {
+    /* flex-direction: row; */
+    align-items: center;
+    gap: 6px;
+  }
+}
 table {
   border-collapse: collapse;
   table-layout: auto;
@@ -8,9 +49,10 @@ table {
 
 th,
 td {
-  padding: 8px 16px;
+  padding: 8px;
   vertical-align: middle;
   word-break: break-word;
+  max-width: 250px;
 }
 
 th {
@@ -28,11 +70,11 @@ td {
 td img,
 td audio {
   max-width: 100px;
-  max-height: 80px;
+  max-height: 100px;
   display: block;
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 1280px) {
   table,
   thead,
   tbody,
@@ -53,18 +95,17 @@ td audio {
     gap: 16px;
   }
 
-  @media (min-width: 600px) and (max-width: 1024px) {
+  @media (min-width: 600px) and (max-width: 1280px) {
     tbody {
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 1fr 1fr 1fr 1fr;
     }
   }
 
   tr {
     display: block;
-    border: 1px solid #ddd;
+    border: 1px solid #1d1d1d;
     border-radius: 8px;
-    padding: 10px;
-    background: #fff;
+    padding: 8px;
   }
 
   td {
@@ -84,8 +125,10 @@ td audio {
     display: block;
     font-weight: bold;
     text-transform: uppercase;
-    margin-bottom: 4px;
-    color: #333;
-    font-size: 13px;
+    color: #fff;
+    background-color: #1d1d1b;
+    font-size: 14px;
+    padding: 4px;
+    margin-bottom: 8px;
   }
 }

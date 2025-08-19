@@ -59,6 +59,11 @@ $chapitres = get_chapitres_by_etape($pdo, $id_etape);
     </table>
     <a href="edit_etape.php?id=<?= $id_etape ?>">Retour à l'étape</a>
     <a href="list_etapes.php?id_parcours=<?= $id_parcours ?>" style="margin-left:20px;">Retour à la liste des étapes du parcours</a>
+
+    <footer>
+        <p>&copy; <?php echo date("Y"); ?> Arras Go. Tous droits réservés.</p>
+    </footer>
+
 </body>
 
 </html>

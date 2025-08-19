@@ -129,7 +129,7 @@ function calculerDistance($lat1, $lng1, $lat2, $lng2)
 
 <body>
     <main>
-        <section class="container">
+        <div class="container">
             <div class="etape-row">
                 <div class="etape-img">
                     <?php if (!empty($etape['indice_etape_image'])): ?>
@@ -228,7 +228,7 @@ function calculerDistance($lat1, $lng1, $lat2, $lng2)
             }
             */
             ?>
-        </section>
+        </div>
     </main>
     <?php if (!empty($etape['mp3_etape'])): ?>
         <div class="audio-fixed">

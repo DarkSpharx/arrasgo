@@ -29,7 +29,7 @@ $parcours = get_all_parcours($pdo);
   </header>
 
   <main>
-    <section id="parcours-list">
+    <div id="parcours-list">
       <h2>Liste des Parcours</h2>
       <ul>
         <?php foreach ($parcours as $p): ?>
@@ -52,11 +52,11 @@ $parcours = get_all_parcours($pdo);
           </li>
         <?php endforeach; ?>
       </ul>
-    </section>
+    </div>
     <?php
     if (isset($_GET['id_parcours'])) {
       $etapes = get_etapes_by_parcours($pdo, intval($_GET['id_parcours']));
-      echo '<section id="etapes-list"><h2>Étapes du parcours</h2>';
+      echo '<div id="etapes-list"><h2>Étapes du parcours</h2>';
       foreach ($etapes as $etape) {
         echo '<div class="etape">';
         echo '<h3>' . htmlspecialchars($etape['titre_etape']) . '</h3>';
@@ -91,7 +91,7 @@ $parcours = get_all_parcours($pdo);
         }
         echo '</div>';
       }
-      echo '</section>';
+      echo '</div>';
     }
     ?>
   </main>

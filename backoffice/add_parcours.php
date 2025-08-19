@@ -52,39 +52,41 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     <h1 class="h1-sticky">Ajouter un Nouveau Parcours</h1>
     <main>
-        <section class="container">
 
-            <?php if (isset($error)): ?>
-                <div class="error"><?= htmlspecialchars($error) ?></div>
-            <?php endif; ?>
+        <?php if (isset($error)): ?>
+            <div class="error"><?= htmlspecialchars($error) ?></div>
+        <?php endif; ?>
 
-            <div class="form-container">
-                <form action="add_parcours.php" method="POST" enctype="multipart/form-data">
-                    <a href="list_parcours.php" class="liens">🔙 Retour à la liste des parcours</a>
+        <div class="form-container">
+            <form action="add_parcours.php" method="POST" enctype="multipart/form-data">
+                <a href="list_parcours.php" class="liens">🔙 Retour à la liste des parcours</a>
 
-                    <div class="form-group">
-                        <label for="nom_parcours">Nom du Parcours:</label>
-                        <input type="text" id="nom_parcours" name="nom_parcours" required>
-                    </div>
+                <div class="form-group-horizontal">
+                    <label for="nom_parcours">Nom du Parcours:</label>
+                    <input type="text" id="nom_parcours" name="nom_parcours" required>
+                </div>
 
-                    <div class="form-group">
-                        <label for="description">Description:</label>
-                        <textarea id="description" name="description" required></textarea>
-                    </div>
+                <div class="form-group-horizontal">
+                    <label for="description">Description:</label>
+                    <textarea id="description" name="description" required></textarea>
+                </div>
 
-                    <div class="form-group">
-                        <label for="image_parcours">Image d'illustration du parcours :</label>
-                        <input type="file" id="image_parcours" name="image_parcours" accept="image/*" style="display:none;">
-                        <label for="image_parcours" class="button-form">Choisir un fichier</label>
-                        <span id="file-chosen">Aucun fichier choisi</span>
-                    </div>
+                <div class="form-group-horizontal">
+                    <label for="image_parcours">Image d'illustration du parcours :</label>
+                    <input type="file" id="image_parcours" name="image_parcours" accept="image/*" style="display:none;">
+                    <label for="image_parcours" class="button-form">Choisir un fichier</label>
+                    <span id="file-chosen">Aucun fichier choisi</span>
+                </div>
 
-                    <button class="button" type="submit">Ajouter</button>
-                </form>
-            </div>
-        </section>
+                <button class="button" type="submit">Ajouter</button>
+            </form>
+        </div>
 
     </main>
+
+    <footer>
+        <p>&copy; <?php echo date("Y"); ?> Arras Go. Tous droits réservés.</p>
+    </footer>
 
     <script>
         document.getElementById('image_parcours').addEventListener('change', function() {

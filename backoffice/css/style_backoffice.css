@@ -63,6 +63,7 @@ h1 {
 .h1-sticky {
   position: sticky;
   top: 66px;
+  z-index: 1100;
 }
 
 h2 {
@@ -97,18 +98,23 @@ strong {
 
 /* CSS login */
 .form-container {
-  padding: 16px;
   width: 100%;
-  max-width: 450px;
-  background: #fff;
   border-radius: 8px;
-  box-shadow: 8px 8px 8px rgba(0, 0, 0, 0.1);
+  border: 1px solid #1d1d1d;
+  padding: 16px;
   & form {
     margin-top: 16px;
     width: 100%;
     display: flex;
     flex-direction: column;
+    align-items: flex-start;
     gap: 16px;
+    & label {
+      font-weight: 600;
+      margin: 8px;
+      color: #1d1d1d;
+      display: block;
+    }
     & .form-group {
       width: 100%;
       display: flex;
@@ -116,6 +122,11 @@ strong {
       gap: 0px;
       & label {
         font-weight: 600;
+        margin: 8px;
+        color: #1d1d1d;
+        display: block;
+      }
+      & span {
         margin: 8px;
         color: #1d1d1d;
         display: block;
@@ -132,13 +143,43 @@ strong {
         resize: vertical;
       }
       & input {
-        width: 100%;
         padding: 10px 15px;
         border: 1px solid #1d1d1d;
         border-radius: 5px;
         font-size: 1em;
         background: transparent;
         transition: border 0.2s;
+      }
+    }
+    & .form-group-horizontal {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      gap: 8px;
+      width: 100%;
+
+      & label {
+        flex: 0 0 auto; /* le label garde sa taille, ne s’étire pas */
+        font-weight: 600;
+        color: #1d1d1d;
+        white-space: nowrap; /* évite que le texte du label passe à la ligne */
+      }
+
+      & textarea,
+      & input {
+        flex: 1; /* prend toute la largeur restante */
+        min-width: 0; /* indispensable pour éviter le débordement */
+        padding: 10px 15px;
+        border: 1px solid #1d1d1d;
+        border-radius: 5px;
+        font-size: 1em;
+        background: transparent;
+        transition: border 0.2s;
+      }
+
+      & textarea {
+        min-height: 80px;
+        resize: vertical;
       }
     }
   }
@@ -178,6 +219,7 @@ strong {
   cursor: pointer;
   transition: border 0.2s;
   margin: 2px;
+  text-align: center;
 }
 .button-tab:hover {
   background: transparent;
@@ -270,14 +312,14 @@ nav a:hover {
 
 .alert {
   background: #fff3cd;
-  color: #856404;
+  color: red;
   border: 1px solid #ffeeba;
-  border-radius: 6px;
-  padding: 12px 18px;
-  margin-bottom: 18px;
+  border-radius: 5px;
+  padding: 8px;
+  margin-bottom: 8px;
 }
-section ul {
-  margin: 10px 0 18px 20px;
+div ul {
+  margin: 8px;
 }
 
 @media (max-width: 1024px) {

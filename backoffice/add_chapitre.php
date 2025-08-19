@@ -59,3 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <button type="submit" class="button">Ajouter le chapitre</button>
 </form>
 <a href="list_chapitres.php?id_etape=<?= $id_etape ?>">Retour à la liste des chapitres</a>
+
+<footer>
+    <p>&copy; <?php echo date("Y"); ?> Arras Go. Tous droits réservés.</p>
+</footer>

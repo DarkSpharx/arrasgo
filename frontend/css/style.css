@@ -50,8 +50,8 @@ a:hover {
   overflow: hidden;
 }
 
-/* Sections */
-section {
+/* divs */
+div {
   margin: 20px 0;
   padding: 20px;
   background: #ffffff;

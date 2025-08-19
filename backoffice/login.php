@@ -63,25 +63,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <body>
     <main>
-        <section class="container">
-            <div class="form-container">
-                <h1>Back-office<br>ARRAS GO</h1>
-                <?php if (isset($login_error)) {
-                    echo '<p class="error">' . $login_error . '</p>';
-                } ?>
-                <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-                    <div class="form-group">
-                        <label for="username">Adresse e-mail</label>
-                        <input type="text" name="username" id="username" placeholder="Adresse e-mail" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="password">Mot de passe</label>
-                        <input type="password" name="password" id="password" placeholder="Mot de passe" required>
-                    </div>
-                    <button type="submit" class="button">Se connecter</button>
-                </form>
-            </div>
-        </section>
+        <div class="form-container">
+            <h1>Back-office<br>ARRAS GO</h1>
+            <?php if (isset($login_error)) {
+                echo '<p class="error">' . $login_error . '</p>';
+            } ?>
+            <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+                <div class="form-group">
+                    <label for="username">Adresse e-mail</label>
+                    <input type="text" name="username" id="username" placeholder="Adresse e-mail" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Mot de passe</label>
+                    <input type="password" name="password" id="password" placeholder="Mot de passe" required>
+                </div>
+                <button type="submit" class="button">Se connecter</button>
+            </form>
+        </div>
     </main>
 </body>
 

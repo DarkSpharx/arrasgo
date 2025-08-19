@@ -1,7 +1,7 @@
 <?php
 session_start();
 require_once '../backend/security/check_auth.php';
-require_once '../backend/config/database.php'; // <-- AJOUTE CETTE LIGNE
+require_once '../backend/config/database.php';
 require_once '../backend/functions/parcours.php';
 require_once '../backend/functions/etapes.php';
 require_once '../backend/functions/chapitres.php';
@@ -20,6 +20,9 @@ $recentEtapes = $pdo->query("SELECT titre_etape, id_etape FROM etapes ORDER BY i
 
 // On récupère aussi l'id du parcours pour générer le lien correctement
 $parcoursSansEtape = $pdo->query("SELECT id_parcours, nom_parcours FROM parcours WHERE id_parcours NOT IN (SELECT DISTINCT id_parcours FROM etapes)")->fetchAll(PDO::FETCH_ASSOC);
+
+// Récupérer les étapes sans parcours (cas rare, mais demandé)
+$etapesSansParcours = $pdo->query("SELECT id_etape, titre_etape FROM etapes WHERE id_parcours IS NULL OR id_parcours = ''")->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <!DOCTYPE html>
@@ -39,8 +42,9 @@ $parcoursSansEtape = $pdo->query("SELECT id_parcours, nom_parcours FROM parcours
     <?php include 'header.php'; ?>
 
     <h1 class="h1-sticky">Dashboard</h1>
+
     <main>
-        <section class="container-horizontal">
+        <div class="container-horizontal">
             <div class="container-vertical">
                 <h2>Informations de gestion</h2>
                 <h3>Derniers parcours ajoutés</h3>
@@ -56,19 +60,6 @@ $parcoursSansEtape = $pdo->query("SELECT id_parcours, nom_parcours FROM parcours
                         </li>
                     <?php endforeach; ?>
                 </ul>
-                <h3>Dernières étapes créées</h3>
-                <ul>
-                    <?php foreach ($recentEtapes as $e): ?>
-                        <li>
-                            <?= htmlspecialchars($e['titre_etape']) ?>
-                            <?php if (!empty($e['id_etape'])): ?>
-                                <a href="list_chapitres.php?id_etape=<?= urlencode($e['id_etape']) ?>" class="button-tab" style="margin-left:10px;">Voir les chapitres</a>
-                            <?php endif; ?>
-                        </li>
-                    <?php endforeach; ?>
-                </ul>
-
-
                 <?php if (count($parcoursSansEtape) > 0): ?>
                     <div class="alert">
                         <strong>Attention :</strong> Les parcours suivants n'ont aucune étape :
@@ -86,6 +77,39 @@ $parcoursSansEtape = $pdo->query("SELECT id_parcours, nom_parcours FROM parcours
                         </ul>
                     </div>
                 <?php endif; ?>
+
+                <h3>Dernières étapes créées</h3>
+                <ul>
+                    <?php foreach ($recentEtapes as $e): ?>
+                        <li>
+                            <?= htmlspecialchars($e['titre_etape']) ?>
+                            <?php if (!empty($e['id_etape'])): ?>
+                                <a href="list_chapitres.php?id_etape=<?= urlencode($e['id_etape']) ?>" class="button-tab" style="margin-left:10px;">Voir les chapitres</a>
+                            <?php endif; ?>
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
+
+                <?php if (count($etapesSansParcours) > 0): ?>
+                    <div class="alert">
+                        <strong>Attention :</strong> Les étapes suivantes n'ont aucun parcours associé :
+                        <ul>
+                            <?php foreach ($etapesSansParcours as $e): ?>
+                                <li>
+                                    <?= htmlspecialchars($e['titre_etape']) ?>
+                                    <?php if (!empty($e['id_etape'])): ?>
+                                        <a href="list_chapitres.php?id_etape=<?= urlencode($e['id_etape']) ?>" class="button-tab" style="margin-left:10px;">Voir les chapitres</a>
+                                    <?php else: ?>
+                                        <span style="color: #b00; margin-left:10px;">ID étape manquant</span>
+                                    <?php endif; ?>
+                                </li>
+                            <?php endforeach; ?>
+                        </ul>
+                    </div>
+                <?php endif; ?>
+
+
+
                 <div class="container-horizontal">
                     <a href="add_parcours.php" class="button">+ Nouveau parcours</a>
                 </div>
@@ -99,7 +123,7 @@ $parcoursSansEtape = $pdo->query("SELECT id_parcours, nom_parcours FROM parcours
                 <p>Nombre de chapitres : <strong><?php echo $chapitresCount; ?></strong></p>
                 <p>Nombre de personnages : <strong><?php echo $personnagesCount; ?></strong></p>
             </div>
-        </section>
+        </div>
     </main>
 
     <footer>
