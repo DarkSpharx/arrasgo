@@ -81,3 +81,12 @@ CREATE TABLE sessions (
     derniere_etape_validee INT NULL,
     FOREIGN KEY (derniere_etape_validee) REFERENCES etapes(id_etape) ON DELETE SET NULL ON UPDATE CASCADE
 );
+
+-- Table de liaison entre les parcours et les personnages
+CREATE TABLE parcours_personnages (
+    id_parcours INT,
+    id_personnage INT,
+    PRIMARY KEY (id_parcours, id_personnage),
+    FOREIGN KEY (id_parcours) REFERENCES parcours(id_parcours) ON DELETE CASCADE,
+    FOREIGN KEY (id_personnage) REFERENCES personnages(id_personnage) ON DELETE CASCADE
+);

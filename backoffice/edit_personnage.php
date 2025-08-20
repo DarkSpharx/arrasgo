@@ -40,6 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 ?>
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -47,11 +48,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <link rel="stylesheet" href="css/style_backoffice.css">
     <link rel="stylesheet" href="css/header_footer.css">
     <script src="js/admin.js" defer></script>
-    <title>Modifier un personnage</title>
+    <title>Modifier une personnalité</title>
 </head>
+
 <body>
     <?php include 'header.php'; ?>
-    <h1 class="h1-sticky">Modifier le personnage</h1>
+    <h1 class="h1-sticky">Modifier la personnalité</h1>
     <main>
         <div class="form-container">
             <?php if ($error): ?>
@@ -87,4 +89,5 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <p>&copy; <?php echo date("Y"); ?> Arras Go. Tous droits réservés.</p>
     </footer>
 </body>
+
 </html>

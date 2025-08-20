@@ -30,36 +30,51 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 }
 ?>
+<!DOCTYPE html>
+<html lang="fr">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/style_backoffice.css">
+    <link rel="stylesheet" href="css/header_footer.css">
     <script src="js/admin.js" defer></script>
+    <title>Ajouter un chapitre</title>
 </head>
-<?php include 'header.php'; ?>
-<?php if ($error): ?>
-    <div class="error"><?= htmlspecialchars($error) ?></div>
-<?php endif; ?>
-<form method="POST" enctype="multipart/form-data" class="form-etape">
-    <div class="form-group">
-        <label for="titre_chapitre">Titre du chapitre :</label>
-        <input type="text" id="titre_chapitre" name="titre_chapitre">
-    </div>
-    <div class="form-group">
-        <label for="texte_chapitre">Texte du chapitre :</label>
-        <textarea id="texte_chapitre" name="texte_chapitre" required></textarea>
-    </div>
-    <div class="form-group">
-        <label for="image_chapitre">Image du chapitre :</label>
-        <input type="file" id="image_chapitre" name="image_chapitre" accept="image/*">
-    </div>
-    <div class="form-group">
-        <label for="ordre_chapitre">Ordre :</label>
-        <input type="number" id="ordre_chapitre" name="ordre_chapitre" min="1">
-    </div>
-    <button type="submit" class="button">Ajouter le chapitre</button>
-</form>
-<a href="list_chapitres.php?id_etape=<?= $id_etape ?>">Retour à la liste des chapitres</a>
 
-<footer>
-    <p>&copy; <?php echo date("Y"); ?> Arras Go. Tous droits réservés.</p>
-</footer>
+<body>
+
+    <?php include 'header.php'; ?>
+    <h1>Nouveau chapitre</h1>
+    <main>
+        <?php if ($error): ?>
+            <div class="error"><?= htmlspecialchars($error) ?></div>
+        <?php endif; ?>
+        <form method="POST" enctype="multipart/form-data" class="form-etape">
+            <div class="form-group">
+                <label for="titre_chapitre">Titre du chapitre :</label>
+                <input type="text" id="titre_chapitre" name="titre_chapitre">
+            </div>
+            <div class="form-group">
+                <label for="texte_chapitre">Texte du chapitre :</label>
+                <textarea id="texte_chapitre" name="texte_chapitre" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="image_chapitre">Image du chapitre :</label>
+                <input type="file" id="image_chapitre" name="image_chapitre" accept="image/*">
+            </div>
+            <div class="form-group">
+                <label for="ordre_chapitre">Ordre :</label>
+                <input type="number" id="ordre_chapitre" name="ordre_chapitre" min="1">
+            </div>
+            <button type="submit" class="button">Ajouter le chapitre</button>
+        </form>
+        <a href="list_chapitres.php?id_etape=<?= $id_etape ?>">Retour à la liste des chapitres</a>
+    </main>
+    <footer>
+        <p>&copy; <?php echo date("Y"); ?> Arras Go. Tous droits réservés.</p>
+    </footer>
+</body>
+
+</html>

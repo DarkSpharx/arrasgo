@@ -8,6 +8,7 @@ $personnages = get_all_personnages($pdo);
 ?>
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -16,11 +17,12 @@ $personnages = get_all_personnages($pdo);
     <link rel="stylesheet" href="css/header_footer.css">
     <link rel="stylesheet" href="css/tab.css">
     <script src="js/admin.js" defer></script>
-    <title>Liste des personnages</title>
+    <title>Liste des Personnalités</title>
 </head>
+
 <body>
     <?php include 'header.php'; ?>
-    <h1 class="h1-sticky">Personnages</h1>
+    <h1 class="h1-sticky">Personnalités de ARRAS GO</h1>
     <main>
         <div class="cards-container">
             <a href="add_personnage.php" class="button" style="margin-bottom:16px;">Ajouter un personnage</a>
@@ -61,4 +63,5 @@ $personnages = get_all_personnages($pdo);
         <p>&copy; <?php echo date("Y"); ?> Arras Go. Tous droits réservés.</p>
     </footer>
 </body>
+
 </html>

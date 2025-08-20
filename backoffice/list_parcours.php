@@ -26,7 +26,7 @@ $parcours = get_all_parcours($pdo);
 
 <body>
     <?php include 'header.php'; ?>
-    <h1 class="h1-sticky">Parcours</h1>
+    <h1 class="h1-sticky">Parcours de ARRAS GO</h1>
     <main>
         <div class="cards-container">
             <table>
@@ -61,7 +61,7 @@ $parcours = get_all_parcours($pdo);
                     <?php endforeach; ?>
                 </tbody>
             </table>
-            <a href="add_parcours.php" class="button">Ajouter un nouveau parcours</a>
+            <a href="add_parcours.php" class="button">Ajouter un parcours</a>
         </div>
     </main>
     <footer>

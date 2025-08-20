@@ -100,7 +100,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 <body>
     <?php include 'header.php'; ?>
-    <h1 class="h1-sticky">Ajouter une nouvelle étape</h1>
+    <h1 class="h1-sticky">Nouvelle étape</h1>
     <main>
         <?php if ($error): ?>
             <div class="error"><?= htmlspecialchars($error) ?></div>
