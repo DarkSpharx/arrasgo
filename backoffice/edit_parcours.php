@@ -71,38 +71,36 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <?php include 'header.php'; ?>
     <h1 class="h1-sticky">Modifier le Parcours</h1>
     <main>
-        <div class="container">
-            <?php if ($success): ?>
-                <div class="success">Parcours modifié avec succès.</div>
-            <?php endif; ?>
-            <?php if ($error): ?>
-                <div class="error"><?= htmlspecialchars($error) ?></div>
-            <?php endif; ?>
-            <div class="form-container">
-                <form method="POST" enctype="multipart/form-data">
-                    <a href="list_parcours.php" class="liens">🔙 Retour à la liste des parcours</a>
-                    <div class="form-group">
-                        <label for="nom_parcours">Nom du Parcours:</label>
-                        <input type="text" id="nom_parcours" name="nom_parcours" value="<?= htmlspecialchars($parcours['nom_parcours']) ?>" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="description">Description:</label>
-                        <textarea id="description" name="description" required><?= htmlspecialchars($parcours['description_parcours']) ?></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="image_parcours">Image d'illustration du parcours :</label>
-                        <?php if (!empty($parcours['image_parcours'])): ?>
-                            <img src="/data/images/<?= htmlspecialchars($parcours['image_parcours']) ?>" alt="Image parcours" style="max-width:80px;max-height:80px;">
-                            <br>
-                            <small>Fichier actuel : <?= htmlspecialchars($parcours['image_parcours']) ?></small>
-                        <?php endif; ?>
-                        <input type="file" id="image_parcours" name="image_parcours" accept="image/*" style="display:none;">
-                        <label for="image_parcours" class="button-form">Choisir un fichier</label>
-                        <span id="file-chosen">Aucun fichier choisi</span>
-                    </div>
-                    <button class="button" type="submit">Enregistrer</button>
-                </form>
-            </div>
+        <?php if ($success): ?>
+            <div class="success">Parcours modifié avec succès.</div>
+        <?php endif; ?>
+        <?php if ($error): ?>
+            <div class="error"><?= htmlspecialchars($error) ?></div>
+        <?php endif; ?>
+        <div class="form-container">
+            <form method="POST" enctype="multipart/form-data">
+                <a href="list_parcours.php" class="liens">🔙 Retour à la liste des parcours</a>
+                <div class="form-group-horizontal">
+                    <label for="nom_parcours">Nom du Parcours:</label>
+                    <input type="text" id="nom_parcours" name="nom_parcours" value="<?= htmlspecialchars($parcours['nom_parcours']) ?>" required>
+                </div>
+                <div class="form-group-horizontal">
+                    <label for="description">Description:</label>
+                    <textarea id="description" name="description" required><?= htmlspecialchars($parcours['description_parcours']) ?></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="image_parcours">Image d'illustration du parcours :</label>
+                    <?php if (!empty($parcours['image_parcours'])): ?>
+                        <img src="/data/images/<?= htmlspecialchars($parcours['image_parcours']) ?>" alt="Image parcours" style="max-width:80px;max-height:80px;">
+                        <br>
+                        <small>Fichier actuel : <?= htmlspecialchars($parcours['image_parcours']) ?></small>
+                    <?php endif; ?>
+                    <input type="file" id="image_parcours" name="image_parcours" accept="image/*" style="display:none;">
+                    <label for="image_parcours" class="button-form">Choisir un fichier</label>
+                    <span id="file-chosen">Aucun fichier choisi</span>
+                </div>
+                <button class="button" type="submit">Enregistrer</button>
+            </form>
         </div>
     </main>
 

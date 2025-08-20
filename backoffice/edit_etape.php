@@ -106,78 +106,94 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <?php include 'header.php'; ?>
     <h1 class="h1-sticky">Modifier l'étape</h1>
     <main>
-        <div class="container">
-            <?php if ($error): ?>
-                <div class="error"><?= htmlspecialchars($error) ?></div>
-            <?php endif; ?>
-            <div class="form-container">
-                <form method="POST" enctype="multipart/form-data">
-                    <a href="list_etapes.php?id_parcours=<?= $etape['id_parcours'] ?>" class="liens">🔙 Retour à la liste des étapes</a>
-                    <div class="form-group">
-                        <label for="titre_etape">Titre de l'étape :</label>
-                        <input type="text" id="titre_etape" name="titre_etape" value="<?= htmlspecialchars($etape['titre_etape']) ?>" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="mp3_etape">Fichier MP3 :</label>
-                        <?php if (!empty($etape['mp3_etape'])): ?>
-                            <audio src="/data/mp3/<?= htmlspecialchars($etape['mp3_etape']) ?>" controls></audio>
-                            <br>
-                            <small>Fichier actuel : <?= htmlspecialchars($etape['mp3_etape']) ?></small>
-                        <?php endif; ?>
-                        <input type="file" id="mp3_etape" name="mp3_etape" accept=".mp3" style="display:none;">
-                        <label for="mp3_etape" class="button-form">Choisir un fichier MP3</label>
-                        <span id="file-chosen-mp3">Aucun fichier choisi</span>
-                    </div>
-                    <div class="form-group">
-                        <label for="indice_etape_texte">Indice texte :</label>
-                        <input type="text" id="indice_etape_texte" name="indice_etape_texte" value="<?= htmlspecialchars($etape['indice_etape_texte']) ?>">
-                    </div>
-                    <div class="form-group">
-                        <label for="indice_etape_image">Indice image :</label>
-                        <?php if (!empty($etape['indice_etape_image'])): ?>
-                            <img src="/data/images/<?= htmlspecialchars($etape['indice_etape_image']) ?>" alt="Indice image" style="max-width:80px;max-height:80px;">
-                            <br>
-                            <small>Fichier actuel : <?= htmlspecialchars($etape['indice_etape_image']) ?></small>
-                        <?php endif; ?>
-                        <input type="file" id="indice_etape_image" name="indice_etape_image" accept="image/*" style="display:none;">
-                        <label for="indice_etape_image" class="button-form">Choisir une image</label>
-                        <span id="file-chosen-indice">Aucun fichier choisi</span>
-                    </div>
-                    <div class="form-group">
-                        <label for="image_header">Image d'illustration de la page étape :</label>
-                        <input type="file" id="image_header" name="image_header" accept="image/*" style="display:none;">
-                        <label for="image_header" class="button-form">Choisir une image</label>
-                        <span id="file-chosen-header">Aucun fichier choisi</span>
-                    </div>
-                    <div class="form-group">
-                        <label for="image_question">Image d'illustration de la page question :</label>
-                        <input type="file" id="image_question" name="image_question" accept="image/*" style="display:none;">
-                        <label for="image_question" class="button-form">Choisir une image</label>
-                        <span id="file-chosen-question">Aucun fichier choisi</span>
-                    </div>
-                    <div class="form-group">
-                        <label for="question_etape">Question :</label>
-                        <input type="text" id="question_etape" name="question_etape" value="<?= htmlspecialchars($etape['question_etape']) ?>">
-                    </div>
-                    <div class="form-group">
-                        <label for="reponse_attendue">Réponse attendue :</label>
-                        <input type="text" id="reponse_attendue" name="reponse_attendue" value="<?= htmlspecialchars($etape['reponse_attendue']) ?>">
-                    </div>
-                    <div class="form-group">
-                        <label for="latitude">Latitude :</label>
-                        <input type="text" id="latitude" name="latitude" value="<?= htmlspecialchars($etape['latitude'] ?? '') ?>">
-                    </div>
-                    <div class="form-group">
-                        <label for="longitude">Longitude :</label>
-                        <input type="text" id="longitude" name="longitude" value="<?= htmlspecialchars($etape['longitude'] ?? '') ?>">
-                    </div>
-                    <div class="form-group">
-                        <label for="ordre_etape">Ordre :</label>
-                        <input type="number" id="ordre_etape" name="ordre_etape" min="1" value="<?= htmlspecialchars($etape['ordre_etape'] ?? '') ?>">
-                    </div>
-                    <button class="button" type="submit">Enregistrer</button>
-                </form>
-            </div>
+        <?php if ($error): ?>
+            <div class="error"><?= htmlspecialchars($error) ?></div>
+        <?php endif; ?>
+        <div class="form-container">
+            <form method="POST" enctype="multipart/form-data">
+                <a href="list_etapes.php?id_parcours=<?= $etape['id_parcours'] ?>" class="liens">🔙 Retour à la liste des étapes</a>
+                <div class="form-group-horizontal">
+                    <label for="titre_etape">Titre de l'étape :</label>
+                    <input type="text" id="titre_etape" name="titre_etape" value="<?= htmlspecialchars($etape['titre_etape']) ?>" required>
+                </div>
+                <div class="form-group-horizontal">
+                    <label for="mp3_etape">Fichier MP3 :</label>
+                    <?php if (!empty($etape['mp3_etape'])): ?>
+                        <audio src="/data/mp3/<?= htmlspecialchars($etape['mp3_etape']) ?>" controls></audio>
+                        <br>
+                        <small>Fichier actuel : <?= htmlspecialchars($etape['mp3_etape']) ?></small>
+                    <?php endif; ?>
+                    <input type="file" id="mp3_etape" name="mp3_etape" accept=".mp3" style="display:none;">
+                    <label for="mp3_etape" class="button-form">Choisir un fichier MP3</label>
+                    <span id="file-chosen-mp3">Aucun fichier choisi</span>
+                </div>
+                <div class="form-group-horizontal">
+                    <label for="indice_etape_texte">Indice texte :</label>
+                    <input type="text" id="indice_etape_texte" name="indice_etape_texte" value="<?= htmlspecialchars($etape['indice_etape_texte']) ?>">
+                </div>
+                <div class="form-group-horizontal">
+                    <label for="indice_etape_image">Indice image :</label>
+                    <?php if (!empty($etape['indice_etape_image'])): ?>
+                        <img src="/data/images/<?= htmlspecialchars($etape['indice_etape_image']) ?>" alt="Indice image" style="max-width:80px;max-height:80px;">
+                        <br>
+                        <small>Fichier actuel : <?= htmlspecialchars($etape['indice_etape_image']) ?></small>
+                    <?php endif; ?>
+                    <input type="file" id="indice_etape_image" name="indice_etape_image" accept="image/*" style="display:none;">
+                    <label for="indice_etape_image" class="button-form">Choisir une image</label>
+                    <span id="file-chosen-indice">Aucun fichier choisi</span>
+                </div>
+                <div class="form-group-horizontal">
+                    <label for="image_header">Image d'illustration de la page étape :</label>
+                    <?php if (!empty($etape['image_header']) && file_exists(__DIR__ . '/../data/images/' . $etape['image_header'])): ?>
+                        <img src="/data/images/<?= htmlspecialchars($etape['image_header']) ?>" alt="Image header" style="max-width:80px;max-height:80px;">
+                        <br>
+                        <small>Fichier actuel : <?= htmlspecialchars($etape['image_header']) ?></small>
+                    <?php endif; ?>
+                    <input type="file" id="image_header" name="image_header" accept="image/*" style="display:none;" data-current="<?= !empty($etape['image_header']) ? htmlspecialchars($etape['image_header']) : '' ?>">
+                    <label for="image_header" class="button-form">Choisir une image</label>
+                    <span id="file-chosen-header"><?php if (!empty($etape['image_header'])) {
+                                                        echo htmlspecialchars($etape['image_header']);
+                                                    } else {
+                                                        echo 'Aucun fichier choisi';
+                                                    } ?></span>
+                </div>
+                <div class="form-group-horizontal">
+                    <label for="image_question">Image d'illustration de la page question :</label>
+                    <?php if (!empty($etape['image_question']) && file_exists(__DIR__ . '/../data/images/' . $etape['image_question'])): ?>
+                        <img src="/data/images/<?= htmlspecialchars($etape['image_question']) ?>" alt="Image question" style="max-width:80px;max-height:80px;">
+                        <br>
+                        <small>Fichier actuel : <?= htmlspecialchars($etape['image_question']) ?></small>
+                    <?php endif; ?>
+                    <input type="file" id="image_question" name="image_question" accept="image/*" style="display:none;" data-current="<?= !empty($etape['image_question']) ? htmlspecialchars($etape['image_question']) : '' ?>">
+                    <label for="image_question" class="button-form">Choisir une image</label>
+                    <span id="file-chosen-question"><?php if (!empty($etape['image_question'])) {
+                                                        echo htmlspecialchars($etape['image_question']);
+                                                    } else {
+                                                        echo 'Aucun fichier choisi';
+                                                    } ?></span>
+                </div>
+                <div class="form-group-horizontal">
+                    <label for="question_etape">Question :</label>
+                    <input type="text" id="question_etape" name="question_etape" value="<?= htmlspecialchars($etape['question_etape']) ?>">
+                </div>
+                <div class="form-group-horizontal">
+                    <label for="reponse_attendue">Réponse attendue :</label>
+                    <input type="text" id="reponse_attendue" name="reponse_attendue" value="<?= htmlspecialchars($etape['reponse_attendue']) ?>">
+                </div>
+                <div class="form-group-horizontal">
+                    <label for="latitude">Latitude :</label>
+                    <input type="text" id="latitude" name="latitude" value="<?= htmlspecialchars($etape['latitude'] ?? '') ?>">
+                </div>
+                <div class="form-group-horizontal">
+                    <label for="longitude">Longitude :</label>
+                    <input type="text" id="longitude" name="longitude" value="<?= htmlspecialchars($etape['longitude'] ?? '') ?>">
+                </div>
+                <div class="form-group-horizontal">
+                    <label for="ordre_etape">Ordre :</label>
+                    <input type="number" id="ordre_etape" name="ordre_etape" min="1" value="<?= htmlspecialchars($etape['ordre_etape'] ?? '') ?>">
+                </div>
+                <button class="button" type="submit">Enregistrer</button>
+            </form>
         </div>
     </main>
 
@@ -192,12 +208,32 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         document.getElementById('indice_etape_image').addEventListener('change', function() {
             document.getElementById('file-chosen-indice').textContent = this.files[0]?.name || 'Aucun fichier choisi';
         });
-        document.getElementById('image_header').addEventListener('change', function() {
-            document.getElementById('file-chosen-header').textContent = this.files[0]?.name || 'Aucun fichier choisi';
-        });
-        document.getElementById('image_question').addEventListener('change', function() {
-            document.getElementById('file-chosen-question').textContent = this.files[0]?.name || 'Aucun fichier choisi';
-        });
+        const inputHeader = document.getElementById('image_header');
+        const spanHeader = document.getElementById('file-chosen-header');
+        if (inputHeader && spanHeader) {
+            const currentHeader = inputHeader.getAttribute('data-current');
+            if (currentHeader) {
+                spanHeader.textContent = currentHeader;
+            } else {
+                spanHeader.textContent = 'Aucun fichier choisi';
+            }
+            inputHeader.addEventListener('change', function() {
+                spanHeader.textContent = this.files[0]?.name || (this.getAttribute('data-current') || 'Aucun fichier choisi');
+            });
+        }
+        const inputQuestion = document.getElementById('image_question');
+        const spanQuestion = document.getElementById('file-chosen-question');
+        if (inputQuestion && spanQuestion) {
+            const currentQuestion = inputQuestion.getAttribute('data-current');
+            if (currentQuestion) {
+                spanQuestion.textContent = currentQuestion;
+            } else {
+                spanQuestion.textContent = 'Aucun fichier choisi';
+            }
+            inputQuestion.addEventListener('change', function() {
+                spanQuestion.textContent = this.files[0]?.name || (this.getAttribute('data-current') || 'Aucun fichier choisi');
+            });
+        }
     </script>
 </body>
 
