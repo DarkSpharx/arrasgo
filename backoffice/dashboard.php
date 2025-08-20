@@ -41,7 +41,7 @@ $etapesSansParcours = $pdo->query("SELECT id_etape, titre_etape FROM etapes WHER
 <body>
     <?php include 'header.php'; ?>
 
-    <h1 class="h1-sticky">Dashboard</h1>
+    <h1 class="h1-sticky">Dashboard de ARRAS GO</h1>
 
     <main>
         <div class="container-horizontal">

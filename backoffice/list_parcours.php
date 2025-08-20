@@ -61,6 +61,8 @@ $parcours = get_all_parcours($pdo);
                     <?php endforeach; ?>
                 </tbody>
             </table>
+        </div>
+        <div class="container">
             <a href="add_parcours.php" class="button">Ajouter un parcours</a>
         </div>
     </main>

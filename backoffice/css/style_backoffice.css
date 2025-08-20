@@ -69,7 +69,7 @@ h2 {
   font-size: 28px;
   font-weight: 600;
   margin-bottom: 16px;
-  color: #e7d8c9;
+  color: #fff;
   background-color: #1d1d1d;
   padding: 8px;
   text-align: center;
@@ -327,7 +327,6 @@ div ul {
 
 @media (max-width: 1024px) {
   .h1-sticky {
-    text-transform: capitalize;
     text-align: left !important;
     height: 50px;
     padding: 13px !important;

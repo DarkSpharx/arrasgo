@@ -33,8 +33,8 @@ header {
 
 .nav-admin a:hover,
 .nav-admin a.active {
-  border: 1px solid #fff;
-  background: #fff;
+  border: 1px solid #e7d8c9;
+  background: #e7d8c9;
   color: #1d1d1d;
 }
 
@@ -48,10 +48,19 @@ header {
 
 .nav-admin .logout-link:hover {
   background: #1d1d1b;
-  color: #fff;
+  color: #e7d8c9;
 }
 
 #logo-nav {
+  color: #1d1d1b;
+  border: 1px solid #fff;
+  background-color: #fff;
+  padding: 8px 16px;
+  border-radius: 5px;
+  font-weight: 600;
+}
+
+#logo-nav:hover {
   color: #1d1d1b;
   border: 1px solid #e7d8c9;
   background-color: #e7d8c9;
@@ -90,12 +99,15 @@ header {
     display: block;
     background: none;
     border: none;
-    color: #e7d8c9;
+    color: #1d1d1b;
     top: 4px;
     right: 8px;
     z-index: 1001;
     cursor: pointer;
     position: fixed;
+  }
+  .burger:hover {
+    color: #fff;
   }
   .nav-admin {
     display: none;
@@ -112,10 +124,41 @@ header {
   }
   .nav-admin.open {
     display: flex;
+    background-color: #e7d8c9;
     color: #fff;
-    padding: 8px;
+    padding: 13px;
     margin-top: 42px;
     position: fixed;
+    & #logo-nav {
+      background-color: #1d1d1d;
+      border: 1px solid #1d1d1d;
+      color: #e7d8c9;
+      margin: 0;
+    }
+    & #logo-nav:hover {
+      background-color: #fff;
+      border: 1px solid #fff;
+      color: #e7d8c9;
+    }
+    & a {
+      width: fit-content;
+      color: #1d1d1b;
+    }
+    & a:hover {
+      background-color: #fff;
+      border: 1px solid #fff;
+      color: #1d1d1b;
+    }
+    & .logout-link {
+      background-color: #1d1d1b;
+      border: 1px solid #1d1d1b;
+      color: #e7d8c9;
+    }
+    & .logout-link:hover {
+      background-color: #fff;
+      border: 1px solid #fff;
+      color: #1d1d1b;
+    }
   }
   header {
     position: relative;
