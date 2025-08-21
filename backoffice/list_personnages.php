@@ -46,46 +46,33 @@ foreach ($personnages as $perso) {
     <?php include 'header.php'; ?>
     <h1 class="h1-sticky">Personnalités de ARRAS GO</h1>
     <main>
-        <div class="cards-container">
-            <table>
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Nom</th>
-                        <th>Description</th>
-                        <th>Image</th>
-                        <th>Parcours liés</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($personnages as $p): ?>
-                        <tr>
-                            <td data-label="ID">#<?= $p['id_personnage'] ?></td>
-                            <td data-label="Nom"><?= htmlspecialchars($p['nom_personnage']) ?></td>
-                            <td data-label="Description"><?= htmlspecialchars($p['description_personnage']) ?></td>
-                            <td data-label="Image">
-                                <?php if (!empty($p['image_personnage'])): ?>
-                                    <img src="../data/images/<?= htmlspecialchars($p['image_personnage']) ?>" alt="Image personnage" class="tab-indice-img" />
-                                <?php endif; ?>
-                            </td>
-                            <td data-label="Parcours liés">
-                                <?php if (!empty($personnages_parcours[$p['id_personnage']])): ?>
-                                    <?= htmlspecialchars(implode(', ', $personnages_parcours[$p['id_personnage']])) ?>
-                                <?php else: ?>
-                                    <em>Aucun</em>
-                                <?php endif; ?>
-                            </td>
-                            <td data-label="Actions">
-                                <div class="tab-actions">
-                                    <a href="edit_personnage.php?id=<?= $p['id_personnage'] ?>" class="button-tab">Modifier</a>
-                                    <a href="delete_personnage.php?id=<?= $p['id_personnage'] ?>" class="button-tab delete-parcours" onclick="return confirm('Supprimer ce personnage ?');">Supprimer</a>
-                                </div>
-                            </td>
-                        </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
+        <div class="personnages-cards-container">
+            <?php foreach ($personnages as $p): ?>
+                <div class="personnage-card">
+                    <div class="personnage-card-header">
+                        <h3>#<?= $p['id_personnage'] ?> - <?= htmlspecialchars($p['nom_personnage']) ?></h3>
+                    </div>
+                    <div class="personnage-card-img">
+                        <?php if (!empty($p['image_personnage'])): ?>
+                            <img src="../data/images/<?= htmlspecialchars($p['image_personnage']) ?>" alt="Image personnage" class="tab-indice-img" />
+                        <?php endif; ?>
+                    </div>
+                    <div class="personnage-card-body">
+                        <div><strong>Description :</strong> <?= htmlspecialchars($p['description_personnage']) ?></div>
+                        <div><strong>Parcours liés :</strong> 
+                            <?php if (!empty($personnages_parcours[$p['id_personnage']])): ?>
+                                <?= htmlspecialchars(implode(', ', $personnages_parcours[$p['id_personnage']])) ?>
+                            <?php else: ?>
+                                <em>Aucun</em>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                    <div class="personnage-card-actions">
+                        <a href="edit_personnage.php?id=<?= $p['id_personnage'] ?>" class="button-tab">Modifier</a>
+                        <a href="delete_personnage.php?id=<?= $p['id_personnage'] ?>" class="button-tab delete-parcours" onclick="return confirm('Supprimer ce personnage ?');">Supprimer</a>
+                    </div>
+                </div>
+            <?php endforeach; ?>
             <a href="add_personnage.php" class="button" style="margin-bottom:16px;">Ajouter un personnage</a>
         </div>
     </main>

@@ -50,7 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <body>
     <?php include 'header.php'; ?>
 
-    <h1 class="h1-sticky">Nouveau arcours</h1>
+    <h1 class="h1-sticky">Nouveau parcours</h1>
     <main>
 
         <?php if (isset($error)): ?>

@@ -29,41 +29,30 @@ $parcours = get_all_parcours($pdo);
     <h1 class="h1-sticky">Parcours de ARRAS GO</h1>
     <main>
         <div class="cards-container">
-            <table>
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Nom</th>
-                        <th>Description</th>
-                        <th>Image</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($parcours as $p): ?>
-                        <tr>
-                            <td data-label="ID"><?= htmlspecialchars($p['id']); ?></td>
-                            <td data-label="Nom"><?= htmlspecialchars($p['nom']); ?></td>
-                            <td data-label="Description"><?= htmlspecialchars($p['description']); ?></td>
-                            <td data-label="Image">
-                                <?php if (!empty($p['image_parcours'])): ?>
-                                    <img src="/data/images/<?= htmlspecialchars($p['image_parcours']) ?>" alt="Image parcours">
-                                <?php endif; ?>
-                            </td>
-                            <td data-label="Actions">
-                                <div class="tab-actions">
-                                    <a class="button-tab" href="edit_parcours.php?id=<?= $p['id']; ?>">Modifier</a>
-                                    <a class="button-tab" href="delete_parcours.php?id=<?= $p['id']; ?>" onclick="return confirm('Êtes-vous sûr ?');">Supprimer</a>
-                                    <a class="button-tab" href="list_etapes.php?id_parcours=<?= $p['id']; ?>">Voir les étapes</a>
-                                </div>
-                            </td>
-                        </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
+
         </div>
-        <div class="container">
-            <a href="add_parcours.php" class="button">Ajouter un parcours</a>
+        <div class="parcours-cards-container">
+            <a href="add_parcours.php" class="button" style="margin-bottom:18px;">Ajouter un parcours</a>
+            <?php foreach ($parcours as $p): ?>
+                <div class="parcours-card">
+                    <div class="parcours-card-header">
+                        <h3><?= htmlspecialchars($p['nom']); ?></h3>
+                    </div>
+                    <div class="parcours-card-img">
+                        <?php if (!empty($p['image_parcours'])): ?>
+                            <img src="/data/images/<?= htmlspecialchars($p['image_parcours']) ?>" alt="Image parcours">
+                        <?php endif; ?>
+                    </div>
+                    <div class="parcours-card-body">
+                        <p><?= htmlspecialchars($p['description']); ?></p>
+                    </div>
+                    <div class="parcours-card-actions">
+                        <a class="button-tab" href="edit_parcours.php?id=<?= $p['id']; ?>">Modifier</a>
+                        <a class="button-tab" href="delete_parcours.php?id=<?= $p['id']; ?>" onclick="return confirm('Êtes-vous sûr ?');">Supprimer</a>
+                        <a class="button-tab" href="list_etapes.php?id_parcours=<?= $p['id']; ?>">Voir les étapes</a>
+                    </div>
+                </div>
+            <?php endforeach; ?>
         </div>
     </main>
     <footer>

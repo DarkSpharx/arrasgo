@@ -32,39 +32,28 @@ $chapitres = get_chapitres_by_etape($pdo, $id_etape);
     <main>
         <div class="cards-container">
             <a href="add_chapitre.php?id_etape=<?= $id_etape ?>" class="button" style="margin-bottom:16px;">Ajouter un chapitre</a>
-            <table>
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Titre</th>
-                        <th>Texte</th>
-                        <th>Image</th>
-                        <th>Ordre</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($chapitres as $c): ?>
-                        <tr>
-                            <td data-label="ID">#<?= $c['id_chapitre'] ?></td>
-                            <td data-label="Titre"><?= htmlspecialchars($c['titre_chapitre']) ?></td>
-                            <td data-label="Texte"><?= htmlspecialchars($c['texte_chapitre']) ?></td>
-                            <td data-label="Image">
-                                <?php if (!empty($c['image_chapitre'])): ?>
-                                    <img src="/data/images/<?= htmlspecialchars($c['image_chapitre']) ?>" alt="Image chapitre" class="tab-indice-img" />
-                                <?php endif; ?>
-                            </td>
-                            <td data-label="Ordre"><?= $c['ordre_chapitre'] ?></td>
-                            <td data-label="Actions">
-                                <div class="tab-actions">
-                                    <a href="edit_chapitre.php?id=<?= $c['id_chapitre'] ?>" class="button-tab">Modifier</a>
-                                    <a href="delete_chapitre.php?id=<?= $c['id_chapitre'] ?>&id_etape=<?= $id_etape ?>" class="button-tab delete-parcours" onclick="return confirm('Supprimer ce chapitre ?');">Supprimer</a>
-                                </div>
-                            </td>
-                        </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
+            <div class="chapitres-cards-container">
+                <?php foreach ($chapitres as $c): ?>
+                    <div class="chapitre-card">
+                        <div class="chapitre-card-header">
+                            <h3>#<?= $c['id_chapitre'] ?> - <?= htmlspecialchars($c['titre_chapitre']) ?></h3>
+                            <span class="chapitre-ordre">Ordre : <?= $c['ordre_chapitre'] ?></span>
+                        </div>
+                        <div class="chapitre-card-img">
+                            <?php if (!empty($c['image_chapitre'])): ?>
+                                <img src="/data/images/<?= htmlspecialchars($c['image_chapitre']) ?>" alt="Image chapitre" class="tab-indice-img" />
+                            <?php endif; ?>
+                        </div>
+                        <div class="chapitre-card-body">
+                            <div><strong>Texte :</strong> <?= htmlspecialchars($c['texte_chapitre']) ?></div>
+                        </div>
+                        <div class="chapitre-card-actions">
+                            <a href="edit_chapitre.php?id=<?= $c['id_chapitre'] ?>" class="button-tab">Modifier</a>
+                            <a href="delete_chapitre.php?id=<?= $c['id_chapitre'] ?>&id_etape=<?= $id_etape ?>" class="button-tab delete-parcours" onclick="return confirm('Supprimer ce chapitre ?');">Supprimer</a>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            </div>
             <div class="liens-container">
                 <a class="button" href="list_etapes.php?id_parcours=<?= $id_parcours ?>" class="liens">Retour à la liste des étapes du parcours</a>
             </div>
