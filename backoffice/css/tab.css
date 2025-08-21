@@ -1,175 +1,4 @@
-/* Cartes personnages responsive */
-.personnages-cards-container {
-  display: grid;
-  grid-template-columns: repeat(1, 1fr);
-  gap: 24px;
-  margin: 24px 0;
-}
-
-@media (min-width: 600px) {
-  .personnages-cards-container {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-@media (min-width: 1024px) {
-  .personnages-cards-container {
-    grid-template-columns: repeat(4, 1fr);
-  }
-}
-
-.personnage-card {
-  background: #fff;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  box-shadow: 0 2px 8px #0001;
-  padding: 18px 16px 16px 16px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  min-height: 180px;
-}
-.personnage-card-header {
-  display: flex;
-  align-items: center;
-  margin-bottom: 8px;
-}
-.personnage-card-img {
-  margin-bottom: 8px;
-  text-align: center;
-}
-.personnage-card-img img {
-  width: 80px;
-  height: 80px;
-  object-fit: cover;
-  border-radius: 6px;
-  background: #f5f5f5;
-}
-.personnage-card-body {
-  font-size: 0.97em;
-  margin-bottom: 12px;
-}
-.personnage-card-actions {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-/* Cartes chapitres responsive */
-.chapitres-cards-container {
-  display: grid;
-  grid-template-columns: repeat(1, 1fr);
-  gap: 24px;
-  margin: 24px 0;
-}
-
-@media (min-width: 600px) {
-  .chapitres-cards-container {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-@media (min-width: 1024px) {
-  .chapitres-cards-container {
-    grid-template-columns: repeat(4, 1fr);
-  }
-}
-
-.chapitre-card {
-  background: #fff;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  box-shadow: 0 2px 8px #0001;
-  padding: 18px 16px 16px 16px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  min-height: 180px;
-}
-.chapitre-card-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 8px;
-}
-.chapitre-card-img {
-  margin-bottom: 8px;
-  text-align: center;
-}
-.chapitre-card-img img {
-  width: 80px;
-  height: 80px;
-  object-fit: cover;
-  border-radius: 6px;
-  background: #f5f5f5;
-}
-.chapitre-card-body {
-  font-size: 0.97em;
-  margin-bottom: 12px;
-}
-.chapitre-card-actions {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-/* Cartes étapes responsive */
-.etapes-cards-container {
-  display: grid;
-  grid-template-columns: repeat(1, 1fr);
-  gap: 24px;
-  margin: 24px 0;
-}
-
-@media (min-width: 600px) {
-  .etapes-cards-container {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-@media (min-width: 1024px) {
-  .etapes-cards-container {
-    grid-template-columns: repeat(4, 1fr);
-  }
-}
-
-.etape-card {
-  background: #fff;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  box-shadow: 0 2px 8px #0001;
-  padding: 18px 16px 16px 16px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  min-height: 260px;
-}
-.etape-card-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 8px;
-}
-.etape-card-imgs {
-  display: flex;
-  gap: 8px;
-  margin-bottom: 8px;
-  flex-wrap: wrap;
-}
-.etape-card-imgs img {
-  width: 80px;
-  height: 80px;
-  object-fit: cover;
-  border-radius: 6px;
-  background: #f5f5f5;
-}
-.etape-card-body {
-  font-size: 0.97em;
-  margin-bottom: 12px;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-.etape-card-actions {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-}
+/* Unification des styles de cartes pour tout le backoffice */
 .cards-container {
   display: flex;
   flex-direction: column;
@@ -177,54 +6,72 @@
   gap: 16px;
 }
 
-/* Cartes parcours responsive */
-.parcours-cards-container {
+.cards-grid {
   display: grid;
   grid-template-columns: repeat(1, 1fr);
   gap: 24px;
   margin: 24px 0;
 }
-
 @media (min-width: 600px) {
-  .parcours-cards-container {
+  .cards-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 @media (min-width: 1024px) {
-  .parcours-cards-container {
+  .cards-grid {
     grid-template-columns: repeat(4, 1fr);
   }
 }
 
-.parcours-card {
-  background: #fff;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  box-shadow: 0 2px 8px #0001;
-  padding: 18px 16px 16px 16px;
+.card {
+  border-radius: 8px;
+  border: 1px solid #1d1d1d;
+  padding: 16px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  min-height: 260px;
+  /* min-height: 180px; */
 }
-.parcours-card-header {
+.card-button {
+  background-color: #e7d8c9;
+  border-radius: 8px;
+  border: 1px solid #1d1d1d;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.card-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 8px;
 }
-.parcours-card-img img {
-  width: 100%;
-  max-height: 120px;
+.card-img,
+.card-imgs {
+  margin-bottom: 8px;
+  text-align: center;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.card-img img,
+.card-imgs img {
+  width: 80px;
+  height: 80px;
   object-fit: cover;
   border-radius: 6px;
-  margin-bottom: 8px;
+  background: #f5f5f5;
 }
-.parcours-card-body {
+.card-body {
   font-size: 0.97em;
   margin-bottom: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
 }
-.parcours-card-actions {
+.card-actions {
   display: flex;
   gap: 10px;
   flex-wrap: wrap;
@@ -262,102 +109,5 @@
     /* flex-direction: row; */
     align-items: center;
     gap: 6px;
-  }
-}
-table {
-  table-layout: auto;
-  width: auto;
-  border-spacing: 8px;
-  border-collapse: separate;
-}
-
-th,
-td {
-  padding: 8px;
-  vertical-align: middle;
-  word-break: break-word;
-  max-width: 250px;
-}
-
-th {
-  background: #1d1d1d;
-  color: #fff;
-  font-weight: 700;
-  text-transform: uppercase;
-  text-align: center;
-  font-size: 14px;
-}
-td {
-  border: 1px solid #1d1d1d;
-}
-
-td img,
-td audio {
-  max-width: 100px;
-  max-height: 100px;
-  display: block;
-}
-
-@media (max-width: 1280px) {
-  table,
-  thead,
-  tbody,
-  th,
-  td,
-  tr {
-    display: block;
-    width: 100%;
-  }
-
-  thead {
-    display: none;
-  }
-
-  tbody {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 16px;
-  }
-
-  @media (min-width: 600px) and (max-width: 1280px) {
-    tbody {
-      grid-template-columns: 1fr 1fr 1fr 1fr;
-    }
-  }
-  .display-none {
-    display: none;
-  }
-  td::before.display-none {
-    display: none;
-  }
-  tr {
-    display: block;
-    border: 1px solid #1d1d1d;
-    border-radius: 8px;
-    padding: 8px;
-  }
-
-  td {
-    display: block;
-    padding: 8px 6px;
-    border: none;
-    border-bottom: 1px solid #eee;
-    word-break: break-word;
-  }
-
-  td:last-child {
-    border-bottom: none;
-  }
-
-  td::before {
-    content: attr(data-label);
-    display: block;
-    font-weight: bold;
-    text-transform: uppercase;
-    color: #fff;
-    background-color: #1d1d1b;
-    font-size: 14px;
-    padding: 4px;
-    margin-bottom: 8px;
   }
 }

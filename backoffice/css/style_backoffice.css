@@ -221,7 +221,7 @@ strong {
   border-radius: 5px;
   cursor: pointer;
   transition: border 0.2s;
-  margin: 2px;
+  margin: 0 auto;
   text-align: center;
 }
 .button-tab:hover {

@@ -32,22 +32,22 @@ $chapitres = get_chapitres_by_etape($pdo, $id_etape);
     <main>
         <div class="cards-container">
             <a href="add_chapitre.php?id_etape=<?= $id_etape ?>" class="button" style="margin-bottom:16px;">Ajouter un chapitre</a>
-            <div class="chapitres-cards-container">
+            <div class="cards-grid">
                 <?php foreach ($chapitres as $c): ?>
-                    <div class="chapitre-card">
-                        <div class="chapitre-card-header">
+                    <div class="card">
+                        <div class="card-header">
                             <h3>#<?= $c['id_chapitre'] ?> - <?= htmlspecialchars($c['titre_chapitre']) ?></h3>
-                            <span class="chapitre-ordre">Ordre : <?= $c['ordre_chapitre'] ?></span>
+                            <span>Ordre : <?= $c['ordre_chapitre'] ?></span>
                         </div>
-                        <div class="chapitre-card-img">
+                        <div class="card-img">
                             <?php if (!empty($c['image_chapitre'])): ?>
                                 <img src="/data/images/<?= htmlspecialchars($c['image_chapitre']) ?>" alt="Image chapitre" class="tab-indice-img" />
                             <?php endif; ?>
                         </div>
-                        <div class="chapitre-card-body">
+                        <div class="card-body">
                             <div><strong>Texte :</strong> <?= htmlspecialchars($c['texte_chapitre']) ?></div>
                         </div>
-                        <div class="chapitre-card-actions">
+                        <div class="card-actions">
                             <a href="edit_chapitre.php?id=<?= $c['id_chapitre'] ?>" class="button-tab">Modifier</a>
                             <a href="delete_chapitre.php?id=<?= $c['id_chapitre'] ?>&id_etape=<?= $id_etape ?>" class="button-tab delete-parcours" onclick="return confirm('Supprimer ce chapitre ?');">Supprimer</a>
                         </div>
