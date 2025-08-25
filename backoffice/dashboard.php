@@ -42,14 +42,14 @@ $etapesSansParcours = $pdo->query("SELECT id_etape, titre_etape FROM etapes WHER
 <body>
     <?php include 'header.php'; ?>
 
-    <h1 class="h1-sticky">Dashboard de ARRAS GO</h1>
+    <h1 class="h1-sticky">ARRAS GO - Dashboard</h1>
 
     <main>
         <div class="cards-container">
             <div class="cards-grid">
                 <div class="card-button">
-                    <a href="add_parcours.php" class="button">+ Ajouter parcours</a>
-                    <a href="add_personnage.php" class="button">+ Ajouter personnalité</a>
+                    <a href="add_parcours.php" class="button">+ Ajouter un parcours</a>
+                    <a href="add_personnage.php" class="button">+ Ajouter une personnalité</a>
                 </div>
 
                 <div class="card">

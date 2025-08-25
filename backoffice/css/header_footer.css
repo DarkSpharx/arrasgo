@@ -102,13 +102,10 @@ header {
     border: none;
     color: #1d1d1b;
     top: 4px;
-    right: 8px;
+    right: 16px;
     z-index: 1001;
     cursor: pointer;
     position: fixed;
-  }
-  .burger:hover {
-    color: #fff;
   }
   .nav-admin {
     display: none;
@@ -128,7 +125,7 @@ header {
     background-color: #e7d8c9;
     color: #fff;
     padding: 13px;
-    margin-top: 42px;
+    /* margin-top: 42px; */
     position: fixed;
     & #logo-nav {
       background-color: #1d1d1d;

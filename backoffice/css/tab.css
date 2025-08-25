@@ -1,27 +1,37 @@
-/* Unification des styles de cartes pour tout le backoffice */
 .cards-container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* gap: 16px; */
 }
 
 .cards-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: auto;
+  grid-template-columns: repeat(3, 1fr);
   gap: 36px;
   margin: 0;
-}
-@media (max-width: 600px) {
-  .cards-grid {
-    grid-template-columns: repeat(1, 1fr);
-  }
 }
 @media (max-width: 1024px) {
   .cards-grid {
     grid-template-columns: repeat(2, 1fr);
   }
+}
+@media (max-width: 768px) {
+  .cards-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.card-button {
+  background-color: #e7d8c9;
+  border-radius: 8px;
+  border: 1px solid #1d1d1d;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  max-width: 400px;
+  gap: 16px;
+  height: fit-content;
 }
 
 .card {
@@ -30,76 +40,30 @@
   padding: 16px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   background-color: #e7d8c9;
-  max-width: 350px;
-}
-.card-button {
-  background-color: #e7d8c9;
-  border-radius: 8px;
-  border: 1px solid #1d1d1d;
-  padding: 16px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  max-width: 350px;
+  max-width: 400px;
   gap: 16px;
 }
 
-.card-img,
-.card-imgs {
-  margin: 8px 0;
+.card-img {
   text-align: center;
   display: flex;
-  gap: 8px;
   flex-wrap: wrap;
   justify-content: center;
+  img {
+    width: 66%;
+    margin: auto;
+    border-radius: 5px;
+    border: #1d1d1d 1px solid;
+  }
 }
-.card-img img,
-.card-imgs img {
+
+.card-audio {
   width: 100%;
-  min-height: 150px;
-  object-fit: cover;
-  border-radius: 5px;
 }
 
 .card-actions {
   display: flex;
   gap: 10px;
   flex-wrap: wrap;
-}
-
-/* Limite la taille des images dans le tableau des étapes */
-
-.tab-img,
-.tab-indice-img {
-  max-width: 150px;
-  max-height: 150px;
-  display: block;
-  margin: 0 auto;
-}
-
-/* Limite la taille de l'audio dans le tableau des étapes */
-.tab-audio {
-  max-width: 150px;
-  display: block;
-  margin: 0 auto;
-}
-
-/* Boutons d'action dans le tableau des étapes */
-.tab-actions {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  align-items: flex-start;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-@media (min-width: 600px) {
-  .tab-actions {
-    /* flex-direction: row; */
-    align-items: center;
-    gap: 6px;
-  }
 }

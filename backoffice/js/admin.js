@@ -59,5 +59,8 @@ document.addEventListener("DOMContentLoaded", function () {
         nav.classList.remove("open");
       }
     });
+    window.addEventListener("scroll", function () {
+      nav.classList.remove("open");
+    });
   }
 });

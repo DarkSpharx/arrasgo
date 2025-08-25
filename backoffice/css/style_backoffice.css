@@ -62,6 +62,7 @@ h1 {
   position: sticky;
   top: 66px;
   z-index: 1100;
+  box-shadow: 8px 8px 8px rgba(0, 0, 0, 0.1);
 }
 
 h2 {
@@ -97,11 +98,14 @@ strong {
 /* CSS login */
 .form-container {
   width: max-content;
-  min-width: 300px;
+  min-width: 250px;
   border-radius: 8px;
   border: 1px solid #1d1d1d;
   padding: 16px;
   margin: auto;
+  background-color: #e7d8c9;
+  box-shadow: 8px 8px 8px rgba(0, 0, 0, 0.1);
+
   & form {
     margin-top: 16px;
     width: 100%;
@@ -149,8 +153,12 @@ strong {
         border: 1px solid #1d1d1d;
         border-radius: 5px;
         font-size: 1em;
-        background: transparent;
+        background: #fff;
         transition: border 0.2s;
+      }
+      & input:focus {
+        background-color: #fff !important;
+        background: #fff !important;
       }
     }
     & .form-group-horizontal {
@@ -159,8 +167,9 @@ strong {
       align-items: center;
       gap: 8px;
       width: 100%;
-      min-width: 500px;
+      min-width: 250px;
       max-width: 1000px;
+      flex-wrap: wrap;
 
       & label {
         flex: 0 0 auto;
@@ -177,7 +186,7 @@ strong {
         border: 1px solid #1d1d1d;
         border-radius: 5px;
         font-size: 1em;
-        background: transparent;
+        background: #fff;
         transition: border 0.2s;
       }
 
@@ -196,7 +205,7 @@ strong {
   font-size: 14px;
   display: inline-block;
   padding: 10px 15px;
-  margin: auto;
+  margin: 0 auto;
   background: #1d1d1d;
   color: #ffffff;
   border: solid 1px #1d1d1d;
@@ -208,6 +217,26 @@ strong {
   background: transparent;
   border: solid 1px #1d1d1d;
   color: #1d1d1d;
+}
+
+.button-bis {
+  width: fit-content;
+  height: fit-content;
+  font-size: 14px;
+  display: inline-block;
+  padding: 10px 15px;
+  margin: 0 auto;
+  background: transparent;
+  color: #1d1d1d;
+  border: solid 1px #1d1d1d;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: border 0.2s;
+}
+.button-bis:hover {
+  background: #1d1d1d;
+  border: solid 1px #1d1d1d;
+  color: #e7d8c9;
 }
 
 .button-tab {
@@ -328,15 +357,16 @@ div ul {
 
 @media (max-width: 1024px) {
   .h1-sticky {
-    text-align: left !important;
-    height: 50px;
-    padding: 13px !important;
-    line-height: calc(50px - 24px);
-    font-size: calc(50px - 24px) !important;
+    text-align: left;
+    /* height: 50px; */
+    padding: 13px;
+    line-height: 26px;
+    font-size: 26px;
     margin: 0;
     box-sizing: border-box;
     position: sticky;
     top: 0;
+    padding-right: 15% !important;
   }
   .container-vertical {
     max-width: 100%;
@@ -344,7 +374,18 @@ div ul {
 }
 
 @media (max-width: 768px) {
+  main {
+    width: 100%;
+  }
   .container-vertical {
     width: 100%;
+  }
+  .form-container {
+    width: 100%;
+  }
+  .form-group-horizontal {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    min-width: 100% !important;
   }
 }

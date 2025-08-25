@@ -9,6 +9,7 @@ $id_etape = isset($_GET['id_etape']) ? intval($_GET['id_etape']) : 0;
 $stmt = $pdo->prepare("SELECT id_parcours FROM etapes WHERE id_etape = ?");
 $stmt->execute([$id_etape]);
 $id_parcours = $stmt->fetchColumn();
+$titre_etape = $stmt->fetchColumn();
 
 $chapitres = get_chapitres_by_etape($pdo, $id_etape);
 ?>
@@ -28,34 +29,51 @@ $chapitres = get_chapitres_by_etape($pdo, $id_etape);
 
 <body>
     <?php include 'header.php'; ?>
-    <h1 class="h1-sticky">Chapitres de l'étape</h1>
+    <?php
+    // Récupérer le titre de l'étape
+    $stmt = $pdo->prepare("SELECT id_parcours, titre_etape FROM etapes WHERE id_etape = ?");
+    $stmt->execute([$id_etape]);
+    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+    $id_parcours = $row ? $row['id_parcours'] : null;
+    $titre_etape = $row ? $row['titre_etape'] : '';
+    ?>
+    <h1 class="h1-sticky">Chapitres de l'étape "<?= htmlspecialchars($titre_etape) ?>"</h1>
+
     <main>
         <div class="cards-container">
-            <a href="add_chapitre.php?id_etape=<?= $id_etape ?>" class="button" style="margin-bottom:16px;">Ajouter un chapitre</a>
             <div class="cards-grid">
+
+                <div class="card-button">
+                    <a href="add_chapitre.php?id_etape=<?= $id_etape ?>" class="button" style="margin-bottom:16px;">+ Ajouter un chapitre</a>
+                    <a href="list_etapes.php?id_parcours=<?= $id_parcours ?>" class="button-bis">🔙 Retour à l'étape</a>
+                </div>
+
                 <?php foreach ($chapitres as $c): ?>
                     <div class="card">
-                        <div class="card-header">
-                            <h3>#<?= $c['id_chapitre'] ?> - <?= htmlspecialchars($c['titre_chapitre']) ?></h3>
-                            <span>Ordre : <?= $c['ordre_chapitre'] ?></span>
-                        </div>
-                        <div class="card-img">
-                            <?php if (!empty($c['image_chapitre'])): ?>
-                                <img src="/data/images/<?= htmlspecialchars($c['image_chapitre']) ?>" alt="Image chapitre" class="tab-indice-img" />
-                            <?php endif; ?>
-                        </div>
-                        <div class="card-body">
-                            <div><strong>Texte :</strong> <?= htmlspecialchars($c['texte_chapitre']) ?></div>
-                        </div>
+                        <h2>#<?= $c['id_chapitre'] ?> - <?= htmlspecialchars($c['titre_chapitre']) ?></h2>
+
                         <div class="card-actions">
                             <a href="edit_chapitre.php?id=<?= $c['id_chapitre'] ?>" class="button-tab">Modifier</a>
                             <a href="delete_chapitre.php?id=<?= $c['id_chapitre'] ?>&id_etape=<?= $id_etape ?>" class="button-tab delete-parcours" onclick="return confirm('Supprimer ce chapitre ?');">Supprimer</a>
                         </div>
+
+                        <h3>Numéro du chapitre</h3>
+                        <p><?= $c['ordre_chapitre'] ?></p>
+
+                        <h3>Illustration du chapitre</h3>
+                        <div class="card-img">
+                            <?php if (!empty($c['image_chapitre'])): ?>
+                                <img src="/data/images/<?= htmlspecialchars($c['image_chapitre']) ?>" alt="Image chapitre" />
+                            <?php else: ?>
+                                <em>Non renseignée</em>
+                            <?php endif; ?>
+                        </div>
+                        <h3>Texte</h3>
+                        <p>
+                            <?= htmlspecialchars($c['texte_chapitre']) ?>
+                        </p>
                     </div>
                 <?php endforeach; ?>
-            </div>
-            <div class="liens-container">
-                <a class="button" href="list_etapes.php?id_parcours=<?= $id_parcours ?>" class="liens">Retour à la liste des étapes du parcours</a>
             </div>
         </div>
     </main>

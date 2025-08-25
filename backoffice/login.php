@@ -62,7 +62,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 
 <body>
-    <main>
+    <main style="min-height: 90vh; display: flex
+">
         <div class="form-container">
             <h1>Back-office<br>ARRAS GO</h1>
             <?php if (isset($login_error)) {
