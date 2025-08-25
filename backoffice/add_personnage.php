@@ -95,7 +95,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <small>Sélectionnez un ou plusieurs parcours</small>
                 </div>
 
-                <button class="button" type="submit">Ajouter</button>
+                <button class="button" type="submit">Ajouter la personnalité</button>
             </form>
             <script>
                 document.getElementById('image_personnage').addEventListener('change', function() {

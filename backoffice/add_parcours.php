@@ -62,12 +62,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <a href="list_parcours.php" class="liens">🔙 Retour à la liste des parcours</a>
 
                 <div class="form-group-horizontal">
-                    <label for="nom_parcours">Nom du Parcours:</label>
+                    <label for="nom_parcours">Nom du Parcours :</label>
                     <input type="text" id="nom_parcours" name="nom_parcours" required>
                 </div>
 
                 <div class="form-group-horizontal">
-                    <label for="description">Description:</label>
+                    <label for="description">Description :</label>
                     <textarea id="description" name="description" required></textarea>
                 </div>
 
@@ -78,7 +78,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <span id="file-chosen">Aucun fichier choisi</span>
                 </div>
 
-                <button class="button" type="submit">Ajouter</button>
+                <button class="button" type="submit">Ajouter le parcours</button>
             </form>
         </div>
 

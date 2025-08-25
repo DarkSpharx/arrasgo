@@ -51,14 +51,16 @@ main {
 }
 
 h1 {
-  background: #e7d8c9;
   text-align: center;
+  background: #fff;
   font-size: 36px;
   font-weight: 600;
   padding: 10px;
   color: #1d1d1d;
 }
 .h1-sticky {
+  background: #e7d8c9;
+
   position: sticky;
   top: 66px;
   z-index: 1100;
@@ -69,7 +71,7 @@ h2 {
   font-size: 26px;
   font-weight: 600;
   margin-bottom: 16px;
-  color: #e7d8c9;
+  color: #fff;
   background-color: #1d1d1d;
   padding: 8px;
   text-align: center;
@@ -97,7 +99,8 @@ strong {
 
 /* CSS login */
 .form-container {
-  width: max-content;
+  /* width: max-content; */
+  max-width: 700px;
   min-width: 250px;
   border-radius: 8px;
   border: 1px solid #1d1d1d;
@@ -113,11 +116,16 @@ strong {
     flex-direction: column;
     /* align-items: flex-start; */
     gap: 16px;
+    & hr {
+      border: none;
+      border-top: 1px solid #1d1d1d;
+    }
     & label {
       font-weight: 600;
       margin: 8px;
       color: #1d1d1d;
       display: block;
+      text-align: start;
     }
     & .form-group {
       /* width: 100%; */
@@ -175,7 +183,7 @@ strong {
         flex: 0 0 auto;
         font-weight: 600;
         color: #1d1d1d;
-        white-space: nowrap;
+        white-space: wrap;
       }
 
       & textarea,
@@ -190,12 +198,44 @@ strong {
         transition: border 0.2s;
       }
 
+      & input:focus {
+        background-color: #fff !important;
+        background: #fff !important;
+      }
+
       & textarea {
         min-height: 80px;
         resize: vertical;
       }
     }
   }
+}
+
+audio {
+  width: 95%;
+  margin: auto;
+}
+
+.form-img {
+  text-align: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  img {
+    width: 66%;
+    max-width: 200px;
+    margin: auto;
+    border-radius: 5px;
+    border: #1d1d1d 1px solid;
+  }
+}
+
+small {
+  flex-wrap: wrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  /* white-space: nowrap; */
+  max-width: 100%;
 }
 
 /* Boutons */
@@ -262,7 +302,7 @@ strong {
 
 .button-form {
   color: #fff !important;
-  text-align: center;
+  text-align: center !important;
   font-size: 12px;
   display: inline-block;
   padding: 5px 10px;
@@ -366,7 +406,7 @@ div ul {
     box-sizing: border-box;
     position: sticky;
     top: 0;
-    padding-right: 15% !important;
+    padding-right: 62px !important;
   }
   .container-vertical {
     max-width: 100%;
@@ -387,5 +427,6 @@ div ul {
     flex-direction: column !important;
     align-items: stretch !important;
     min-width: 100% !important;
+    flex-wrap: nowrap;
   }
 }

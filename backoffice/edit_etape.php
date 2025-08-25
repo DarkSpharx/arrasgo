@@ -104,18 +104,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 <body>
     <?php include 'header.php'; ?>
-    <h1 class="h1-sticky">Modifier l'étape</h1>
+
+    <h1 class="h1-sticky">Modifier <?= htmlspecialchars($etape['titre_etape']) ?></h1>
     <main>
+
         <?php if ($error): ?>
             <div class="error"><?= htmlspecialchars($error) ?></div>
         <?php endif; ?>
+
         <div class="form-container">
-            <form method="POST" enctype="multipart/form-data">
+            <form method="POST" enctype="multipart/form-data" action="list_etapes.php?id_parcours=<?= $etape['id_parcours'] ?>">
+
                 <a href="list_etapes.php?id_parcours=<?= $etape['id_parcours'] ?>" class="liens">🔙 Retour à la liste des étapes</a>
+
                 <div class="form-group-horizontal">
                     <label for="titre_etape">Titre de l'étape :</label>
                     <input type="text" id="titre_etape" name="titre_etape" value="<?= htmlspecialchars($etape['titre_etape']) ?>" required>
                 </div>
+                <hr>
                 <div class="form-group-horizontal">
                     <label for="mp3_etape">Fichier MP3 :</label>
                     <?php if (!empty($etape['mp3_etape'])): ?>
@@ -127,14 +133,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <label for="mp3_etape" class="button-form">Choisir un fichier MP3</label>
                     <span id="file-chosen-mp3">Aucun fichier choisi</span>
                 </div>
+                <hr>
                 <div class="form-group-horizontal">
                     <label for="indice_etape_texte">Indice texte :</label>
-                    <input type="text" id="indice_etape_texte" name="indice_etape_texte" value="<?= htmlspecialchars($etape['indice_etape_texte']) ?>">
+                    <textarea id="indice_etape_texte" name="indice_etape_texte" required><?= htmlspecialchars($etape['indice_etape_texte']) ?></textarea>
                 </div>
-                <div class="form-group-horizontal">
+                <hr>
+                <div class="form-group-horizontal form-img">
                     <label for="indice_etape_image">Indice image :</label>
                     <?php if (!empty($etape['indice_etape_image'])): ?>
-                        <img src="/data/images/<?= htmlspecialchars($etape['indice_etape_image']) ?>" alt="Indice image" style="max-width:80px;max-height:80px;">
+                        <img src="/data/images/<?= htmlspecialchars($etape['indice_etape_image']) ?>" alt="Indice image">
                         <br>
                         <small>Fichier actuel : <?= htmlspecialchars($etape['indice_etape_image']) ?></small>
                     <?php endif; ?>
@@ -142,10 +150,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <label for="indice_etape_image" class="button-form">Choisir une image</label>
                     <span id="file-chosen-indice">Aucun fichier choisi</span>
                 </div>
-                <div class="form-group-horizontal">
+                <hr>
+                <div class="form-group-horizontal form-img">
                     <label for="image_header">Image d'illustration de la page étape :</label>
                     <?php if (!empty($etape['image_header']) && file_exists(__DIR__ . '/../data/images/' . $etape['image_header'])): ?>
-                        <img src="/data/images/<?= htmlspecialchars($etape['image_header']) ?>" alt="Image header" style="max-width:80px;max-height:80px;">
+                        <img src="/data/images/<?= htmlspecialchars($etape['image_header']) ?>" alt="Image header">
                         <br>
                         <small>Fichier actuel : <?= htmlspecialchars($etape['image_header']) ?></small>
                     <?php endif; ?>
@@ -157,10 +166,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                                         echo 'Aucun fichier choisi';
                                                     } ?></span>
                 </div>
-                <div class="form-group-horizontal">
+                <hr>
+                <div class="form-group-horizontal form-img">
                     <label for="image_question">Image d'illustration de la page question :</label>
                     <?php if (!empty($etape['image_question']) && file_exists(__DIR__ . '/../data/images/' . $etape['image_question'])): ?>
-                        <img src="/data/images/<?= htmlspecialchars($etape['image_question']) ?>" alt="Image question" style="max-width:80px;max-height:80px;">
+                        <img src="/data/images/<?= htmlspecialchars($etape['image_question']) ?>" alt="Image question">
                         <br>
                         <small>Fichier actuel : <?= htmlspecialchars($etape['image_question']) ?></small>
                     <?php endif; ?>
@@ -172,22 +182,27 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                                         echo 'Aucun fichier choisi';
                                                     } ?></span>
                 </div>
+                <hr>
                 <div class="form-group-horizontal">
                     <label for="question_etape">Question :</label>
                     <input type="text" id="question_etape" name="question_etape" value="<?= htmlspecialchars($etape['question_etape']) ?>">
                 </div>
+                <hr>
                 <div class="form-group-horizontal">
                     <label for="reponse_attendue">Réponse attendue :</label>
                     <input type="text" id="reponse_attendue" name="reponse_attendue" value="<?= htmlspecialchars($etape['reponse_attendue']) ?>">
                 </div>
+                <hr>
                 <div class="form-group-horizontal">
                     <label for="latitude">Latitude :</label>
                     <input type="text" id="latitude" name="latitude" value="<?= htmlspecialchars($etape['latitude'] ?? '') ?>">
                 </div>
+                <hr>
                 <div class="form-group-horizontal">
                     <label for="longitude">Longitude :</label>
                     <input type="text" id="longitude" name="longitude" value="<?= htmlspecialchars($etape['longitude'] ?? '') ?>">
                 </div>
+                <hr>
                 <div class="form-group-horizontal">
                     <label for="ordre_etape">Ordre :</label>
                     <input type="number" id="ordre_etape" name="ordre_etape" min="1" value="<?= htmlspecialchars($etape['ordre_etape'] ?? '') ?>">

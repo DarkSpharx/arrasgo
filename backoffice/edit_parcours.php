@@ -63,41 +63,49 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/style_backoffice.css">
     <link rel="stylesheet" href="css/header_footer.css">
+    <!-- <link rel="stylesheet" href="css/tab.css"> -->
     <script src="js/admin.js" defer></script>
     <title>Modifier un Parcours</title>
 </head>
 
 <body>
     <?php include 'header.php'; ?>
-    <h1 class="h1-sticky">Modifier le Parcours</h1>
+
+    <h1 class="h1-sticky">Modifier <?= htmlspecialchars($parcours['nom_parcours']) ?></h1>
     <main>
+
         <?php if ($success): ?>
             <div class="success">Parcours modifié avec succès.</div>
         <?php endif; ?>
         <?php if ($error): ?>
             <div class="error"><?= htmlspecialchars($error) ?></div>
         <?php endif; ?>
+
         <div class="form-container">
-            <form method="POST" enctype="multipart/form-data">
+            <form method="POST" enctype="multipart/form-data" action="list_parcours.php">
+
                 <a href="list_parcours.php" class="liens">🔙 Retour à la liste des parcours</a>
+
                 <div class="form-group-horizontal">
                     <label for="nom_parcours">Nom du Parcours:</label>
                     <input type="text" id="nom_parcours" name="nom_parcours" value="<?= htmlspecialchars($parcours['nom_parcours']) ?>" required>
                 </div>
-                <div class="form-group-horizontal">
-                    <label for="description">Description:</label>
-                    <textarea id="description" name="description" required><?= htmlspecialchars($parcours['description_parcours']) ?></textarea>
-                </div>
-                <div class="form-group">
+                <hr>
+                <div class="form-group-horizontal form-img">
                     <label for="image_parcours">Image d'illustration du parcours :</label>
                     <?php if (!empty($parcours['image_parcours'])): ?>
-                        <img src="/data/images/<?= htmlspecialchars($parcours['image_parcours']) ?>" alt="Image parcours" style="max-width:80px;max-height:80px;">
+                        <img src="/data/images/<?= htmlspecialchars($parcours['image_parcours']) ?>" alt="Image parcours">
                         <br>
                         <small>Fichier actuel : <?= htmlspecialchars($parcours['image_parcours']) ?></small>
                     <?php endif; ?>
                     <input type="file" id="image_parcours" name="image_parcours" accept="image/*" style="display:none;">
                     <label for="image_parcours" class="button-form">Choisir un fichier</label>
                     <span id="file-chosen">Aucun fichier choisi</span>
+                </div>
+                <hr>
+                <div class="form-group-horizontal">
+                    <label for="description">Description:</label>
+                    <textarea id="description" name="description" required><?= htmlspecialchars($parcours['description_parcours']) ?></textarea>
                 </div>
                 <button class="button" type="submit">Enregistrer</button>
             </form>
