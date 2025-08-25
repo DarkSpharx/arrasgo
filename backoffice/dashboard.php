@@ -34,6 +34,7 @@ $etapesSansParcours = $pdo->query("SELECT id_etape, titre_etape FROM etapes WHER
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/style_backoffice.css">
     <link rel="stylesheet" href="css/header_footer.css">
+    <link rel="stylesheet" href="css/tab.css">
     <script src="js/admin.js" defer></script>
     <title>Dashboard - ARRAS GO</title>
 </head>
@@ -44,84 +45,85 @@ $etapesSansParcours = $pdo->query("SELECT id_etape, titre_etape FROM etapes WHER
     <h1 class="h1-sticky">Dashboard de ARRAS GO</h1>
 
     <main>
-        <div class="container-horizontal">
-            <div class="container-vertical">
-                <h2>Informations de gestion</h2>
-                <h3>Derniers parcours ajoutés</h3>
-                <ul>
-                    <?php foreach ($recentParcours as $p): ?>
-                        <li>
-                            <?= htmlspecialchars($p['nom_parcours']) ?>
-                            <?php if (!empty($p['id_parcours'])): ?>
-                                <a href="list_etapes.php?id_parcours=<?= urlencode($p['id_parcours']) ?>" class="button-tab" style="margin-left:10px;">Voir les étapes</a>
-                            <?php else: ?>
-                                <span style="color: #b00; margin-left:10px;">ID parcours manquant</span>
-                            <?php endif; ?>
-                        </li>
-                    <?php endforeach; ?>
-                </ul>
-                <?php if (count($parcoursSansEtape) > 0): ?>
-                    <div class="alert">
-                        <strong>Attention :</strong> Les parcours suivants n'ont aucune étape :
-                        <ul>
-                            <?php foreach ($parcoursSansEtape as $p): ?>
-                                <li>
-                                    <?= htmlspecialchars($p['nom_parcours']) ?>
-                                    <?php if (!empty($p['id_parcours'])): ?>
-                                        <a href="list_etapes.php?id_parcours=<?= urlencode($p['id_parcours']) ?>" class="button-tab" style="margin-left:10px;">Voir les étapes</a>
-                                    <?php else: ?>
-                                        <span style="color: #b00; margin-left:10px;">ID parcours manquant</span>
-                                    <?php endif; ?>
-                                </li>
-                            <?php endforeach; ?>
-                        </ul>
-                    </div>
-                <?php endif; ?>
-
-                <h3>Dernières étapes créées</h3>
-                <ul>
-                    <?php foreach ($recentEtapes as $e): ?>
-                        <li>
-                            <?= htmlspecialchars($e['titre_etape']) ?>
-                            <?php if (!empty($e['id_etape'])): ?>
-                                <a href="list_chapitres.php?id_etape=<?= urlencode($e['id_etape']) ?>" class="button-tab" style="margin-left:10px;">Voir les chapitres</a>
-                            <?php endif; ?>
-                        </li>
-                    <?php endforeach; ?>
-                </ul>
-
-                <?php if (count($etapesSansParcours) > 0): ?>
-                    <div class="alert">
-                        <strong>Attention :</strong> Les étapes suivantes n'ont aucun parcours associé :
-                        <ul>
-                            <?php foreach ($etapesSansParcours as $e): ?>
-                                <li>
-                                    <?= htmlspecialchars($e['titre_etape']) ?>
-                                    <?php if (!empty($e['id_etape'])): ?>
-                                        <a href="list_chapitres.php?id_etape=<?= urlencode($e['id_etape']) ?>" class="button-tab" style="margin-left:10px;">Voir les chapitres</a>
-                                    <?php else: ?>
-                                        <span style="color: #b00; margin-left:10px;">ID étape manquant</span>
-                                    <?php endif; ?>
-                                </li>
-                            <?php endforeach; ?>
-                        </ul>
-                    </div>
-                <?php endif; ?>
-
-
-
-                <div class="container-horizontal">
-                    <a href="add_parcours.php" class="button">+ Nouveau parcours</a>
+        <div class="cards-container">
+            <div class="cards-grid">
+                <div class="card-button">
+                    <a href="add_parcours.php" class="button">+ Ajouter parcours</a>
+                    <a href="add_personnage.php" class="button">+ Ajouter personnalité</a>
                 </div>
-            </div>
 
-            <div class="container-vertical">
-                <h2>Statistiques</h2>
-                <p>Nombre de parcours : <strong><?php echo $parcoursCount; ?></strong></p>
-                <p>Nombre d'utilisateurs : <strong><?php echo $usersCount; ?></strong></p>
-                <p>Nombre d'étapes : <strong><?php echo $etapesCount; ?></strong></p>
-                <p>Nombre de chapitres : <strong><?php echo $chapitresCount; ?></strong></p>
-                <p>Nombre de personnages : <strong><?php echo $personnagesCount; ?></strong></p>
+                <div class="card">
+                    <h2>Informations de gestion</h2>
+                    <h3>Derniers parcours ajoutés</h3>
+                    <ul>
+                        <?php foreach ($recentParcours as $p): ?>
+                            <li>
+                                <?= htmlspecialchars($p['nom_parcours']) ?>
+                                <?php if (!empty($p['id_parcours'])): ?>
+                                    <a href="list_etapes.php?id_parcours=<?= urlencode($p['id_parcours']) ?>" class="button-tab" style="margin-left:10px;">Voir les étapes</a>
+                                <?php else: ?>
+                                    <span style="color: #b00; margin-left:10px;">ID parcours manquant</span>
+                                <?php endif; ?>
+                            </li>
+                        <?php endforeach; ?>
+                    </ul>
+                    <?php if (count($parcoursSansEtape) > 0): ?>
+                        <div class="alert">
+                            <strong>Attention :</strong> Les parcours suivants n'ont aucune étape :
+                            <ul>
+                                <?php foreach ($parcoursSansEtape as $p): ?>
+                                    <li>
+                                        <?= htmlspecialchars($p['nom_parcours']) ?>
+                                        <?php if (!empty($p['id_parcours'])): ?>
+                                            <a href="list_etapes.php?id_parcours=<?= urlencode($p['id_parcours']) ?>" class="button-tab" style="margin-left:10px;">Voir les étapes</a>
+                                        <?php else: ?>
+                                            <span style="color: #b00; margin-left:10px;">ID parcours manquant</span>
+                                        <?php endif; ?>
+                                    </li>
+                                <?php endforeach; ?>
+                            </ul>
+                        </div>
+                    <?php endif; ?>
+
+                    <h3>Dernières étapes créées</h3>
+                    <ul>
+                        <?php foreach ($recentEtapes as $e): ?>
+                            <li>
+                                <?= htmlspecialchars($e['titre_etape']) ?>
+                                <?php if (!empty($e['id_etape'])): ?>
+                                    <a href="list_chapitres.php?id_etape=<?= urlencode($e['id_etape']) ?>" class="button-tab" style="margin-left:10px;">Voir les chapitres</a>
+                                <?php endif; ?>
+                            </li>
+                        <?php endforeach; ?>
+                    </ul>
+
+                    <?php if (count($etapesSansParcours) > 0): ?>
+                        <div class="alert">
+                            <strong>Attention :</strong> Les étapes suivantes n'ont aucun parcours associé :
+                            <ul>
+                                <?php foreach ($etapesSansParcours as $e): ?>
+                                    <li>
+                                        <?= htmlspecialchars($e['titre_etape']) ?>
+                                        <?php if (!empty($e['id_etape'])): ?>
+                                            <a href="list_chapitres.php?id_etape=<?= urlencode($e['id_etape']) ?>" class="button-tab" style="margin-left:10px;">Voir les chapitres</a>
+                                        <?php else: ?>
+                                            <span style="color: #b00; margin-left:10px;">ID étape manquant</span>
+                                        <?php endif; ?>
+                                    </li>
+                                <?php endforeach; ?>
+                            </ul>
+                        </div>
+                    <?php endif; ?>
+                </div>
+
+                <div class="card">
+                    <h2>Statistiques</h2>
+                    <p>Nombre de parcours : <strong><?php echo $parcoursCount; ?></strong></p>
+                    <p>Nombre d'utilisateurs : <strong><?php echo $usersCount; ?></strong></p>
+                    <p>Nombre d'étapes : <strong><?php echo $etapesCount; ?></strong></p>
+                    <p>Nombre de chapitres : <strong><?php echo $chapitresCount; ?></strong></p>
+                    <p>Nombre de personnages : <strong><?php echo $personnagesCount; ?></strong></p>
+                </div>
             </div>
         </div>
     </main>

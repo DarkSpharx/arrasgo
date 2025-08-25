@@ -12,18 +12,23 @@ declare(strict_types=1);
         <a href="logout.php" class="logout-link"><span>🚪</span>Déconnexion</a>
     </nav>
 </header>
-<p class="container" style="background-color: red; color:#fff; width: 100%;">
-    <strong>
-        <br>
-        A faire :
-    </strong>
-    - supprimer les tableaux et garder que des cartes pour afficher les listing
-    <br>
-    - déplacer les boutons des listing dans un conteneur sur le côté comme un panneau latéral ?
-    <br>
-    - corriger en responsive les formulaires de création et d'édition
-    <br>
-    - ajouter la fonction brouillon pour pouvoir mettre en ligne les parcours ou pas
-    <br>
-    - générer un front basqique pour l'examen
-</p>
+
+<!-- <div>
+    <ul class="container" style="background-color: red; color:#fff; margin: auto; width: 100%; border: none; border-radius: 0;">
+        <li>
+            - supprimer les tableaux et garder que des cartes pour afficher les listing
+        </li>
+        <li>
+            - déplacer les boutons des listing dans un conteneur sur le côté comme un panneau latéral ?
+        </li>
+        <li>
+            - corriger en responsive les formulaires de création et d'édition
+        </li>
+        <li>
+            - ajouter la fonction brouillon pour pouvoir mettre en ligne les parcours ou pas
+        </li>
+        <li>
+            - générer un front basqique pour l'examen
+        </li>
+    </ul>
+</div> -->

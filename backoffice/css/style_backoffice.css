@@ -1,5 +1,3 @@
-/* Corps de la page */
-
 body {
   font-family: Arial, sans-serif;
   background-color: #fff;
@@ -9,16 +7,17 @@ body {
   display: flex;
   justify-content: center;
   flex-direction: column;
-  width: 100vw;
+  /* width: 100vw; */
   min-height: 100vh;
   overflow-x: hidden;
 }
 
 main {
+  /* width: 100%; */
   padding: 16px;
   max-width: 1920px;
-  display: flex;
-  justify-content: center;
+  /* display: flex; */
+  /* justify-content: center; */
   margin: auto;
 }
 
@@ -66,10 +65,10 @@ h1 {
 }
 
 h2 {
-  font-size: 28px;
+  font-size: 26px;
   font-weight: 600;
   margin-bottom: 16px;
-  color: #fff;
+  color: #e7d8c9;
   background-color: #1d1d1d;
   padding: 8px;
   text-align: center;
@@ -97,16 +96,18 @@ strong {
 
 /* CSS login */
 .form-container {
-  width: 100%;
+  width: max-content;
+  min-width: 300px;
   border-radius: 8px;
   border: 1px solid #1d1d1d;
   padding: 16px;
+  margin: auto;
   & form {
     margin-top: 16px;
     width: 100%;
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    /* align-items: flex-start; */
     gap: 16px;
     & label {
       font-weight: 600;
@@ -195,7 +196,7 @@ strong {
   font-size: 14px;
   display: inline-block;
   padding: 10px 15px;
-  margin: 16px auto;
+  margin: auto;
   background: #1d1d1d;
   color: #ffffff;
   border: solid 1px #1d1d1d;
@@ -221,7 +222,7 @@ strong {
   border-radius: 5px;
   cursor: pointer;
   transition: border 0.2s;
-  margin: 0 auto;
+  margin: auto;
   text-align: center;
 }
 .button-tab:hover {

@@ -26,29 +26,33 @@ $parcours = get_all_parcours($pdo);
 
 <body>
     <?php include 'header.php'; ?>
+
     <h1 class="h1-sticky">Parcours de ARRAS GO</h1>
+
     <main>
         <div class="cards-container">
             <div class="cards-grid">
                 <div class="card-button">
                     <a href="add_parcours.php" class="button">+ Ajouter un parcours</a>
-                    <a href="dashboard.php" class="button-tab">🔙 Retour au Dashboard </a>
+                    <a href="dashboard.php" class="button-tab">🔙 Retour au Dashboard</a>
                 </div>
+
                 <?php foreach ($parcours as $p): ?>
                     <div class="card">
                         <h2><?= htmlspecialchars($p['nom']); ?></h2>
 
-                        <strong>Illustration du parcours</strong>
+                        <h3>Illustration du parcours</h3>
+
                         <div class="card-img">
                             <?php if (!empty($p['image_parcours'])): ?>
                                 <img src="/data/images/<?= htmlspecialchars($p['image_parcours']) ?>" alt="Image parcours">
                             <?php endif; ?>
                         </div>
 
-                        <strong>Description du parcours</strong>
-                        <div class="card-body">
-                            <p><?= htmlspecialchars($p['description']); ?></p>
-                        </div>
+                        <h3>Description du parcours</h3>
+
+                        <p><?= htmlspecialchars($p['description']); ?></p>
+
                         <div class="card-actions">
                             <a class="button-tab" href="edit_parcours.php?id=<?= $p['id']; ?>">Modifier</a>
                             <a class="button-tab" href="delete_parcours.php?id=<?= $p['id']; ?>" onclick="return confirm('Êtes-vous sûr ?');">Supprimer</a>

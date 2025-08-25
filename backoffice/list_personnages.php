@@ -47,28 +47,39 @@ foreach ($personnages as $perso) {
     <h1 class="h1-sticky">Personnalités de ARRAS GO</h1>
     <main>
         <div class="cards-container">
-            <a href="add_personnage.php" class="button" style="margin-bottom:16px;">Ajouter un personnage</a>
             <div class="cards-grid">
+                <div class="card-button">
+                    <a href="add_personnage.php" class="button">+ Ajouter une personnalité</a>
+                    <a href="dashboard.php" class="button-tab">🔙 Retour au Dashboard </a>
+                </div>
+
                 <?php foreach ($personnages as $p): ?>
                     <div class="card">
-                        <div class="card-header">
-                            <h3>#<?= $p['id_personnage'] ?> - <?= htmlspecialchars($p['nom_personnage']) ?></h3>
-                        </div>
+                        <h2><?= htmlspecialchars($p['nom_personnage']) ?></h2>
+
+                        <strong>Illustration de la personnalité</strong>
+
                         <div class="card-img">
                             <?php if (!empty($p['image_personnage'])): ?>
                                 <img src="../data/images/<?= htmlspecialchars($p['image_personnage']) ?>" alt="Image personnage" class="tab-indice-img" />
                             <?php endif; ?>
                         </div>
-                        <div class="card-body">
-                            <div><strong>Description :</strong> <?= htmlspecialchars($p['description_personnage']) ?></div>
-                            <div><strong>Parcours liés :</strong>
-                                <?php if (!empty($personnages_parcours[$p['id_personnage']])): ?>
-                                    <?= htmlspecialchars(implode(', ', $personnages_parcours[$p['id_personnage']])) ?>
-                                <?php else: ?>
-                                    <em>Aucun</em>
-                                <?php endif; ?>
-                            </div>
+
+                        <strong>Description de la personnalité</strong>
+
+                        <div><?= htmlspecialchars($p['description_personnage']) ?>
                         </div>
+
+                        <strong>Parcours liés</strong>
+
+                        <div>
+                            <?php if (!empty($personnages_parcours[$p['id_personnage']])): ?>
+                                <?= htmlspecialchars(implode(', ', $personnages_parcours[$p['id_personnage']])) ?>
+                            <?php else: ?>
+                                <em>Aucun</em>
+                            <?php endif; ?>
+                        </div>
+
                         <div class="card-actions">
                             <a href="edit_personnage.php?id=<?= $p['id_personnage'] ?>" class="button-tab">Modifier</a>
                             <a href="delete_personnage.php?id=<?= $p['id_personnage'] ?>" class="button-tab delete-parcours" onclick="return confirm('Supprimer ce personnage ?');">Supprimer</a>

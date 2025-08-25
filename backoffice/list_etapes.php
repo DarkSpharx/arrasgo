@@ -16,7 +16,6 @@ $etapes = get_etapes_by_parcours($pdo, $id_parcours);
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/style_backoffice.css">
     <link rel="stylesheet" href="css/header_footer.css">
-    <link rel="stylesheet" href="css/cards.css">
     <link rel="stylesheet" href="css/tab.css">
     <script src="js/admin.js" defer></script>
     <title>Liste des étapes</title>
@@ -24,31 +23,48 @@ $etapes = get_etapes_by_parcours($pdo, $id_parcours);
 
 <body>
     <?php include 'header.php'; ?>
-    <h1 class="h1-sticky">Étapes du parcours</h1>
+
+
+    <?php
+    // Récupérer le nom du parcours pour l'affichage du titre
+    $nom_parcours = '';
+    if ($id_parcours) {
+        $stmt = $pdo->prepare('SELECT nom_parcours FROM parcours WHERE id_parcours = ?');
+        $stmt->execute([$id_parcours]);
+        $nom_parcours = $stmt->fetchColumn();
+    }
+    ?>
+    <h1 class="h1-sticky">Étapes du parcours : "<?= $nom_parcours ? htmlspecialchars($nom_parcours) : '' ?>"</h1>
+
     <main>
         <div class="cards-container">
-            <a href="add_etape.php?id_parcours=<?= $id_parcours; ?>" class="button" style="margin-bottom:16px;">Ajouter une étape</a>
             <div class="cards-grid">
+                <div class="card-button">
+                    <a href="add_etape.php?id_parcours=<?= $id_parcours; ?>" class="button" style="margin-bottom:16px;">Ajouter une étape</a>
+                    <a href="list_parcours.php" class="button-tab">🔙 Retour au Parcours</a>
+                </div>
                 <?php foreach ($etapes as $e): ?>
-                    <div class="etape-card">
+                    <div class="card">
 
-                        <div class="etape-card-header">
-                            <h3>#<?= $e['id_etape'] ?> - <?= htmlspecialchars($e['titre_etape']) ?></h3>
-                            <span class="etape-ordre"><strong>Ordre : </strong><?= $e['ordre_etape'] ?></span>
-                        </div>
+                        <h2>#<?= $e['id_etape'] ?> - <?= htmlspecialchars($e['titre_etape']) ?></h2>
 
-                        <strong>Illustration de l'étape :</strong>
+                        <h3>Numéro d'ordre de l'étape</h3>
+                        <p><?= $e['ordre_etape'] ?></p>
+
+
+                        <h3>Illustration de l'étape</h3>
                         <div class="card-imgs">
                             <?php if (!empty($e['image_header'])): ?>
-                                <img src="/data/images/<?= htmlspecialchars($e['image_header']) ?>" alt="Image header" class="tab-img" />
+                                <img src="/data/images/<?= htmlspecialchars($e['image_header']) ?>" alt="Image header" />
                             <?php else: ?>
                                 <em>Non renseignée</em>
                             <?php endif; ?>
                         </div>
-                        <div>
-                            <strong>Illustration de la question :</strong>
+
+                        <h3>Illustration pour la page question</h3>
+                        <div class="card-imgs">
                             <?php if (!empty($e['image_question'])): ?>
-                                <img src="/data/images/<?= htmlspecialchars($e['image_question']) ?>" alt="Image question" class="tab-img" />
+                                <img src="/data/images/<?= htmlspecialchars($e['image_question']) ?>" alt="Image question" />
                             <?php else: ?>
                                 <em>Non renseignée</em>
                             <?php endif; ?>
