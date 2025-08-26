@@ -20,6 +20,7 @@ $parcours = get_all_parcours($pdo);
     <link rel="stylesheet" href="css/style_backoffice.css">
     <link rel="stylesheet" href="css/header_footer.css">
     <link rel="stylesheet" href="css/tab.css">
+    <link rel="stylesheet" href="css/alertes.css">
     <script src="js/admin.js" defer></script>
     <title>Liste des Parcours</title>
 </head>
@@ -39,7 +40,16 @@ $parcours = get_all_parcours($pdo);
 
                 <?php foreach ($parcours as $p): ?>
                     <div class="card">
+
                         <h2><?= htmlspecialchars($p['nom']); ?></h2>
+                        <div style="font-size:0.95em; margin-bottom:8px;">
+                            Statut :
+                            <?php if (isset($p['statut']) && $p['statut'] == 1): ?>
+                                <span style="color:green;font-weight:bold;">En ligne</span>
+                            <?php else: ?>
+                                <span style="color:#b8860b;font-weight:bold;">Brouillon</span>
+                            <?php endif; ?>
+                        </div>
 
                         <div class="card-actions">
                             <a class="button-tab" href="edit_parcours.php?id=<?= $p['id']; ?>">Modifier</a>

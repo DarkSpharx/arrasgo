@@ -21,6 +21,7 @@ $chapitres = get_chapitres_by_etape($pdo, $id_etape);
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/style_backoffice.css">
+    <link rel="stylesheet" href="css/alertes.css">
     <link rel="stylesheet" href="css/header_footer.css">
     <link rel="stylesheet" href="css/tab.css">
     <script src="js/admin.js" defer></script>
@@ -50,7 +51,7 @@ $chapitres = get_chapitres_by_etape($pdo, $id_etape);
 
                 <?php foreach ($chapitres as $c): ?>
                     <div class="card">
-                        <h2>#<?= $c['id_chapitre'] ?> - <?= htmlspecialchars($c['titre_chapitre']) ?></h2>
+                        <h2><?= htmlspecialchars($c['titre_chapitre']) ?></h2>
 
                         <div class="card-actions">
                             <a href="edit_chapitre.php?id=<?= $c['id_chapitre'] ?>" class="button-tab">Modifier</a>

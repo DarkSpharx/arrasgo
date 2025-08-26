@@ -96,6 +96,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <link rel="stylesheet" href="css/header_footer.css">
     <script src="js/admin.js" defer></script>
     <title>Ajouter une étape</title>
+    <link rel="stylesheet" href="css/alertes.css">
 </head>
 
 <body>
@@ -155,7 +156,25 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                 <div class="form-group-horizontal">
                     <label for="ordre_etape">Ordre :</label>
-                    <input type="number" id="ordre_etape" name="ordre_etape" min="1">
+                    <?php
+                    // Récupérer tous les ordres déjà utilisés pour ce parcours
+                    $ordres_utilises = [];
+                    $stmt = $pdo->prepare("SELECT ordre_etape FROM etapes WHERE id_parcours = ? ORDER BY ordre_etape");
+                    $stmt->execute([$id_parcours]);
+                    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                        $ordres_utilises[] = (int)$row['ordre_etape'];
+                    }
+                    // Calculer le nombre total d'étapes pour le parcours (avant ajout)
+                    $stmt2 = $pdo->prepare("SELECT COUNT(*) FROM etapes WHERE id_parcours = ?");
+                    $stmt2->execute([$id_parcours]);
+                    $nb_etapes = (int)$stmt2->fetchColumn();
+                    $max_ordre = $nb_etapes + 1;
+                    ?>
+                    <select id="ordre_etape" name="ordre_etape" required>
+                        <?php for ($i = 1; $i <= $max_ordre; $i++): ?>
+                            <option value="<?= $i ?>" <?= in_array($i, $ordres_utilises) ? 'disabled' : '' ?>><?= $i ?><?= in_array($i, $ordres_utilises) ? ' (occupé)' : '' ?></option>
+                        <?php endfor; ?>
+                    </select>
                 </div>
 
                 <div class="form-group-horizontal">

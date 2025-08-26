@@ -10,6 +10,7 @@ body {
   /* width: 100vw; */
   min-height: 100vh;
   overflow-x: hidden;
+  scroll-behavior: smooth;
 }
 
 main {
@@ -213,7 +214,7 @@ strong {
 
 audio {
   width: 95%;
-  margin: auto;
+  margin: 0 auto;
 }
 
 .form-img {

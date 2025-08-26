@@ -27,9 +27,9 @@ function get_chapitre($pdo, $id_chapitre) {
 function update_chapitre($pdo, $id_chapitre, $titre, $texte, $ordre, $image) {
     $stmt = $pdo->prepare("UPDATE chapitres SET titre_chapitre = ?, texte_chapitre = ?, ordre_chapitre = ?, image_chapitre = ? WHERE id_chapitre = ?");
     return $stmt->execute([$titre, $texte, $ordre, $image, $id_chapitre]);
+}
 // Supprime un chapitre par son id
 function delete_chapitre($pdo, $id_chapitre) {
     $stmt = $pdo->prepare("DELETE FROM chapitres WHERE id_chapitre = ?");
     return $stmt->execute([$id_chapitre]);
-}
 }

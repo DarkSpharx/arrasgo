@@ -14,7 +14,8 @@ $error = '';
 $success = false;
 
 // Récupère les infos du parcours
-$stmt = $pdo->prepare("SELECT nom_parcours, description_parcours, image_parcours FROM parcours WHERE id_parcours = ?");
+
+$stmt = $pdo->prepare("SELECT nom_parcours, description_parcours, image_parcours, statut FROM parcours WHERE id_parcours = ?");
 $stmt->execute([$id]);
 $parcours = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -23,9 +24,11 @@ if (!$parcours) {
     exit();
 }
 
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $nom_parcours = $_POST['nom_parcours'];
     $description = $_POST['description'];
+    $statut = isset($_POST['statut']) ? intval($_POST['statut']) : 0;
 
     // Gestion de l'image
     $image_parcours = $parcours['image_parcours'];
@@ -38,13 +41,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     if (!empty($nom_parcours) && !empty($description)) {
-        $stmt = $pdo->prepare("UPDATE parcours SET nom_parcours = ?, description_parcours = ?, image_parcours = ? WHERE id_parcours = ?");
-        if ($stmt->execute([$nom_parcours, $description, $image_parcours, $id])) {
+        if (update_parcours($pdo, $id, $nom_parcours, $description, $image_parcours, $statut)) {
             $success = true;
             // Recharge les infos modifiées
             $parcours['nom_parcours'] = $nom_parcours;
             $parcours['description_parcours'] = $description;
             $parcours['image_parcours'] = $image_parcours;
+            $parcours['statut'] = $statut;
         } else {
             $error = "Erreur lors de la modification du parcours.";
         }
@@ -66,6 +69,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <!-- <link rel="stylesheet" href="css/tab.css"> -->
     <script src="js/admin.js" defer></script>
     <title>Modifier un Parcours</title>
+    <link rel="stylesheet" href="css/alertes.css">
 </head>
 
 <body>
@@ -82,21 +86,28 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <?php endif; ?>
 
         <div class="form-container">
-            <form method="POST" enctype="multipart/form-data" action="list_parcours.php">
+            <form method="POST" enctype="multipart/form-data" action="edit_parcours.php?id=<?= $id ?>">
 
                 <a href="list_parcours.php" class="liens">🔙 Retour à la liste des parcours</a>
 
                 <div class="form-group-horizontal">
-                    <label for="nom_parcours">Nom du Parcours:</label>
+                    <label for="nom_parcours">Nom du Parcours</label>
                     <input type="text" id="nom_parcours" name="nom_parcours" value="<?= htmlspecialchars($parcours['nom_parcours']) ?>" required>
+                </div>
+                <div class="form-group-horizontal">
+                    <label for="statut">Statut du parcours</label>
+                    <select id="statut" name="statut">
+                        <option value="0" <?= (isset($parcours['statut']) && $parcours['statut'] == 0) ? 'selected' : '' ?>>Brouillon (hors ligne)</option>
+                        <option value="1" <?= (isset($parcours['statut']) && $parcours['statut'] == 1) ? 'selected' : '' ?>>En ligne</option>
+                    </select>
                 </div>
                 <hr>
                 <div class="form-group-horizontal form-img">
-                    <label for="image_parcours">Image d'illustration du parcours :</label>
+                    <label for="image_parcours">Image d'illustration du parcours</label>
                     <?php if (!empty($parcours['image_parcours'])): ?>
                         <img src="/data/images/<?= htmlspecialchars($parcours['image_parcours']) ?>" alt="Image parcours">
                         <br>
-                        <small>Fichier actuel : <?= htmlspecialchars($parcours['image_parcours']) ?></small>
+                        <small>Fichier actuel <?= htmlspecialchars($parcours['image_parcours']) ?></small>
                     <?php endif; ?>
                     <input type="file" id="image_parcours" name="image_parcours" accept="image/*" style="display:none;">
                     <label for="image_parcours" class="button-form">Choisir un fichier</label>
@@ -104,7 +115,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 </div>
                 <hr>
                 <div class="form-group-horizontal">
-                    <label for="description">Description:</label>
+                    <label for="description">Description</label>
                     <textarea id="description" name="description" required><?= htmlspecialchars($parcours['description_parcours']) ?></textarea>
                 </div>
                 <button class="button" type="submit">Enregistrer</button>

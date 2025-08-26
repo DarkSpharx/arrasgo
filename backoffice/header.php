@@ -13,7 +13,7 @@ declare(strict_types=1);
     </nav>
 </header>
 
-<div>
+<!-- <div>
     <ul class="container" style="background-color: red; color:#fff; margin: auto; width: 100%; border: none; border-radius: 0;">
         <li>
             ✅ Supprimer les tableaux et garder que des cartes pour afficher les listings ✅
@@ -26,8 +26,8 @@ declare(strict_types=1);
             <ul>
                 <li>✅ edit_parcours ✅</li>
                 <li>✅ edit_etape ✅</li>
-                <li>🔴 edit_chapitre 🔴</li>
-                <li>🔴 edit_personnage 🔴</li>
+                <li>✅ edit_chapitre ✅</li>
+                <li>✅ edit_personnage ✅</li>
             </ul>
         </li>
         <li>
@@ -37,4 +37,4 @@ declare(strict_types=1);
             🔴 Générer un front basique pour l'examen 🔴
         </li>
     </ul>
-</div>
+</div> -->

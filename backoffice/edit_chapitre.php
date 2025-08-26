@@ -47,6 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 ?>
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -55,47 +56,88 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <link rel="stylesheet" href="css/header_footer.css">
     <script src="js/admin.js" defer></script>
     <title>Modifier un chapitre</title>
+    <link rel="stylesheet" href="css/alertes.css">
 </head>
+
 <body>
     <?php include 'header.php'; ?>
-    <h1 class="h1-sticky">Modifier le chapitre</h1>
+
+    <h1 class="h1-sticky">Modifier <?= htmlspecialchars($chapitre['titre_chapitre']) ?></h1>
     <main>
+
+        <?php if ($error): ?>
+            <div class="error"><?= htmlspecialchars($error) ?></div>
+        <?php elseif ($success): ?>
+            <div class="success">Chapitre mis à jour avec succès.</div>
+        <?php endif; ?>
+
         <div class="form-container">
-            <?php if ($error): ?>
-                <div class="error"><?= htmlspecialchars($error) ?></div>
-            <?php elseif ($success): ?>
-                <div class="success">Chapitre mis à jour avec succès.</div>
-            <?php endif; ?>
-            <form method="POST" enctype="multipart/form-data" class="formulaire">
-                <div class="form-group">
-                    <label for="titre_chapitre">Titre du chapitre :</label>
+            <form method="POST" enctype="multipart/form-data" class="formulaire" action="edit_chapitre.php?id=<?= $id_chapitre ?>">
+
+                <a href="list_chapitres.php?id_etape=<?= $id_etape ?>" class="liens">🔙 Retour à la liste des chapitres</a>
+
+                <div class="form-group-horizontal">
+                    <label for="titre_chapitre">Titre du chapitre</label>
                     <input type="text" id="titre_chapitre" name="titre_chapitre" value="<?= htmlspecialchars($chapitre['titre_chapitre']) ?>" required>
                 </div>
-                <div class="form-group">
-                    <label for="texte_chapitre">Texte du chapitre :</label>
+                <hr>
+                <div class="form-group-horizontal">
+                    <label for="texte_chapitre">Texte du chapitre</label>
                     <textarea id="texte_chapitre" name="texte_chapitre" required><?= htmlspecialchars($chapitre['texte_chapitre']) ?></textarea>
                 </div>
-                <div class="form-group">
-                    <label for="ordre_chapitre">Ordre :</label>
-                    <input type="number" id="ordre_chapitre" name="ordre_chapitre" value="<?= htmlspecialchars($chapitre['ordre_chapitre']) ?>" min="1">
-                </div>
-                <div class="form-group">
-                    <label for="image_chapitre">Image :</label>
-                    <input type="file" id="image_chapitre" name="image_chapitre" accept="image/*">
+                <hr>
+                <div class="form-group-horizontal form-img">
+                    <label for="image_chapitre">Image d'illustration du chapitre</label>
                     <?php if (!empty($chapitre['image_chapitre'])): ?>
-                        <img src="../data/images/<?= htmlspecialchars($chapitre['image_chapitre']) ?>" alt="Image chapitre" class="tab-indice-img" style="margin-top:8px;">
-                        <div><small>Image actuelle : <?= htmlspecialchars($chapitre['image_chapitre']) ?></small></div>
+                        <img src="../data/images/<?= htmlspecialchars($chapitre['image_chapitre']) ?>" alt="Image chapitre" class="tab-indice-img">
+                        <br>
+                        <small>Fichier actuel <?= htmlspecialchars($chapitre['image_chapitre']) ?></small>
                     <?php endif; ?>
+                    <input type="file" id="image_chapitre" name="image_chapitre" accept="image/*" style="display:none;">
+                    <label for="image_chapitre" class="button-form">Choisir un fichier</label>
+                    <span id="file-chosen">Aucun fichier choisi</span>
                 </div>
-                <button type="submit" class="button button-form">Enregistrer les modifications</button>
+                <hr>
+                <div class="form-group-horizontal">
+                    <label for="ordre_chapitre">Ordre</label>
+                    <?php
+                    // Récupérer tous les ordres déjà utilisés pour cette étape (hors ce chapitre)
+                    $ordres_utilises = [];
+                    $stmt = $pdo->prepare("SELECT ordre_chapitre FROM chapitres WHERE id_etape = ? AND id_chapitre != ? ORDER BY ordre_chapitre");
+                    $stmt->execute([$id_etape, $id_chapitre]);
+                    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                        $ordres_utilises[] = (int)$row['ordre_chapitre'];
+                    }
+                    // Calculer le nombre total de chapitres pour l'étape
+                    $stmt2 = $pdo->prepare("SELECT COUNT(*) FROM chapitres WHERE id_etape = ?");
+                    $stmt2->execute([$id_etape]);
+                    $nb_chapitres = (int)$stmt2->fetchColumn();
+                    // On autorise l'ordre de 1 à nb_chapitres (ou nb_chapitres si nouveau)
+                    $max_ordre = max($nb_chapitres, (int)$chapitre['ordre_chapitre']);
+                    ?>
+                    <select id="ordre_chapitre" name="ordre_chapitre" required>
+                        <?php for ($i = 1; $i <= $max_ordre; $i++): ?>
+                            <option value="<?= $i ?>" <?= ($i == $chapitre['ordre_chapitre']) ? 'selected' : (in_array($i, $ordres_utilises) ? 'disabled' : '') ?>><?= $i ?><?= in_array($i, $ordres_utilises) && $i != $chapitre['ordre_chapitre'] ? ' (occupé)' : '' ?></option>
+                        <?php endfor; ?>
+                    </select>
+                </div>
+
+                <button type="submit" class="button">Enregistrer</button>
             </form>
-            <div class="liens-container">
-                <a href="list_chapitres.php?id_etape=<?= $id_etape ?>" class="liens">Retour à la liste des chapitres</a>
-            </div>
+
         </div>
     </main>
     <footer>
         <p>&copy; <?php echo date("Y"); ?> Arras Go. Tous droits réservés.</p>
     </footer>
+
+    <script>
+        const input = document.getElementById('image_chapitre');
+        const fileChosen = document.getElementById('file-chosen');
+        input.addEventListener('change', function() {
+            fileChosen.textContent = this.files[0] ? this.files[0].name : 'Aucun fichier choisi';
+        });
+    </script>
 </body>
+
 </html>

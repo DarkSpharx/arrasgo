@@ -71,69 +71,95 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <link rel="stylesheet" href="css/header_footer.css">
     <script src="js/admin.js" defer></script>
     <title>Modifier une personnalité</title>
+    <link rel="stylesheet" href="css/alertes.css">
 </head>
 
 <body>
     <?php include 'header.php'; ?>
-    <h1 class="h1-sticky">Modifier la personnalité</h1>
-    <main>
-        <div class="form-container">
-            <?php if ($error): ?>
-                <div class="error"><?= htmlspecialchars($error) ?></div>
-            <?php elseif ($success): ?>
-                <div class="success">Personnage mis à jour avec succès.</div>
-            <?php endif; ?>
+    <h1 class="h1-sticky">Modifier <?= htmlspecialchars($personnage['nom_personnage']) ?></h1>
 
-            <form method="POST" enctype="multipart/form-data">
+    <main>
+        <?php if ($error): ?>
+            <div class="error"><?= htmlspecialchars($error) ?></div>
+        <?php elseif ($success): ?>
+            <div class="success">Personnage mis à jour avec succès.</div>
+        <?php endif; ?>
+        <div class="form-container">
+
+            <form method="POST" enctype="multipart/form-data" action="edit_personnage.php?id=<?= $id_personnage ?>">
                 <a href="list_personnages.php" class="liens">🔙 Retour à la liste des personnalités</a>
 
                 <div class="form-group-horizontal">
-                    <label for="nom_personnage">Nom :</label>
+                    <label for="nom_personnage">Nom</label>
                     <input type="text" id="nom_personnage" name="nom_personnage" value="<?= htmlspecialchars($personnage['nom_personnage']) ?>" required>
                 </div>
-
+                <hr>
                 <div class="form-group-horizontal">
-                    <label for="description_personnage">Description :</label>
+                    <label for="description_personnage">Description</label>
                     <textarea id="description_personnage" name="description_personnage" required><?= htmlspecialchars($personnage['description_personnage']) ?></textarea>
                 </div>
-
-                <div class="form-group-horizontal">
-                    <label for="image_personnage">Image :</label>
-                    <?php if (!empty($personnage['image_personnage'])): ?>
-                        <img src="../data/images/<?= htmlspecialchars($personnage['image_personnage']) ?>" alt="Image personnage" class="tab-indice-img" style="margin-top:8px;max-width:80px;max-height:80px;">
-                        <br>
-                        <small>Image actuelle : <?= htmlspecialchars($personnage['image_personnage']) ?></small>
-                    <?php endif; ?>
+                <hr>
+                <div class="form-group-horizontal form-img">
+                    <label for="image_personnage">Image</label>
+                    <div id="image-preview-container">
+                        <?php if (!empty($personnage['image_personnage'])): ?>
+                            <img id="image-preview" src="../data/images/<?= htmlspecialchars($personnage['image_personnage']) ?>" alt="Image personnage" class="tab-indice-img">
+                            <br>
+                            <small id="current-image-name">Image actuelle <?= htmlspecialchars($personnage['image_personnage']) ?></small>
+                        <?php else: ?>
+                            <img id="image-preview" src="" alt="Aperçu image" class="tab-indice-img" style="display:none;">
+                        <?php endif; ?>
+                    </div>
                     <input type="file" id="image_personnage" name="image_personnage" accept="image/*" style="display:none;">
                     <label for="image_personnage" class="button-form">Choisir un fichier</label>
                     <span id="file-chosen">Aucun fichier choisi</span>
                 </div>
-
-                <div class="form-group-horizontal">
-                    <label>Parcours liés :</label>
-                    <div style="display:flex; flex-wrap:wrap; gap:12px;">
+                <hr>
+                <div class="form-group">
+                    <label>Parcours liés</label>
+                    <small>Sélectionnez un ou plusieurs parcours</small>
+                    <div>
                         <?php foreach ($parcours as $p): ?>
-                            <label style="display:flex;align-items:center;gap:4px;">
+                            <label>
                                 <input type="checkbox" name="parcours[]" value="<?= $p['id_parcours'] ?>" <?= in_array($p['id_parcours'], $parcours_lies) ? 'checked' : '' ?>>
                                 <?= htmlspecialchars($p['nom_parcours']) ?>
                             </label>
                         <?php endforeach; ?>
                     </div>
-                    <small>Sélectionnez un ou plusieurs parcours</small>
+
                 </div>
 
                 <button class="button" type="submit">Enregistrer</button>
             </form>
-            <script>
-                document.getElementById('image_personnage').addEventListener('change', function() {
-                    document.getElementById('file-chosen').textContent = this.files[0]?.name || 'Aucun fichier choisi';
-                });
-            </script>
+
         </div>
     </main>
     <footer>
         <p>&copy; <?php echo date("Y"); ?> Arras Go. Tous droits réservés.</p>
     </footer>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const input = document.getElementById('image_personnage');
+        const fileChosen = document.getElementById('file-chosen');
+        const preview = document.getElementById('image-preview');
+        const currentImageName = document.getElementById('current-image-name');
+        input.addEventListener('change', function() {
+            if (this.files && this.files[0]) {
+                fileChosen.textContent = this.files[0].name;
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                    preview.style.display = 'block';
+                };
+                reader.readAsDataURL(this.files[0]);
+                if (currentImageName) currentImageName.style.display = 'none';
+            } else {
+                fileChosen.textContent = 'Aucun fichier choisi';
+                if (currentImageName) currentImageName.style.display = '';
+            }
+        });
+    });
+    </script>
 </body>
 
 </html>

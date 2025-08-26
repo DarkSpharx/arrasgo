@@ -20,7 +20,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     if (!empty($nom_parcours) && !empty($description)) {
-        $result = add_parcours($pdo, $id_user, $nom_parcours, $description, $image_parcours);
+        // Statut brouillon par défaut (0)
+        $result = add_parcours($pdo, $id_user, $nom_parcours, $description, $image_parcours, 0);
         if ($result) {
             header('Location: list_parcours.php?success=1');
             exit();
@@ -45,6 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <link rel="stylesheet" href="css/header_footer.css">
     <script src="js/admin.js" defer></script>
     <title>Ajouter un Parcours</title>
+    <link rel="stylesheet" href="css/alertes.css">
 </head>
 
 <body>

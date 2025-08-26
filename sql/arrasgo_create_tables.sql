@@ -25,13 +25,13 @@ CREATE TABLE users_admins (
 INSERT INTO users_admins (nom_user, email_user, mot_de_passe_user)
 VALUES ('Admin', 'admin@exemple.com', '$2y$12$6mL8LYyKct1YZEAWmnsF5ew56CVcGGYpd.9bb67vWa7LO9yUopkXe');
 
--- Table des parcours
 CREATE TABLE parcours (
     id_parcours INT AUTO_INCREMENT PRIMARY KEY,
     id_user INT NOT NULL,
     nom_parcours VARCHAR(100) NOT NULL,
     description_parcours TEXT,
     image_parcours VARCHAR(255),
+    statut TINYINT(1) DEFAULT 0, -- 0 = brouillon, 1 = en ligne
     mode_geo_parcours BOOLEAN NOT NULL DEFAULT TRUE,
     FOREIGN KEY (id_user) REFERENCES users_admins(id_user) ON DELETE CASCADE
 );

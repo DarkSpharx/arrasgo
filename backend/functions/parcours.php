@@ -1,10 +1,13 @@
 <?php
-// Fonction pour créer un nouveau parcours
-function createParcours($pdo, $name, $description)
+// Fonction pour créer un nouveau parcours (statut brouillon par défaut)
+function createParcours($pdo, $name, $description, $image = '', $id_user = null, $statut = 0)
 {
-    $stmt = $pdo->prepare("INSERT INTO parcours (name, description) VALUES (:name, :description)");
+    $stmt = $pdo->prepare("INSERT INTO parcours (nom_parcours, description_parcours, image_parcours, id_user, statut) VALUES (:name, :description, :image, :id_user, :statut)");
     $stmt->bindParam(':name', $name);
     $stmt->bindParam(':description', $description);
+    $stmt->bindParam(':image', $image);
+    $stmt->bindParam(':id_user', $id_user);
+    $stmt->bindParam(':statut', $statut, PDO::PARAM_INT);
     return $stmt->execute();
 }
 
@@ -15,13 +18,15 @@ function readParcours($pdo)
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
-// Fonction pour mettre à jour un parcours
-function updateParcours($pdo, $id, $name, $description)
+// Fonction pour mettre à jour un parcours (y compris le statut)
+function updateParcours($pdo, $id, $name, $description, $image = '', $statut = 0)
 {
-    $stmt = $pdo->prepare("UPDATE parcours SET name = :name, description = :description WHERE id = :id");
-    $stmt->bindParam(':id', $id);
+    $stmt = $pdo->prepare("UPDATE parcours SET nom_parcours = :name, description_parcours = :description, image_parcours = :image, statut = :statut WHERE id_parcours = :id");
     $stmt->bindParam(':name', $name);
     $stmt->bindParam(':description', $description);
+    $stmt->bindParam(':image', $image);
+    $stmt->bindParam(':statut', $statut, PDO::PARAM_INT);
+    $stmt->bindParam(':id', $id);
     return $stmt->execute();
 }
 
@@ -45,21 +50,23 @@ function getUsersCount($pdo)
     return $stmt->fetchColumn();
 }
 
-function add_parcours($pdo, $id_user, $nom_parcours, $description, $image_parcours)
+// Ajoute un parcours (statut brouillon par défaut)
+function add_parcours($pdo, $id_user, $nom_parcours, $description, $image_parcours, $statut = 0)
 {
-    $stmt = $pdo->prepare("INSERT INTO parcours (id_user, nom_parcours, description_parcours, image_parcours) VALUES (?, ?, ?, ?)");
-    return $stmt->execute([$id_user, $nom_parcours, $description, $image_parcours]);
+    $stmt = $pdo->prepare("INSERT INTO parcours (id_user, nom_parcours, description_parcours, image_parcours, statut) VALUES (?, ?, ?, ?, ?)");
+    return $stmt->execute([$id_user, $nom_parcours, $description, $image_parcours, $statut]);
 }
 
-function update_parcours($pdo, $id_parcours, $nom_parcours, $description, $image_parcours)
+// Met à jour un parcours (y compris le statut)
+function update_parcours($pdo, $id_parcours, $nom_parcours, $description, $image_parcours, $statut)
 {
-    $stmt = $pdo->prepare("UPDATE parcours SET nom_parcours = ?, description_parcours = ?, image_parcours = ? WHERE id_parcours = ?");
-    return $stmt->execute([$nom_parcours, $description, $image_parcours, $id_parcours]);
+    $stmt = $pdo->prepare("UPDATE parcours SET nom_parcours = ?, description_parcours = ?, image_parcours = ?, statut = ? WHERE id_parcours = ?");
+    return $stmt->execute([$nom_parcours, $description, $image_parcours, $statut, $id_parcours]);
 }
 
 function get_all_parcours($pdo)
 {
-    $stmt = $pdo->query("SELECT id_parcours AS id, nom_parcours AS nom, description_parcours AS description, image_parcours FROM parcours");
+    $stmt = $pdo->query("SELECT id_parcours AS id, nom_parcours AS nom, description_parcours AS description, image_parcours, statut FROM parcours");
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 

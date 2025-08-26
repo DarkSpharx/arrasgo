@@ -52,6 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <link rel="stylesheet" href="css/header_footer.css">
     <script src="js/admin.js" defer></script>
     <title>Ajouter une personnalité</title>
+    <link rel="stylesheet" href="css/alertes.css">
 </head>
 
 <body>

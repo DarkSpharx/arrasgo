@@ -40,6 +40,7 @@ foreach ($personnages as $perso) {
     <link rel="stylesheet" href="css/tab.css">
     <script src="js/admin.js" defer></script>
     <title>Liste des Personnalités</title>
+    <link rel="stylesheet" href="css/alertes.css">
 </head>
 
 <body>

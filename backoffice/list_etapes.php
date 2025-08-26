@@ -17,6 +17,7 @@ $etapes = get_etapes_by_parcours($pdo, $id_parcours);
     <link rel="stylesheet" href="css/style_backoffice.css">
     <link rel="stylesheet" href="css/header_footer.css">
     <link rel="stylesheet" href="css/tab.css">
+    <link rel="stylesheet" href="css/alertes.css">
     <script src="js/admin.js" defer></script>
     <title>Liste des étapes</title>
 </head>
@@ -46,7 +47,7 @@ $etapes = get_etapes_by_parcours($pdo, $id_parcours);
 
                 <?php foreach ($etapes as $e): ?>
                     <div class="card">
-                        <h2>#<?= $e['id_etape'] ?> - <?= htmlspecialchars($e['titre_etape']) ?></h2>
+                        <h2><?= htmlspecialchars($e['titre_etape']) ?></h2>
 
                         <div class="card-actions">
                             <a href="edit_etape.php?id=<?= $e['id_etape'] ?>" class="button-tab">Modifier</a>
@@ -65,6 +66,11 @@ $etapes = get_etapes_by_parcours($pdo, $id_parcours);
                                 <em>Non renseignée</em>
                             <?php endif; ?>
                         </div>
+
+                        <h3>Retranscription audio</h3>
+                        <?php if (!empty($e['mp3_etape'])): ?>
+                            <audio src="/data/mp3/<?= htmlspecialchars($e['mp3_etape']) ?>" controls class="card-audio"></audio>
+                        <?php endif; ?>
 
                         <h3>Illustration pour la page question</h3>
                         <div class="card-img">
@@ -109,10 +115,6 @@ $etapes = get_etapes_by_parcours($pdo, $id_parcours);
                             <?= $e['longitude'] !== null && $e['longitude'] !== '' ? htmlspecialchars($e['longitude']) : '<em>Non renseignée</em>' ?>
                         </p>
 
-                        <h3>Retranscription audio</h3>
-                        <?php if (!empty($e['mp3_etape'])): ?>
-                            <audio src="/data/mp3/<?= htmlspecialchars($e['mp3_etape']) ?>" controls class="card-audio"></audio>
-                        <?php endif; ?>
                     </div>
                 <?php endforeach; ?>
             </div>

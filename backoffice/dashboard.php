@@ -124,6 +124,46 @@ $etapesSansParcours = $pdo->query("SELECT id_etape, titre_etape FROM etapes WHER
                     <p>Nombre de chapitres : <strong><?php echo $chapitresCount; ?></strong></p>
                     <p>Nombre de personnages : <strong><?php echo $personnagesCount; ?></strong></p>
                 </div>
+
+                <?php
+                // Récupération des parcours en ligne et hors ligne
+                $parcoursEnLigne = $pdo->query("SELECT id_parcours, nom_parcours FROM parcours WHERE statut = 1 ORDER BY nom_parcours ASC")->fetchAll(PDO::FETCH_ASSOC);
+                $parcoursHorsLigne = $pdo->query("SELECT id_parcours, nom_parcours FROM parcours WHERE statut = 0 ORDER BY nom_parcours ASC")->fetchAll(PDO::FETCH_ASSOC);
+                ?>
+
+                <div class="card">
+                    <h2>Parcours en ligne</h2>
+                    <?php if (count($parcoursEnLigne) > 0): ?>
+                        <ul>
+                            <?php foreach ($parcoursEnLigne as $p): ?>
+                                <li>
+                                    <?= htmlspecialchars($p['nom_parcours']) ?>
+                                    <a href="edit_parcours.php?id=<?= $p['id_parcours'] ?>" class="button-tab" style="margin-left:10px;">Modifier</a>
+                                    <a href="list_etapes.php?id_parcours=<?= $p['id_parcours'] ?>" class="button-tab" style="margin-left:10px;">Voir les étapes</a>
+                                </li>
+                            <?php endforeach; ?>
+                        </ul>
+                    <?php else: ?>
+                        <p>Aucun parcours en ligne.</p>
+                    <?php endif; ?>
+                </div>
+
+                <div class="card">
+                    <h2>Parcours hors ligne (brouillon)</h2>
+                    <?php if (count($parcoursHorsLigne) > 0): ?>
+                        <ul>
+                            <?php foreach ($parcoursHorsLigne as $p): ?>
+                                <li>
+                                    <?= htmlspecialchars($p['nom_parcours']) ?>
+                                    <a href="edit_parcours.php?id=<?= $p['id_parcours'] ?>" class="button-tab" style="margin-left:10px;">Modifier</a>
+                                    <a href="list_etapes.php?id_parcours=<?= $p['id_parcours'] ?>" class="button-tab" style="margin-left:10px;">Voir les étapes</a>
+                                </li>
+                            <?php endforeach; ?>
+                        </ul>
+                    <?php else: ?>
+                        <p>Aucun parcours hors ligne.</p>
+                    <?php endif; ?>
+                </div>
             </div>
         </div>
     </main>
@@ -134,4 +174,5 @@ $etapesSansParcours = $pdo->query("SELECT id_etape, titre_etape FROM etapes WHER
 
 </body>
 
+    <link rel="stylesheet" href="css/alertes.css">
 </html>

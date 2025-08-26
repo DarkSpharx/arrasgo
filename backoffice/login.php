@@ -59,6 +59,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/style_backoffice.css">
     <title>Connexion Admin</title>
+    <link rel="stylesheet" href="css/alertes.css">
 </head>
 
 <body>
