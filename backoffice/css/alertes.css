@@ -1,4 +1,49 @@
+/* Modales */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.4);
+  padding-top: 60px;
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 5% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
 /* alertes.css : styles pour messages d'erreur et de succès dans le backoffice Arras Go */
+.alert {
+  background: #fff3cd;
+  color: red;
+  border: 1px solid #ffeeba;
+  border-radius: 5px;
+  padding: 8px;
+  margin-bottom: 8px;
+}
 
 .alert-success {
   background: #d4edda;

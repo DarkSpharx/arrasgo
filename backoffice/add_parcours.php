@@ -43,6 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/style_backoffice.css">
+    <link rel="stylesheet" href="css/forms.css">
     <link rel="stylesheet" href="css/header_footer.css">
     <script src="js/admin.js" defer></script>
     <title>Ajouter un Parcours</title>

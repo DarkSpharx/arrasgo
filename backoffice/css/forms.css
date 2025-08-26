@@ -1,0 +1,139 @@
+.form-container {
+  /* width: max-content; */
+  max-width: 700px;
+  min-width: 250px;
+  border-radius: 8px;
+  border: 1px solid #1d1d1d;
+  padding: 16px;
+  margin: auto;
+  background-color: #e7d8c9;
+  box-shadow: 8px 8px 8px rgba(0, 0, 0, 0.1);
+
+  & form {
+    margin-top: 16px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    /* align-items: flex-start; */
+    gap: 16px;
+    & hr {
+      border: none;
+      border-top: 1px solid #1d1d1d;
+    }
+    & label {
+      font-weight: 600;
+      margin: 8px;
+      color: #1d1d1d;
+      display: block;
+      text-align: start;
+    }
+    & .form-group {
+      /* width: 100%; */
+      display: flex;
+      flex-direction: column;
+      gap: 0px;
+      & label {
+        font-weight: 600;
+        margin: 8px;
+        color: #1d1d1d;
+        display: block;
+        width: fit-content;
+      }
+      & span {
+        margin: 8px;
+        color: #1d1d1d;
+        display: block;
+        width: fit-content;
+      }
+      & textarea {
+        width: 100%;
+        min-height: 80px;
+        padding: 10px 15px;
+        border: 1px solid #1d1d1d;
+        border-radius: 5px;
+        font-size: 1em;
+        background: transparent;
+        transition: border 0.2s;
+        resize: vertical;
+      }
+      & input {
+        padding: 10px 15px;
+        border: 1px solid #1d1d1d;
+        border-radius: 5px;
+        font-size: 1em;
+        background: #fff;
+        transition: border 0.2s;
+      }
+      & input:focus {
+        background-color: #fff !important;
+        background: #fff !important;
+      }
+    }
+    & .form-group-horizontal {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      gap: 8px;
+      width: 100%;
+      min-width: 250px;
+      max-width: 1000px;
+      flex-wrap: wrap;
+
+      & label {
+        flex: 0 0 auto;
+        font-weight: 600;
+        color: #1d1d1d;
+        white-space: wrap;
+      }
+
+      & textarea,
+      & input {
+        flex: 1;
+        min-width: 0;
+        padding: 10px 15px;
+        border: 1px solid #1d1d1d;
+        border-radius: 5px;
+        font-size: 1em;
+        background: #fff;
+        transition: border 0.2s;
+      }
+
+      & input:focus {
+        background-color: #fff !important;
+        background: #fff !important;
+      }
+
+      & textarea {
+        min-height: 80px;
+        resize: vertical;
+      }
+    }
+  }
+}
+
+audio {
+  width: 95%;
+  margin: 0 auto;
+}
+
+.form-img {
+  text-align: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  img {
+    width: 66%;
+    max-width: 200px;
+    margin: auto;
+    border-radius: 5px;
+    border: #1d1d1d 1px solid;
+  }
+}
+
+small {
+  flex-wrap: wrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  /* white-space: nowrap; */
+  max-width: 100%;
+}

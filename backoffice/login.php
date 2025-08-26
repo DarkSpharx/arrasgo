@@ -58,6 +58,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/style_backoffice.css">
+    <link rel="stylesheet" href="css/forms.css">
     <title>Connexion Admin</title>
     <link rel="stylesheet" href="css/alertes.css">
 </head>
