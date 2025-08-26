@@ -23,7 +23,7 @@ $chapitres = get_chapitres_by_etape($pdo, $id_etape);
     <link rel="stylesheet" href="css/style_backoffice.css">
     <link rel="stylesheet" href="css/alertes.css">
     <link rel="stylesheet" href="css/header_footer.css">
-    <link rel="stylesheet" href="css/tab.css">
+    <link rel="stylesheet" href="css/cards.css">
     <script src="js/admin.js" defer></script>
     <title>Liste des chapitres</title>
 </head>

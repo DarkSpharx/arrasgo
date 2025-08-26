@@ -16,7 +16,7 @@ $etapes = get_etapes_by_parcours($pdo, $id_parcours);
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/style_backoffice.css">
     <link rel="stylesheet" href="css/header_footer.css">
-    <link rel="stylesheet" href="css/tab.css">
+    <link rel="stylesheet" href="css/cards.css">
     <link rel="stylesheet" href="css/alertes.css">
     <script src="js/admin.js" defer></script>
     <title>Liste des étapes</title>

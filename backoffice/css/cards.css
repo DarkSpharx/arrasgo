@@ -1,3 +1,5 @@
+/* cards.css : anciennement tab.css, styles pour les grilles et cartes du backoffice Arras Go */
+
 .cards-container {
   display: flex;
   flex-direction: column;

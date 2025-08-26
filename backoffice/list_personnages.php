@@ -37,7 +37,7 @@ foreach ($personnages as $perso) {
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/style_backoffice.css">
     <link rel="stylesheet" href="css/header_footer.css">
-    <link rel="stylesheet" href="css/tab.css">
+    <link rel="stylesheet" href="css/cards.css">
     <script src="js/admin.js" defer></script>
     <title>Liste des Personnalités</title>
     <link rel="stylesheet" href="css/alertes.css">
