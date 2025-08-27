@@ -72,7 +72,7 @@ h1 {
 h2 {
   font-size: 26px;
   font-weight: 600;
-  margin-bottom: 16px;
+  /* margin-bottom: 16px; */
   color: #fff;
   background-color: #1d1d1d;
   padding: 8px;
@@ -82,14 +82,14 @@ h2 {
 h3 {
   font-size: 16px;
   font-weight: 700;
-  margin-bottom: 8px;
+  /* margin-bottom: 8px; */
   color: #1d1d1d;
 }
 
 p,
 li {
   color: #1d1d1d;
-  margin-bottom: 8px;
+  /* margin-bottom: 8px; */
   background-color: #fff;
   padding: 8px;
   width: fit-content;
@@ -113,6 +113,7 @@ strong {
   border-radius: 5px;
   cursor: pointer;
   transition: border 0.2s;
+  font-weight: bold;
 }
 .button:hover {
   background: transparent;
@@ -133,11 +134,54 @@ strong {
   border-radius: 5px;
   cursor: pointer;
   transition: border 0.2s;
+  font-weight: bold;
 }
 .button-bis:hover {
   background: #1d1d1d;
   border: solid 1px #1d1d1d;
   color: #e7d8c9;
+}
+
+.button-card {
+  width: fit-content;
+  height: fit-content;
+  font-size: 12px;
+  display: inline-block;
+  padding: 4px 10px;
+  background: #1d1d1d;
+  color: #ffffff;
+  border: solid 1px #1d1d1d;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: border 0.2s;
+  margin: auto 5px;
+  text-align: center;
+}
+.button-card:hover {
+  background: transparent;
+  border: solid 1px #1d1d1d;
+  color: #1d1d1d;
+}
+
+.button-card-bis {
+  width: fit-content;
+  height: fit-content;
+  font-size: 12px;
+  display: inline-block;
+  padding: 4px 10px;
+  background: transparent;
+  color: #1d1d1d;
+  border: solid 1px #1d1d1d;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: border 0.2s;
+  margin: auto 5px;
+  text-align: center;
+}
+.button-card-bis:hover {
+  background: #1d1d1d;
+  border: solid 1px #1d1d1d;
+  color: #fff;
 }
 
 .button-tab {
@@ -197,8 +241,10 @@ strong {
   text-decoration: underline;
 }
 
-div ul {
-  margin: 8px;
+ul {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
 @media (max-width: 1024px) {

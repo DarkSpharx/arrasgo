@@ -42,14 +42,6 @@ $parcours = get_all_parcours($pdo);
                     <div class="card">
 
                         <h2><?= htmlspecialchars($p['nom']); ?></h2>
-                        <div style="font-size:0.95em; margin-bottom:8px;">
-                            Statut :
-                            <?php if (isset($p['statut']) && $p['statut'] == 1): ?>
-                                <span style="color:green;font-weight:bold;">En ligne</span>
-                            <?php else: ?>
-                                <span style="color:#b8860b;font-weight:bold;">Brouillon</span>
-                            <?php endif; ?>
-                        </div>
 
                         <div class="card-actions">
                             <a class="button-tab" href="edit_parcours.php?id=<?= $p['id']; ?>">Modifier</a>
@@ -57,8 +49,16 @@ $parcours = get_all_parcours($pdo);
                             <a class="button-tab" href="list_etapes.php?id_parcours=<?= $p['id']; ?>">Voir les étapes</a>
                         </div>
 
-                        <h3>Illustration du parcours</h3>
+                        <h3>Statut</h3>
+                        <p>
+                            <?php if (isset($p['statut']) && $p['statut'] == 1): ?>
+                                <span style="color:green;font-weight:bold;">En ligne</span>
+                            <?php else: ?>
+                                <span style="color:red;font-weight:bold;">Brouillon</span>
+                            <?php endif; ?>
+                        </p>
 
+                        <h3>Illustration du parcours</h3>
                         <div class="card-img">
                             <?php if (!empty($p['image_parcours'])): ?>
                                 <img src="/data/images/<?= htmlspecialchars($p['image_parcours']) ?>" alt="Image parcours">
@@ -66,7 +66,6 @@ $parcours = get_all_parcours($pdo);
                         </div>
 
                         <h3>Description du parcours</h3>
-
                         <p><?= htmlspecialchars($p['description']); ?></p>
 
                     </div>

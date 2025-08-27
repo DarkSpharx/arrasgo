@@ -14,15 +14,17 @@ $etapesCount = getEtapesCount($pdo);
 $chapitresCount = getChapitresCount($pdo);
 $personnagesCount = getPersonnagesCount($pdo);
 
-// Récupération des 5 derniers parcours et étapes
-$recentParcours = $pdo->query("SELECT parcours.id_parcours, nom_parcours, date_creation_user FROM parcours JOIN users_admins ON parcours.id_user = users_admins.id_user ORDER BY parcours.id_parcours DESC LIMIT 5")->fetchAll(PDO::FETCH_ASSOC);
-$recentEtapes = $pdo->query("SELECT titre_etape, id_etape FROM etapes ORDER BY id_etape DESC LIMIT 5")->fetchAll(PDO::FETCH_ASSOC);
+// Récupération de la liste des personnages pour l'affichage
+$personnages = $pdo->query("SELECT id_personnage, nom_personnage FROM personnages ORDER BY id_personnage DESC")->fetchAll(PDO::FETCH_ASSOC);
 
-// On récupère aussi l'id du parcours pour générer le lien correctement
-$parcoursSansEtape = $pdo->query("SELECT id_parcours, nom_parcours FROM parcours WHERE id_parcours NOT IN (SELECT DISTINCT id_parcours FROM etapes)")->fetchAll(PDO::FETCH_ASSOC);
 
-// Récupérer les étapes sans parcours (cas rare, mais demandé)
-$etapesSansParcours = $pdo->query("SELECT id_etape, titre_etape FROM etapes WHERE id_parcours IS NULL OR id_parcours = ''")->fetchAll(PDO::FETCH_ASSOC);
+// Récupération des parcours en ligne et hors ligne
+$parcoursEnLigne = $pdo->query("SELECT id_parcours, nom_parcours FROM parcours WHERE statut = 1 ORDER BY nom_parcours ASC")->fetchAll(PDO::FETCH_ASSOC);
+$parcoursHorsLigne = $pdo->query("SELECT id_parcours, nom_parcours FROM parcours WHERE statut = 0 ORDER BY nom_parcours ASC")->fetchAll(PDO::FETCH_ASSOC);
+
+// Comptage des parcours en ligne et hors ligne
+$parcoursEnLigneCount = count($parcoursEnLigne);
+$parcoursHorsLigneCount = count($parcoursHorsLigne);
 ?>
 
 <!DOCTYPE html>
@@ -54,116 +56,169 @@ $etapesSansParcours = $pdo->query("SELECT id_etape, titre_etape FROM etapes WHER
                 </div>
 
                 <div class="card">
-                    <h2>Informations de gestion</h2>
-                    <h3>Derniers parcours ajoutés</h3>
-                    <ul>
-                        <?php foreach ($recentParcours as $p): ?>
-                            <li>
-                                <?= htmlspecialchars($p['nom_parcours']) ?>
-                                <?php if (!empty($p['id_parcours'])): ?>
-                                    <a href="list_etapes.php?id_parcours=<?= urlencode($p['id_parcours']) ?>" class="button-tab" style="margin-left:10px;">Voir les étapes</a>
-                                <?php else: ?>
-                                    <span style="color: #b00; margin-left:10px;">ID parcours manquant</span>
-                                <?php endif; ?>
-                            </li>
-                        <?php endforeach; ?>
-                    </ul>
-                    <?php if (count($parcoursSansEtape) > 0): ?>
-                        <div class="alert">
-                            <strong>Attention :</strong> Les parcours suivants n'ont aucune étape :
-                            <ul>
-                                <?php foreach ($parcoursSansEtape as $p): ?>
-                                    <li>
-                                        <?= htmlspecialchars($p['nom_parcours']) ?>
-                                        <?php if (!empty($p['id_parcours'])): ?>
-                                            <a href="list_etapes.php?id_parcours=<?= urlencode($p['id_parcours']) ?>" class="button-tab" style="margin-left:10px;">Voir les étapes</a>
-                                        <?php else: ?>
-                                            <span style="color: #b00; margin-left:10px;">ID parcours manquant</span>
-                                        <?php endif; ?>
-                                    </li>
-                                <?php endforeach; ?>
-                            </ul>
-                        </div>
-                    <?php endif; ?>
+                    <h2>Parcours</h2>
 
-                    <h3>Dernières étapes créées</h3>
+                    <a href="list_parcours.php" class="button-bis">Voir tous les parcours</a>
+
                     <ul>
-                        <?php foreach ($recentEtapes as $e): ?>
-                            <li>
-                                <?= htmlspecialchars($e['titre_etape']) ?>
-                                <?php if (!empty($e['id_etape'])): ?>
-                                    <a href="list_chapitres.php?id_etape=<?= urlencode($e['id_etape']) ?>" class="button-tab" style="margin-left:10px;">Voir les chapitres</a>
-                                <?php endif; ?>
-                            </li>
-                        <?php endforeach; ?>
+                        <li>Nombre de parcours : <strong><?php echo $parcoursCount; ?></strong></li>
+                        <li>Nombre de parcours en ligne : <strong><?php echo $parcoursEnLigneCount; ?></strong></li>
+                        <li>Nombre de parcours hors ligne : <strong><?php echo $parcoursHorsLigneCount; ?></strong></li>
                     </ul>
 
-                    <?php if (count($etapesSansParcours) > 0): ?>
-                        <div class="alert">
-                            <strong>Attention :</strong> Les étapes suivantes n'ont aucun parcours associé :
-                            <ul>
-                                <?php foreach ($etapesSansParcours as $e): ?>
-                                    <li>
-                                        <?= htmlspecialchars($e['titre_etape']) ?>
-                                        <?php if (!empty($e['id_etape'])): ?>
-                                            <a href="list_chapitres.php?id_etape=<?= urlencode($e['id_etape']) ?>" class="button-tab" style="margin-left:10px;">Voir les chapitres</a>
-                                        <?php else: ?>
-                                            <span style="color: #b00; margin-left:10px;">ID étape manquant</span>
-                                        <?php endif; ?>
-                                    </li>
-                                <?php endforeach; ?>
-                            </ul>
-                        </div>
-                    <?php endif; ?>
-                </div>
-
-                <div class="card">
-                    <h2>Statistiques</h2>
-                    <p>Nombre de parcours : <strong><?php echo $parcoursCount; ?></strong></p>
-                    <p>Nombre d'utilisateurs : <strong><?php echo $usersCount; ?></strong></p>
-                    <p>Nombre d'étapes : <strong><?php echo $etapesCount; ?></strong></p>
-                    <p>Nombre de chapitres : <strong><?php echo $chapitresCount; ?></strong></p>
-                    <p>Nombre de personnages : <strong><?php echo $personnagesCount; ?></strong></p>
-                </div>
-
-                <?php
-                // Récupération des parcours en ligne et hors ligne
-                $parcoursEnLigne = $pdo->query("SELECT id_parcours, nom_parcours FROM parcours WHERE statut = 1 ORDER BY nom_parcours ASC")->fetchAll(PDO::FETCH_ASSOC);
-                $parcoursHorsLigne = $pdo->query("SELECT id_parcours, nom_parcours FROM parcours WHERE statut = 0 ORDER BY nom_parcours ASC")->fetchAll(PDO::FETCH_ASSOC);
-                ?>
-
-                <div class="card">
-                    <h2>Parcours en ligne</h2>
+                    <h3>En ligne</h3>
                     <?php if (count($parcoursEnLigne) > 0): ?>
                         <ul>
                             <?php foreach ($parcoursEnLigne as $p): ?>
                                 <li>
                                     <?= htmlspecialchars($p['nom_parcours']) ?>
-                                    <a href="edit_parcours.php?id=<?= $p['id_parcours'] ?>" class="button-tab" style="margin-left:10px;">Modifier</a>
-                                    <a href="list_etapes.php?id_parcours=<?= $p['id_parcours'] ?>" class="button-tab" style="margin-left:10px;">Voir les étapes</a>
+                                    <a href="edit_parcours.php?id=<?= urlencode($p['id_parcours']) ?>" class="button-card">Modifier</a>
+                                    <a href="list_etapes.php?id_parcours=<?= urlencode($p['id_parcours']) ?>" class="button-card-bis">Voir les étapes</a>
+                                    <?php
+                                    // Récupérer les étapes du parcours en ligne courant
+                                    $stmtEtapes = $pdo->prepare("SELECT id_etape, titre_etape FROM etapes WHERE id_parcours = ? ORDER BY id_etape ASC");
+                                    $stmtEtapes->execute([$p['id_parcours']]);
+                                    $etapes = $stmtEtapes->fetchAll(PDO::FETCH_ASSOC);
+                                    ?>
+
+                                    <?php if (count($etapes) > 0): ?>
+                                        <ul class="etapes-list">
+                                            <?php foreach ($etapes as $etape): ?>
+                                                <li>
+                                                    <?= htmlspecialchars($etape['titre_etape']) ?>
+                                                    <?php
+                                                    $stmtChapitres = $pdo->prepare("SELECT titre_chapitre FROM chapitres WHERE id_etape = ? ORDER BY id_chapitre ASC");
+                                                    $stmtChapitres->execute([$etape['id_etape']]);
+                                                    $chapitres = $stmtChapitres->fetchAll(PDO::FETCH_ASSOC);
+                                                    ?>
+                                                    <ul class="chapitres-list">
+                                                        <?php if (count($chapitres) > 0): ?>
+                                                            <?php foreach ($chapitres as $chapitre): ?>
+                                                                <li>
+                                                                    <?php
+                                                                    $titre = isset($chapitre['titre_chapitre']) ? trim($chapitre['titre_chapitre']) : '';
+                                                                    echo $titre !== '' ? htmlspecialchars($titre) : '<span style="color: #888; font-size: 14px; font-style: italic;">Ce chapitre n\'a pas de titre</span>';
+                                                                    ?>
+                                                                </li>
+                                                            <?php endforeach; ?>
+                                                        <?php else: ?>
+                                                            <li><span style="color: #888; font-size: 14px; font-style: italic;">Aucun chapitre</span></li>
+                                                        <?php endif; ?>
+                                                    </ul>
+                                                </li>
+                                            <?php endforeach; ?>
+                                        </ul>
+                                    <?php else: ?>
+                                        <ul class="etapes-list">
+                                            <li><span style="color: #888; font-size: 14px; font-style: italic;">Aucune étape</span></li>
+                                        </ul>
+                                    <?php endif; ?>
                                 </li>
                             <?php endforeach; ?>
                         </ul>
                     <?php else: ?>
                         <p>Aucun parcours en ligne.</p>
                     <?php endif; ?>
-                </div>
 
-                <div class="card">
-                    <h2>Parcours hors ligne (brouillon)</h2>
+                    <h3>Hors ligne (brouillon)</h3>
                     <?php if (count($parcoursHorsLigne) > 0): ?>
                         <ul>
                             <?php foreach ($parcoursHorsLigne as $p): ?>
                                 <li>
                                     <?= htmlspecialchars($p['nom_parcours']) ?>
-                                    <a href="edit_parcours.php?id=<?= $p['id_parcours'] ?>" class="button-tab" style="margin-left:10px;">Modifier</a>
-                                    <a href="list_etapes.php?id_parcours=<?= $p['id_parcours'] ?>" class="button-tab" style="margin-left:10px;">Voir les étapes</a>
+                                    <a href="edit_parcours.php?id=<?= urlencode($p['id_parcours']) ?>" class="button-card">Modifier</a>
+                                    <a href="list_etapes.php?id_parcours=<?= urlencode($p['id_parcours']) ?>" class="button-card-bis">Voir les étapes</a>
+                                    <?php
+                                    // Récupérer les étapes du parcours hors ligne courant
+                                    $stmtEtapes = $pdo->prepare("SELECT id_etape, titre_etape FROM etapes WHERE id_parcours = ? ORDER BY id_etape ASC");
+                                    $stmtEtapes->execute([$p['id_parcours']]);
+                                    $etapes = $stmtEtapes->fetchAll(PDO::FETCH_ASSOC);
+                                    ?>
+                                    <?php if (count($etapes) > 0): ?>
+                                        <ul class="etapes-list">
+                                            <?php foreach ($etapes as $etape): ?>
+                                                <li>
+                                                    <?= htmlspecialchars($etape['titre_etape']) ?>
+                                                    <?php
+                                                    // Récupérer les chapitres de cette étape
+                                                    $stmtChapitres = $pdo->prepare("SELECT titre_chapitre FROM chapitres WHERE id_etape = ? ORDER BY id_chapitre ASC");
+                                                    $stmtChapitres->execute([$etape['id_etape']]);
+                                                    $chapitres = $stmtChapitres->fetchAll(PDO::FETCH_ASSOC);
+                                                    ?>
+                                                    <ul class="chapitres-list">
+                                                        <?php if (count($chapitres) > 0): ?>
+                                                            <?php foreach ($chapitres as $chapitre): ?>
+                                                                <li>
+                                                                    <?php
+                                                                    $titre = isset($chapitre['titre_chapitre']) ? trim($chapitre['titre_chapitre']) : '';
+                                                                    echo $titre !== '' ? htmlspecialchars($titre) : '<span style="color: #888; font-size: 14px; font-style: italic;">Ce chapitre n\'a pas de titre</span>';
+                                                                    ?>
+                                                                </li>
+                                                            <?php endforeach; ?>
+                                                        <?php else: ?>
+                                                            <li><span style="color: #888; font-size: 14px; font-style: italic;">Aucun chapitre</span></li>
+                                                        <?php endif; ?>
+                                                    </ul>
+                                                </li>
+                                            <?php endforeach; ?>
+                                        </ul>
+                                    <?php else: ?>
+                                        <ul class="etapes-list">
+                                            <li><span style="color: #888; font-size: 14px; font-style: italic;">Aucune étape</span></li>
+                                        </ul>
+                                    <?php endif; ?>
                                 </li>
                             <?php endforeach; ?>
                         </ul>
                     <?php else: ?>
                         <p>Aucun parcours hors ligne.</p>
                     <?php endif; ?>
+                </div>
+
+                <div class="card">
+                    <h2>Personnalités</h2>
+
+                    <a href="list_personnages.php" class="button-bis">Voir tous les Personnalités</a>
+
+                    <ul>
+                        <li>Nombre de personnalités : <strong><?php echo $personnagesCount; ?></strong></li>
+                    </ul>
+
+                    <h3>Liste des Personnalités</h3>
+                    <ul>
+                        <?php if (count($personnages) > 0): ?>
+                            <?php foreach ($personnages as $p): ?>
+                                <li>
+                                    <?= htmlspecialchars($p['nom_personnage']) ?>
+                                    <a href="edit_personnage.php?id=<?= urlencode($p['id_personnage']) ?>" class="button-card">Modifier</a>
+                                    <?php
+                                    // Récupérer les parcours liés à ce personnage
+                                    $stmt = $pdo->prepare("SELECT parcours.id_parcours, parcours.nom_parcours 
+                                        FROM parcours 
+                                        JOIN parcours_personnages ON parcours.id_parcours = parcours_personnages.id_parcours 
+                                        WHERE parcours_personnages.id_personnage = ?");
+                                    $stmt->execute([$p['id_personnage']]);
+                                    $parcoursLies = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                                    ?>
+
+                                    <?php if (count($parcoursLies) > 0): ?>
+                                        <ul class="parcours-lies">
+                                            <?php foreach ($parcoursLies as $parcours): ?>
+                                                <li>
+                                                    <?= htmlspecialchars($parcours['nom_parcours']) ?>
+                                                </li>
+                                            <?php endforeach; ?>
+                                        </ul>
+                                    <?php else: ?>
+                                        <span style="color: #888; font-size: 14px; font-style: italic;">Aucun parcours lié</span>
+                                    <?php endif; ?>
+
+                                </li>
+                            <?php endforeach; ?>
+                        <?php else: ?>
+                            <p>Aucun personnage trouvé.</p>
+                        <?php endif; ?>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -175,6 +230,5 @@ $etapesSansParcours = $pdo->query("SELECT id_etape, titre_etape FROM etapes WHER
 
 </body>
 
-<link rel="stylesheet" href="css/alertes.css">
 
 </html>

@@ -67,10 +67,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <link rel="stylesheet" href="css/style_backoffice.css">
     <link rel="stylesheet" href="css/forms.css">
     <link rel="stylesheet" href="css/header_footer.css">
-    <!-- <link rel="stylesheet" href="css/tab.css"> -->
+    <link rel="stylesheet" href="css/alertes.css">
     <script src="js/admin.js" defer></script>
     <title>Modifier un Parcours</title>
-    <link rel="stylesheet" href="css/alertes.css">
 </head>
 
 <body>
@@ -95,6 +94,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <label for="nom_parcours">Nom du Parcours</label>
                     <input type="text" id="nom_parcours" name="nom_parcours" value="<?= htmlspecialchars($parcours['nom_parcours']) ?>" required>
                 </div>
+                <hr>
                 <div class="form-group-horizontal">
                     <label for="statut">Statut du parcours</label>
                     <select id="statut" name="statut">

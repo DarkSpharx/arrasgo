@@ -1,5 +1,3 @@
-/* cards.css : anciennement tab.css, styles pour les grilles et cartes du backoffice Arras Go */
-
 .cards-container {
   display: flex;
   flex-direction: column;
@@ -9,7 +7,7 @@
 .cards-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 36px;
+  gap: 32px;
   margin: 0;
 }
 @media (max-width: 1024px) {
@@ -27,7 +25,7 @@
   background-color: transparent;
   border-radius: 8px;
   border: 1px solid #1d1d1d;
-  padding: 16px;
+  padding: 32px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -39,7 +37,7 @@
 .card {
   border-radius: 8px;
   border: 1px solid #1d1d1d;
-  padding: 16px;
+  padding: 32px;
   display: flex;
   flex-direction: column;
   background-color: #e7d8c9;

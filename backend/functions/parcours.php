@@ -64,9 +64,19 @@ function update_parcours($pdo, $id_parcours, $nom_parcours, $description, $image
     return $stmt->execute([$nom_parcours, $description, $image_parcours, $statut, $id_parcours]);
 }
 
-function get_all_parcours($pdo)
+// Retourne tous les parcours (en ligne et hors ligne) pour le backoffice
+
+// Pour le backoffice : retourne tous les parcours
+function get_all_parcours_backoffice($pdo)
 {
     $stmt = $pdo->query("SELECT id_parcours AS id, nom_parcours AS nom, description_parcours AS description, image_parcours, statut FROM parcours");
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+// Pour le frontend : retourne uniquement les parcours en ligne
+function get_all_parcours($pdo)
+{
+    $stmt = $pdo->query("SELECT id_parcours AS id, nom_parcours AS nom, description_parcours AS description, image_parcours, statut FROM parcours WHERE statut = 1");
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
