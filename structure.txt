@@ -46,3 +46,75 @@
 ├── .env                             # Variables d’environnement (ex. DB_USER, DB_PASS)
 ├── .gitignore                       # Pour Git : ignore les fichiers sensibles (ex: /data/)
 └── README.md                        # Documentation du projet, installation, objectifs
+├── /frontend/                      # Partie publique accessible aux joueurs
+│   ├── index.php                   # Page d’accueil du site
+│   ├── list_parcours.php           # Liste des parcours disponibles
+│   ├── etape.php                   # Page d'étape d'un parcours
+│   ├── css/
+│   │   └── style.css               # Styles généraux du site public
+│   └── js/
+│       └── script.js               # JS pour interactions (cartes, chronos, questions…)
+│   └── media/                      # (optionnel) médias frontend
+
+├── /backend/                       # Scripts PHP connectés à la BDD
+│   ├── config/
+│   │   └── database.php            # Connexion PDO à MariaDB
+│   ├── functions/
+│   │   ├── parcours.php            # Fonctions parcours
+│   │   ├── etapes.php              # Fonctions étapes
+│   │   ├── chapitres.php           # Fonctions chapitres
+│   │   ├── personnages.php         # Fonctions personnages
+│   │   └── etapes_sans_chapitre.php
+│   ├── api/
+│   │   ├── get_parcours.php        # API parcours
+│   │   └── get_etapes.php          # API étapes
+│   └── security/
+│       └── check_auth.php          # Sécurité et authentification
+
+├── /backoffice/                    # Interface d'administration
+│   ├── dashboard.php               # Page principale du back-office
+│   ├── add_parcours.php            # Formulaire d’ajout de parcours
+│   ├── add_etape.php               # Formulaire d’ajout d’étape
+│   ├── add_chapitre.php            # Formulaire d’ajout de chapitre
+│   ├── add_personnage.php          # Formulaire d’ajout de personnage
+│   ├── edit_parcours.php           # Édition d’un parcours
+│   ├── edit_etape.php              # Édition d’une étape
+│   ├── edit_chapitre.php           # Édition d’un chapitre
+│   ├── edit_personnage.php         # Édition d’un personnage
+│   ├── delete_parcours.php         # Suppression d’un parcours
+│   ├── delete_etape.php            # Suppression d’une étape
+│   ├── delete_chapitre.php         # Suppression d’un chapitre
+│   ├── delete_personnage.php       # Suppression d’un personnage
+│   ├── list_parcours.php           # Liste et gestion des parcours
+│   ├── list_etapes.php             # Liste et gestion des étapes
+│   ├── list_chapitres.php          # Liste et gestion des chapitres
+│   ├── list_personnages.php        # Liste et gestion des personnages
+│   ├── login.php                   # Connexion admin
+│   ├── logout.php                  # Déconnexion admin
+│   ├── header.php                  # En-tête du backoffice
+│   ├── css/
+│   │   ├── style_backoffice.css    # Styles propres au back-office
+│   │   ├── header_footer.css       # Styles header/footer
+│   │   ├── cards.css               # Styles cartes
+│   │   ├── alertes.css             # Styles alertes/modales
+│   │   ├── forms.css               # Styles formulaires
+│   │   └── reset.css               # Reset CSS
+│   ├── js/
+│   │   └── admin.js                # JS backoffice (modales, confirmations, etc.)
+│   └── assets/
+│       └── icons/                  # Icônes, images spécifiques au back-office
+
+├── /data/                          # Données uploadées et médias
+│   ├── uploads/                    # (peut être vide ou ignoré)
+│   ├── images/                     # Images des parcours, étapes, etc.
+│   └── mp3/                        # Fichiers audio
+
+├── /sql/                           # Fichiers SQL et données d’exemple
+│   ├── arrasgo_create_tables.sql    # Script de création de la BDD
+│   └── parcours01.txt              # Exemple de parcours
+
+├── .env                            # Variables d’environnement (non versionné)
+├── .gitignore                      # Fichiers/dossiers à ignorer par git
+├── docker-compose.yml              # Configuration Docker Compose
+├── Dockerfile                      # Dockerfile pour PHP/Apache
+└── README.md                       # Documentation du projet, installation, objectifs
