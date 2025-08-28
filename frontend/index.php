@@ -1,42 +1,56 @@
+<?php
+// Connexion à la BDD
+require_once __DIR__ . '/../backend/config/database.php';
+require_once __DIR__ . '/../backend/functions/parcours.php';
+
+// Récupération des parcours
+if (function_exists('readParcours')) {
+	$parcours = readParcours($pdo);
+} elseif (function_exists('get_all_parcours')) {
+	$parcours = get_all_parcours($pdo);
+} else {
+	// fallback : requête directe
+	$stmt = $pdo->query('SELECT * FROM parcours WHERE statut = 1 ORDER BY id_parcours DESC');
+	$parcours = $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+?>
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Accueil - Arras Go</title>
-    <link rel="stylesheet" href="css/style.css">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Arras Go - Découverte des parcours</title>
+	<link rel="stylesheet" href="css/style.css">
 </head>
-
 <body>
-    <header>
-        <h1>Bienvenue sur Arras Go</h1>
-        <nav>
-            <ul>
-                <li><a href="index.php">Accueil</a></li>
-                <li><a href="list_parcours.php">Parcours</a></li>
-                <li><a href="jeu.php">Jeu</a></li>
-            </ul>
-        </nav>
-    </header>
-    <main>
-        <div>
-            <h2>À propos du jeu</h2>
-            <p>Arras Go est un jeu interactif qui vous permet de découvrir des parcours passionnants tout en vous amusant.</p>
-        </div>
-        <div>
-            <h2>Commencez votre aventure</h2>
-            <p>Explorez nos parcours disponibles et choisissez celui qui vous intéresse le plus.</p>
-            <a href="list_parcours.php" class="btn">Voir les parcours</a>
-        </div>
-    </main>
-    <footer>
-        <p>&copy; <span id="year"></span> Arras Go. Tous droits réservés.</p>
-        <script>
-            document.getElementById('year').textContent = new Date().getFullYear();
-        </script>
-    </footer>
-    <script src="js/script.js"></script>
+	<header class="main-header">
+		<div class="container">
+			<h1>Arras Go</h1>
+			<button id="menu-toggle" aria-label="Ouvrir le menu">☰</button>
+		</div>
+		<nav id="main-nav" class="main-nav">
+			<ul>
+				<li><a href="index.php" class="active">Accueil</a></li>
+				<li><a href="parcours.php">Parcours</a></li>
+				<li><a href="personnages.php">Personnages</a></li>
+			</ul>
+		</nav>
+	</header>
+	<main>
+		<section class="hero">
+			<h2>Découvrez Arras autrement !</h2>
+			<p>Explorez des parcours interactifs, répondez à des énigmes et plongez dans l’histoire d’Arras.</p>
+			<div class="cta-group">
+				<a href="parcours.php" class="btn cta">Voir les parcours</a>
+				<a href="personnages.php" class="btn cta">Découvrir les personnages</a>
+			</div>
+		</section>
+	</main>
+	<footer class="main-footer">
+		<div class="container">
+			<p>&copy; <?= date('Y') ?> Arras Go. Tous droits réservés.</p>
+		</div>
+	</footer>
+	<script src="js/script.js"></script>
 </body>
-
 </html>

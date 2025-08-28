@@ -1,242 +1,172 @@
+
 <?php
-require_once '../backend/config/database.php';
-require_once '../backend/functions/etapes.php';
-require_once '../backend/functions/chapitres.php';
+// Page étape unique pour les deux modes (avec/sans géolocalisation)
+require_once __DIR__ . '/../backend/config/database.php';
+require_once __DIR__ . '/../backend/functions/etapes.php';
+require_once __DIR__ . '/../backend/functions/parcours.php';
 
-// --- 1. Gestion de la session anonyme ---
-if (!isset($_COOKIE['session_id'])) {
-    $session_id = bin2hex(random_bytes(16));
-    setcookie('session_id', $session_id, time() + 3600 * 24 * 30, "/");
-} else {
-    $session_id = $_COOKIE['session_id'];
+$id_parcours = isset($_GET['id']) ? intval($_GET['id']) : 0;
+$id_etape = isset($_GET['etape']) ? intval($_GET['etape']) : 0;
+$geo = isset($_GET['geo']) ? intval($_GET['geo']) : 0;
+
+$parcours = $id_parcours ? (function_exists('get_parcours') ? get_parcours($pdo, $id_parcours) : null) : null;
+if (!$parcours) {
+    $stmt = $pdo->prepare('SELECT * FROM parcours WHERE id_parcours = ?');
+    $stmt->execute([$id_parcours]);
+    $parcours = $stmt->fetch(PDO::FETCH_ASSOC);
 }
-
-$id_parcours = isset($_GET['id_parcours']) ? intval($_GET['id_parcours']) : 0;
-$mode_geo = isset($_GET['mode_geo']) ? $_GET['mode_geo'] === 'true' : false;
-
-// --- 2. Récupère toutes les étapes du parcours ---
-$etapes = get_etapes_by_parcours($pdo, $id_parcours);
-
-// --- 3. Récupère la dernière étape validée pour cette session ---
-$stmt = $pdo->prepare("SELECT derniere_etape_validee FROM sessions WHERE id_session = ?");
-$stmt->execute([$session_id]);
-$last_validated = $stmt->fetchColumn();
-
-// --- 4. Détermine l'ordre de l'étape à afficher ---
-if (isset($_GET['ordre'])) {
-    $ordre = intval($_GET['ordre']);
-} elseif ($last_validated) {
-    // Passe à l'étape suivante après la dernière validée
-    $ordre = null;
-    foreach ($etapes as $e) {
-        if ($e['id_etape'] == $last_validated) {
-            $ordre = $e['ordre_etape'] + 1;
-            break;
-        }
-    }
-    if ($ordre === null) $ordre = 1;
-} else {
-    $ordre = 1;
-}
-
-// --- 5. Sélectionne l’étape courante ---
-$etape = null;
-foreach ($etapes as $e) {
-    if ($e['ordre_etape'] == $ordre) {
-        $etape = $e;
-        break;
-    }
-}
-
+$etape = $id_etape ? get_etape($pdo, $id_etape) : null;
 if (!$etape) {
-    echo "<h2>Félicitations, vous avez terminé le parcours !</h2>";
-    echo "<p>Vous pouvez retourner à l'accueil ou choisir un autre parcours.</p>";
-    echo "<div style='margin-top:20px;'>";
-    echo "<a href='index.php' class='button' style='margin-right:10px;'>Retour à l'accueil</a>";
-    echo "<a href='list_parcours.php' class='button'>Voir nos parcours</a>";
-    echo "</div>";
+    http_response_code(404);
+    echo '<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8"><title>Étape introuvable</title></head><body><h1>Étape introuvable</h1><p>L\'étape demandée n\'existe pas.</p></body></html>';
     exit;
 }
+// Pour la navigation entre étapes
+$etapes = get_etapes_by_parcours($pdo, $id_parcours);
 
-// --- 6. Gestion du formulaire de réponse ---
-$message = '';
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($etape['question_etape'])) {
-    $reponse = trim($_POST['reponse']);
-    $bonne_reponse = strtolower(trim($etape['reponse_attendue']));
-    $reponse_ok = strtolower($reponse) === $bonne_reponse;
-
-    // Géolocalisation
-    $geo_ok = true;
-    if ($mode_geo && !empty($etape['latitude']) && !empty($etape['longitude'])) {
-        if (isset($_POST['latitude']) && isset($_POST['longitude'])) {
-            $user_lat = floatval($_POST['latitude']);
-            $user_lng = floatval($_POST['longitude']);
-            $distance = calculerDistance($user_lat, $user_lng, floatval($etape['latitude']), floatval($etape['longitude']));
-            $geo_ok = $distance <= 25;
-        } else {
-            $geo_ok = false;
-        }
-    }
-
-    $next_ordre = $ordre + 1;
-
-    if ($reponse_ok && $geo_ok) {
-        // --- 7. Enregistre la progression dans la table sessions ---
-        $stmt = $pdo->prepare("INSERT INTO sessions (id_session, derniere_etape_validee) VALUES (?, ?)
-            ON DUPLICATE KEY UPDATE derniere_etape_validee = ?");
-        $stmt->execute([$session_id, $etape['id_etape'], $etape['id_etape']]);
-
-        // Affiche le popup et redirige automatiquement
-        $message = "<div id='popup-success' class='popup'>
-            <div class='popup-content'>
-                <span class='close' onclick=\"document.getElementById('popup-success').style.display='none';\">&times;</span>
-                <h3>Bravo, vous avez bien répondu !</h3>
-                <p>La suite de l'aventure vous attend...</p>
-            </div>
-        </div>
-        <script>
-            setTimeout(function() {
-                window.location.href = 'etapes.php?id_parcours=$id_parcours&mode_geo=" . ($mode_geo ? 'true' : 'false') . "&ordre=$next_ordre';
-            }, 2000);
-        </script>";
-    } elseif (!$reponse_ok) {
-        $message = "<div class='error'>Mauvaise réponse !</div>";
-    } elseif ($mode_geo && !$geo_ok) {
-        $message = "<div class='error'>Bonne réponse, mais vous n'êtes pas au bon endroit (plus de 25m).</div>";
-    }
-}
-
-function calculerDistance($lat1, $lng1, $lat2, $lng2)
-{
-    $R = 6371000;
-    $dLat = ($lat2 - $lat1) * pi() / 180;
-    $dLng = ($lng2 - $lng1) * pi() / 180;
-    $a = sin($dLat / 2) * sin($dLat / 2) +
-        cos($lat1 * pi() / 180) * cos($lat2 * pi() / 180) *
-        sin($dLng / 2) * sin($dLng / 2);
-    $c = 2 * atan2(sqrt($a), sqrt(1 - $a));
-    return $R * $c;
-}
+// Calcul de la distance (JS côté client)
 ?>
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
     <meta charset="UTF-8">
-    <title>Étape du parcours</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><?= htmlspecialchars($etape['titre_etape']) ?> - Étape</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
-
 <body>
-    <main>
-        <div class="container">
-            <div class="etape-row">
-                <div class="etape-img">
-                    <?php if (!empty($etape['indice_etape_image'])): ?>
-                        <button type="button" class="button" onclick="document.getElementById('popup-indice-image').style.display='block';">Indice 2</button>
-                        <div id="popup-indice-image" class="popup" style="display:none;">
-                            <div class="popup-content">
-                                <span class="close" onclick="document.getElementById('popup-indice-image').style.display='none';">&times;</span>
-                                <h3>Indice visuel</h3>
-                                <img src="/data/images/<?= htmlspecialchars($etape['indice_etape_image']) ?>" alt="Indice image" style="max-width:100%;">
-                            </div>
-                        </div>
-                    <?php endif; ?>
-                </div>
-                <div class="etape-content">
-                    <h2><?= htmlspecialchars($etape['titre_etape']) ?></h2>
-                    <?php if (!empty($etape['mp3_etape'])): ?>
-                        <audio src="/data/mp3/<?= htmlspecialchars($etape['mp3_etape']) ?>" controls></audio>
-                    <?php endif; ?>
-                    <?php if (!empty($etape['indice_etape_texte'])): ?>
-                        <button type="button" class="button" onclick="document.getElementById('popup-indice-texte').style.display='block';">Indice 1</button>
-                        <div id="popup-indice-texte" class="popup" style="display:none;">
-                            <div class="popup-content">
-                                <span class="close" onclick="document.getElementById('popup-indice-texte').style.display='none';">&times;</span>
-                                <h3>Indice textuel</h3>
-                                <p><?= htmlspecialchars($etape['indice_etape_texte']) ?></p>
-                            </div>
-                        </div>
-                    <?php endif; ?>
-                    <div class="QuestionReponse">
-                        <div class="question-text">
-                            <?php if (!empty($etape['question_etape'])): ?>
-                                <label for="reponse"><strong>Question :</strong></label>
-                                <p><?= htmlspecialchars($etape['question_etape']) ?></p>
-                            <?php endif; ?>
-                        </div>
-                        <div class="reponse-form-container">
-                            <?php if (!empty($etape['question_etape'])): ?>
-                                <form method="POST" class="reponse-form" id="reponseForm">
-                                    <input type="text" name="reponse" id="reponse" required placeholder="Votre réponse...">
-                                    <?php if ($mode_geo && !empty($etape['latitude']) && !empty($etape['longitude'])): ?>
-                                        <input type="hidden" name="latitude" id="latitude">
-                                        <input type="hidden" name="longitude" id="longitude">
-                                        <div class="geo-info">Votre position sera vérifiée lors de la validation.</div>
-                                        <script>
-                                            if (navigator.geolocation) {
-                                                navigator.geolocation.getCurrentPosition(function(pos) {
-                                                    document.getElementById('latitude').value = pos.coords.latitude;
-                                                    document.getElementById('longitude').value = pos.coords.longitude;
-                                                }, function() {
-                                                    document.querySelector('.geo-info').textContent = "Impossible d'obtenir votre position.";
-                                                });
-                                            }
-                                        </script>
-                                    <?php endif; ?>
-                                    <button type="submit" class="button">Valider</button>
-                                </form>
-                            <?php endif; ?>
-                        </div>
-                    </div>
-                    <?= $message ?>
-                    <!-- Affichage des chapitres -->
-                    <?php
-                    $chapitres = get_chapitres_by_etape($pdo, $etape['id_etape']);
-                    if ($chapitres) {
-                        foreach ($chapitres as $chapitre) {
-                            echo '<div class="chapitre-row">';
-                            echo '<div class="chapitre-img">';
-                            if (!empty($chapitre['image_chapitre'])) {
-                                echo '<img src="/data/images/' . htmlspecialchars($chapitre['image_chapitre']) . '" alt="Image chapitre">';
-                            }
-                            echo '</div>';
-                            echo '<div class="chapitre-content">';
-                            echo '<h4>' . htmlspecialchars($chapitre['titre_chapitre']) . '</h4>';
-                            echo '<p>' . htmlspecialchars($chapitre['texte_chapitre']) . '</p>';
-                            echo '</div>';
-                            echo '</div>';
-                        }
-                    }
-                    ?>
-                </div>
-            </div>
-            <!-- Bouton étape suivante -->
-            <?php
-            $next_ordre = $ordre + 1;
-            $has_next = false;
-            foreach ($etapes as $e) {
-                if ($e['ordre_etape'] == $next_ordre) {
-                    $has_next = true;
-                    break;
-                }
-            }
-            // Suppression du bouton étape suivante après la validation
-            /*
-            if ($has_next) {
-                echo "<div style='text-align:right; margin-top:30px;'><a href='etapes.php?id_parcours=$id_parcours&mode_geo=" . ($mode_geo ? 'true' : 'false') . "&ordre=$next_ordre' class='button'>Étape suivante</a></div>";
-            }
-            */
-            ?>
+    <header class="main-header" style="<?php if (!empty($etape['image_header'])): ?>background: url('../data/images/<?= htmlspecialchars($etape['image_header']) ?>') center/cover no-repeat;<?php endif; ?>">
+        <div class="container" style="background: rgba(29,29,27,0.85); border-radius: 0 0 12px 12px;">
+            <h1>Arras Go</h1>
+            <button id="menu-toggle" aria-label="Ouvrir le menu">☰</button>
         </div>
-    </main>
+        <nav id="main-nav" class="main-nav">
+            <ul>
+                <li><a href="index.php">Accueil</a></li>
+                <li><a href="parcours.php" class="active">Parcours</a></li>
+                <li><a href="personnages.php">Personnages</a></li>
+            </ul>
+        </nav>
+    </header>
     <?php if (!empty($etape['mp3_etape'])): ?>
-        <div class="audio-fixed">
-            <audio src="/data/mp3/<?= htmlspecialchars($etape['mp3_etape']) ?>" controls style="width:100%;">
-                Votre navigateur ne supporte pas l'audio.
-            </audio>
+    <div class="audio-header sticky-audio">
+        <audio controls src="../data/mp3/<?= htmlspecialchars($etape['mp3_etape']) ?>" style="width:100%"></audio>
+    </div>
+    <?php endif; ?>
+    <main>
+        <section class="etape-question">
+            <div class="etape-card">
+
+                <h3>Étape : <?= htmlspecialchars($etape['titre_etape']) ?></h3>
+                <?php
+                // Affichage des chapitres (titre, texte, image)
+                require_once __DIR__ . '/../backend/functions/chapitres.php';
+                $chapitres = get_chapitres_by_etape($pdo, $id_etape);
+                if (!empty($chapitres)) {
+                    echo '<div class="chapitres-list">';
+                    foreach ($chapitres as $chapitre) {
+                        echo '<div class="etape-chapitre" style="margin-bottom:1.2rem;">';
+                        if (!empty($chapitre['titre_chapitre'])) {
+                            echo '<strong>' . htmlspecialchars($chapitre['titre_chapitre']) . '</strong><br>';
+                        }
+                        if (!empty($chapitre['image_chapitre'])) {
+                            echo '<img src="../data/images/' . htmlspecialchars($chapitre['image_chapitre']) . '" alt="Image du chapitre" style="max-width:220px;max-height:140px;display:block;margin:0.5rem auto;">';
+                        }
+                        if (!empty($chapitre['texte_chapitre'])) {
+                            echo '<div class="chapitre-texte">' . nl2br(htmlspecialchars($chapitre['texte_chapitre'])) . '</div>';
+                        }
+                        echo '</div>';
+                    }
+                    echo '</div>';
+                }
+
+                // Navigation/question : bouton selon présence de question ou fin de parcours
+                // Recherche de l'étape suivante
+                $etapes = get_etapes_by_parcours($pdo, $id_parcours);
+                $etape_suivante = null;
+                for ($i = 0; $i < count($etapes); $i++) {
+                    if ($etapes[$i]['id_etape'] == $id_etape && isset($etapes[$i+1])) {
+                        $etape_suivante = $etapes[$i+1];
+                        break;
+                    }
+                }
+                $is_last = !$etape_suivante;
+
+                echo '<div class="cta-group" style="margin-top:2rem;flex-wrap:wrap;gap:1rem;">';
+                if ($is_last) {
+                    echo '<div class="alert-success">Félicitations, vous avez terminé le parcours !</div>';
+                    echo '<a href="parcours.php" class="btn">Choisir un autre parcours</a>';
+                    echo '<a href="index.php" class="btn">Accueil</a>';
+                    echo '<a href="personnages.php" class="btn">Personnages</a>';
+                    echo '<a href="contact.php" class="btn">Contact</a>';
+                } else if (!empty($etape['question_etape'])) {
+                    // Vérifie qu’on n’est pas déjà sur la page question (évite boucle)
+                    $currentScript = basename($_SERVER['PHP_SELF']);
+                    if ($currentScript !== 'question.php') {
+                        echo '<a href="question.php?id=' . $id_parcours . '&etape=' . $id_etape . '&geo=' . $geo . '" class="btn">Répondre à la question</a>';
+                    }
+                } else if ($etape_suivante) {
+                    echo '<a href="etape.php?id=' . $id_parcours . '&etape=' . $etape_suivante['id_etape'] . '&geo=' . $geo . '" class="btn">Étape suivante</a>';
+                }
+                echo '</div>';
+                ?>
+            </div>
+        </section>
+    </main>
+    <footer class="main-footer">
+        <div class="container">
+            <p>&copy; <?= date('Y') ?> Arras Go. Tous droits réservés.</p>
         </div>
+    </footer>
+    <script src="js/script.js"></script>
+    <?php if ($geo == 1 && !empty($etape['lat']) && !empty($etape['lng'])): ?>
+    <script>
+    // JS géolocalisation : bloquer la question si l'utilisateur n'est pas dans la zone
+    const rayon = 50; // mètres
+    const etapeLat = <?= floatval($etape['lat']) ?>;
+    const etapeLng = <?= floatval($etape['lng']) ?>;
+    const geoMessage = document.getElementById('geo-message');
+    const geoLoader = document.getElementById('geo-loader');
+    const geoError = document.getElementById('geo-error');
+    const form = document.getElementById('etape-form');
+    let debloque = false;
+    function distanceGPS(lat1, lng1, lat2, lng2) {
+        const R = 6371e3;
+        const toRad = x => x * Math.PI / 180;
+        const dLat = toRad(lat2-lat1);
+        const dLng = toRad(lng2-lng1);
+        const a = Math.sin(dLat/2)**2 + Math.cos(toRad(lat1))*Math.cos(toRad(lat2))*Math.sin(dLng/2)**2;
+        return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+    }
+    function checkPosition() {
+        geoLoader.style.display = 'block';
+        geoError.textContent = '';
+        navigator.geolocation.getCurrentPosition(function(pos) {
+            geoLoader.style.display = 'none';
+            const d = distanceGPS(pos.coords.latitude, pos.coords.longitude, etapeLat, etapeLng);
+            if (d <= rayon) {
+                geoMessage.innerHTML = '<span style="color:green">Vous êtes sur le lieu, la question est débloquée.</span>';
+                form.style.display = '';
+                debloque = true;
+            } else {
+                geoMessage.innerHTML = '<span style="color:orange">Vous êtes à ' + Math.round(d) + ' m du lieu. Rendez-vous sur place pour débloquer la question.</span>';
+                form.style.display = 'none';
+                debloque = false;
+            }
+        }, function(err) {
+            geoLoader.style.display = 'none';
+            geoError.textContent = 'Erreur de géolocalisation : ' + err.message;
+            form.style.display = 'none';
+        });
+    }
+    form.style.display = 'none';
+    checkPosition();
+    </script>
+    <?php elseif ($geo == 1): ?>
+    <script>
+    document.getElementById('geo-message').innerHTML = '<span style="color:red">Géolocalisation non disponible pour cette étape.</span>';
+    document.getElementById('etape-form').style.display = 'none';
+    </script>
     <?php endif; ?>
 </body>
-
 </html>
