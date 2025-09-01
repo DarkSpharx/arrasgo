@@ -1,4 +1,3 @@
-
 <?php
 // Page étape unique pour les deux modes (avec/sans géolocalisation)
 require_once __DIR__ . '/../backend/config/database.php';
@@ -28,30 +27,34 @@ $etapes = get_etapes_by_parcours($pdo, $id_parcours);
 ?>
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= htmlspecialchars($etape['titre_etape']) ?> - Étape</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
-    <header class="main-header" style="<?php if (!empty($etape['image_header'])): ?>background: url('../data/images/<?= htmlspecialchars($etape['image_header']) ?>') center/cover no-repeat;<?php endif; ?>">
-        <div class="container" style="background: rgba(29,29,27,0.85); border-radius: 0 0 12px 12px;">
-            <h1>Arras Go</h1>
+    <header class="main-header">
+        <div class="logo">
+            <a href="index.php">
+                <img src="./media/logo/logo_long_white_color.svg" alt="Arras Go Logo" height="30">
+            </a>
             <button id="menu-toggle" aria-label="Ouvrir le menu">☰</button>
         </div>
         <nav id="main-nav" class="main-nav">
             <ul>
                 <li><a href="index.php">Accueil</a></li>
-                <li><a href="parcours.php" class="active">Parcours</a></li>
+                <li><a href="parcours.php">Parcours</a></li>
                 <li><a href="personnages.php">Personnages</a></li>
             </ul>
         </nav>
     </header>
     <?php if (!empty($etape['mp3_etape'])): ?>
-    <div class="audio-header sticky-audio">
-        <audio controls src="../data/mp3/<?= htmlspecialchars($etape['mp3_etape']) ?>" style="width:100%"></audio>
-    </div>
+        <div class="audio-header sticky-audio">
+            <audio controls src="../data/mp3/<?= htmlspecialchars($etape['mp3_etape']) ?>" style="width:100%"></audio>
+        </div>
     <?php endif; ?>
     <main>
         <section class="etape-question">
@@ -85,8 +88,8 @@ $etapes = get_etapes_by_parcours($pdo, $id_parcours);
                 $etapes = get_etapes_by_parcours($pdo, $id_parcours);
                 $etape_suivante = null;
                 for ($i = 0; $i < count($etapes); $i++) {
-                    if ($etapes[$i]['id_etape'] == $id_etape && isset($etapes[$i+1])) {
-                        $etape_suivante = $etapes[$i+1];
+                    if ($etapes[$i]['id_etape'] == $id_etape && isset($etapes[$i + 1])) {
+                        $etape_suivante = $etapes[$i + 1];
                         break;
                     }
                 }
@@ -120,53 +123,56 @@ $etapes = get_etapes_by_parcours($pdo, $id_parcours);
     </footer>
     <script src="js/script.js"></script>
     <?php if ($geo == 1 && !empty($etape['lat']) && !empty($etape['lng'])): ?>
-    <script>
-    // JS géolocalisation : bloquer la question si l'utilisateur n'est pas dans la zone
-    const rayon = 50; // mètres
-    const etapeLat = <?= floatval($etape['lat']) ?>;
-    const etapeLng = <?= floatval($etape['lng']) ?>;
-    const geoMessage = document.getElementById('geo-message');
-    const geoLoader = document.getElementById('geo-loader');
-    const geoError = document.getElementById('geo-error');
-    const form = document.getElementById('etape-form');
-    let debloque = false;
-    function distanceGPS(lat1, lng1, lat2, lng2) {
-        const R = 6371e3;
-        const toRad = x => x * Math.PI / 180;
-        const dLat = toRad(lat2-lat1);
-        const dLng = toRad(lng2-lng1);
-        const a = Math.sin(dLat/2)**2 + Math.cos(toRad(lat1))*Math.cos(toRad(lat2))*Math.sin(dLng/2)**2;
-        return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-    }
-    function checkPosition() {
-        geoLoader.style.display = 'block';
-        geoError.textContent = '';
-        navigator.geolocation.getCurrentPosition(function(pos) {
-            geoLoader.style.display = 'none';
-            const d = distanceGPS(pos.coords.latitude, pos.coords.longitude, etapeLat, etapeLng);
-            if (d <= rayon) {
-                geoMessage.innerHTML = '<span style="color:green">Vous êtes sur le lieu, la question est débloquée.</span>';
-                form.style.display = '';
-                debloque = true;
-            } else {
-                geoMessage.innerHTML = '<span style="color:orange">Vous êtes à ' + Math.round(d) + ' m du lieu. Rendez-vous sur place pour débloquer la question.</span>';
-                form.style.display = 'none';
-                debloque = false;
+        <script>
+            // JS géolocalisation : bloquer la question si l'utilisateur n'est pas dans la zone
+            const rayon = 50; // mètres
+            const etapeLat = <?= floatval($etape['lat']) ?>;
+            const etapeLng = <?= floatval($etape['lng']) ?>;
+            const geoMessage = document.getElementById('geo-message');
+            const geoLoader = document.getElementById('geo-loader');
+            const geoError = document.getElementById('geo-error');
+            const form = document.getElementById('etape-form');
+            let debloque = false;
+
+            function distanceGPS(lat1, lng1, lat2, lng2) {
+                const R = 6371e3;
+                const toRad = x => x * Math.PI / 180;
+                const dLat = toRad(lat2 - lat1);
+                const dLng = toRad(lng2 - lng1);
+                const a = Math.sin(dLat / 2) ** 2 + Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.sin(dLng / 2) ** 2;
+                return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
             }
-        }, function(err) {
-            geoLoader.style.display = 'none';
-            geoError.textContent = 'Erreur de géolocalisation : ' + err.message;
+
+            function checkPosition() {
+                geoLoader.style.display = 'block';
+                geoError.textContent = '';
+                navigator.geolocation.getCurrentPosition(function(pos) {
+                    geoLoader.style.display = 'none';
+                    const d = distanceGPS(pos.coords.latitude, pos.coords.longitude, etapeLat, etapeLng);
+                    if (d <= rayon) {
+                        geoMessage.innerHTML = '<span style="color:green">Vous êtes sur le lieu, la question est débloquée.</span>';
+                        form.style.display = '';
+                        debloque = true;
+                    } else {
+                        geoMessage.innerHTML = '<span style="color:orange">Vous êtes à ' + Math.round(d) + ' m du lieu. Rendez-vous sur place pour débloquer la question.</span>';
+                        form.style.display = 'none';
+                        debloque = false;
+                    }
+                }, function(err) {
+                    geoLoader.style.display = 'none';
+                    geoError.textContent = 'Erreur de géolocalisation : ' + err.message;
+                    form.style.display = 'none';
+                });
+            }
             form.style.display = 'none';
-        });
-    }
-    form.style.display = 'none';
-    checkPosition();
-    </script>
+            checkPosition();
+        </script>
     <?php elseif ($geo == 1): ?>
-    <script>
-    document.getElementById('geo-message').innerHTML = '<span style="color:red">Géolocalisation non disponible pour cette étape.</span>';
-    document.getElementById('etape-form').style.display = 'none';
-    </script>
+        <script>
+            document.getElementById('geo-message').innerHTML = '<span style="color:red">Géolocalisation non disponible pour cette étape.</span>';
+            document.getElementById('etape-form').style.display = 'none';
+        </script>
     <?php endif; ?>
 </body>
+
 </html>

@@ -16,26 +16,31 @@ if (function_exists('readParcours')) {
 ?>
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Arras Go - Découverte des parcours</title>
 	<link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
 	<header class="main-header">
-		<div class="container">
-			<h1>Arras Go</h1>
-			<button id="menu-toggle" aria-label="Ouvrir le menu">☰</button>
+		<div class="logo">
+			<a href="index.php">
+				<img src="./media/logo/logo_long_white_color.svg" alt="Arras Go Logo">
+			</a>
 		</div>
+		<button id="menu-toggle" aria-label="Ouvrir le menu">☰</button>
 		<nav id="main-nav" class="main-nav">
 			<ul>
-				<li><a href="index.php" class="active">Accueil</a></li>
+				<li><a href="index.php">Accueil</a></li>
 				<li><a href="parcours.php">Parcours</a></li>
 				<li><a href="personnages.php">Personnages</a></li>
 			</ul>
 		</nav>
 	</header>
+
 	<main>
 		<section class="hero">
 			<h2>Découvrez Arras autrement !</h2>
@@ -46,11 +51,14 @@ if (function_exists('readParcours')) {
 			</div>
 		</section>
 	</main>
+
 	<footer class="main-footer">
 		<div class="container">
 			<p>&copy; <?= date('Y') ?> Arras Go. Tous droits réservés.</p>
 		</div>
 	</footer>
+
 	<script src="js/script.js"></script>
 </body>
+
 </html>

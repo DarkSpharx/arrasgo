@@ -30,34 +30,82 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['reponse'])) {
 ?>
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Question - Arras Go</title>
     <link rel="stylesheet" href="css/style.css">
     <style>
-    .popup-overlay {
-        position: fixed; left: 0; top: 0; width: 100vw; height: 100vh;
-        background: rgba(0,0,0,0.5); z-index: 9999; display: flex; align-items: center; justify-content: center;
-    }
-    .popup-content {
-        background: #fff; border-radius: 10px; max-width: 90vw; max-height: 80vh; padding: 1.5rem; position: relative;
-        box-shadow: 0 4px 24px rgba(0,0,0,0.18);
-        overflow: auto;
-    }
-    .popup-close {
-        position: absolute; top: 8px; right: 12px; font-size: 2rem; color: #333; background: none; border: none; cursor: pointer;
-    }
-    .popup-img { max-width: 80vw; max-height: 60vh; display: block; margin: 0 auto; }
-    .popup-indice-texte { font-size: 1.1rem; color: #222; }
-    .question-indices { display: flex; gap: 1.5rem; margin-bottom: 1.2rem; flex-wrap: wrap; }
-    .question-indices a { color: #1d1d1b; text-decoration: underline; cursor: pointer; font-weight: 500; }
+        .popup-overlay {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .popup-content {
+            background: #fff;
+            border-radius: 10px;
+            max-width: 90vw;
+            max-height: 80vh;
+            padding: 1.5rem;
+            position: relative;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.18);
+            overflow: auto;
+        }
+
+        .popup-close {
+            position: absolute;
+            top: 8px;
+            right: 12px;
+            font-size: 2rem;
+            color: #333;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .popup-img {
+            max-width: 80vw;
+            max-height: 60vh;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .popup-indice-texte {
+            font-size: 1.1rem;
+            color: #222;
+        }
+
+        .question-indices {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 1.2rem;
+            flex-wrap: wrap;
+        }
+
+        .question-indices a {
+            color: #1d1d1b;
+            text-decoration: underline;
+            cursor: pointer;
+            font-weight: 500;
+        }
     </style>
 </head>
+
 <body>
     <header class="main-header">
-        <div class="container" style="background: rgba(29,29,27,0.85); border-radius: 0 0 12px 12px;">
-            <h1>Arras Go</h1>
+        <div class="logo">
+            <a href="index.php">
+                <img src="./media/logo/logo_long_white_color.svg" alt="Arras Go Logo" height="30">
+            </a>
             <button id="menu-toggle" aria-label="Ouvrir le menu">☰</button>
         </div>
         <nav id="main-nav" class="main-nav">
@@ -82,16 +130,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['reponse'])) {
                 </div>
                 <?= $message ?>
                 <?php if (!$reponse_validee): ?>
-                <?php if ($geo == 1 && !empty($etape['lat']) && !empty($etape['lng'])): ?>
-                <div id="geo-message" style="margin-bottom:0.8rem;"></div>
-                <div id="geo-loader" style="margin-bottom:0.8rem; display:none;">Recherche de votre position...</div>
-                <div id="geo-error" style="color:red; margin-bottom:0.8rem;"></div>
-                <?php endif; ?>
-                <form class="etape-form" id="etape-form" method="post" action="?id=<?= $id_parcours ?>&etape=<?= $id_etape ?>&geo=<?= $geo ?>">
-                    <div class="etape-question-txt">Question : <?= htmlspecialchars($etape['question_etape']) ?></div>
-                    <input type="text" name="reponse" placeholder="Votre réponse..." required>
-                    <button type="submit" class="btn">Valider</button>
-                </form>
+                    <?php if ($geo == 1 && !empty($etape['lat']) && !empty($etape['lng'])): ?>
+                        <div id="geo-message" style="margin-bottom:0.8rem;"></div>
+                        <div id="geo-loader" style="margin-bottom:0.8rem; display:none;">Recherche de votre position...</div>
+                        <div id="geo-error" style="color:red; margin-bottom:0.8rem;"></div>
+                    <?php endif; ?>
+                    <form class="etape-form" id="etape-form" method="post" action="?id=<?= $id_parcours ?>&etape=<?= $id_etape ?>&geo=<?= $geo ?>">
+                        <div class="etape-question-txt">Question : <?= htmlspecialchars($etape['question_etape']) ?></div>
+                        <input type="text" name="reponse" placeholder="Votre réponse..." required>
+                        <button type="submit" class="btn">Valider</button>
+                    </form>
                 <?php else: ?>
                     <div class="alert-success">Bonne réponse !</div>
                     <?php
@@ -100,8 +148,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['reponse'])) {
                     $etapes = get_etapes_by_parcours($pdo, $id_parcours);
                     $etape_suivante = null;
                     for ($i = 0; $i < count($etapes); $i++) {
-                        if ($etapes[$i]['id_etape'] == $id_etape && isset($etapes[$i+1])) {
-                            $etape_suivante = $etapes[$i+1];
+                        if ($etapes[$i]['id_etape'] == $id_etape && isset($etapes[$i + 1])) {
+                            $etape_suivante = $etapes[$i + 1];
                             break;
                         }
                     }
@@ -142,62 +190,65 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['reponse'])) {
     </footer>
     <script src="js/script.js"></script>
     <script>
-    function closePopup(id) {
-        document.getElementById(id).style.display = 'none';
-    }
-    document.getElementById('show-indice-texte')?.addEventListener('click', function(e) {
-        e.preventDefault();
-        document.getElementById('popup-indice-texte').style.display = 'flex';
-    });
-    document.getElementById('show-indice-image')?.addEventListener('click', function(e) {
-        e.preventDefault();
-        document.getElementById('popup-indice-image').style.display = 'flex';
-    });
+        function closePopup(id) {
+            document.getElementById(id).style.display = 'none';
+        }
+        document.getElementById('show-indice-texte')?.addEventListener('click', function(e) {
+            e.preventDefault();
+            document.getElementById('popup-indice-texte').style.display = 'flex';
+        });
+        document.getElementById('show-indice-image')?.addEventListener('click', function(e) {
+            e.preventDefault();
+            document.getElementById('popup-indice-image').style.display = 'flex';
+        });
 
-    <?php if ($geo == 1 && !empty($etape['lat']) && !empty($etape['lng'])): ?>
-    // Géolocalisation : bloque la validation si hors zone (25m)
-    const rayon = 25;
-    const etapeLat = <?= floatval($etape['lat']) ?>;
-    const etapeLng = <?= floatval($etape['lng']) ?>;
-    const geoMessage = document.getElementById('geo-message');
-    const geoLoader = document.getElementById('geo-loader');
-    const geoError = document.getElementById('geo-error');
-    const form = document.getElementById('etape-form');
-    function distanceGPS(lat1, lng1, lat2, lng2) {
-        const R = 6371e3;
-        const toRad = x => x * Math.PI / 180;
-        const dLat = toRad(lat2-lat1);
-        const dLng = toRad(lng2-lng1);
-        const a = Math.sin(dLat/2)**2 + Math.cos(toRad(lat1))*Math.cos(toRad(lat2))*Math.sin(dLng/2)**2;
-        return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-    }
-    function checkPosition() {
-        geoLoader.style.display = 'block';
-        geoError.textContent = '';
-        navigator.geolocation.getCurrentPosition(function(pos) {
-            geoLoader.style.display = 'none';
-            const d = distanceGPS(pos.coords.latitude, pos.coords.longitude, etapeLat, etapeLng);
-            if (d <= rayon) {
-                geoMessage.innerHTML = '<span style="color:green">Vous êtes sur le lieu, la question est débloquée.</span>';
-                form.querySelector('input[type="text"]').disabled = false;
-                form.querySelector('button[type="submit"]').disabled = false;
-            } else {
-                geoMessage.innerHTML = '<span style="color:orange">Vous êtes à ' + Math.round(d) + ' m du lieu. Rendez-vous sur place pour débloquer la question.</span>';
-                form.querySelector('input[type="text"]').disabled = true;
-                form.querySelector('button[type="submit"]').disabled = true;
+        <?php if ($geo == 1 && !empty($etape['lat']) && !empty($etape['lng'])): ?>
+            // Géolocalisation : bloque la validation si hors zone (25m)
+            const rayon = 25;
+            const etapeLat = <?= floatval($etape['lat']) ?>;
+            const etapeLng = <?= floatval($etape['lng']) ?>;
+            const geoMessage = document.getElementById('geo-message');
+            const geoLoader = document.getElementById('geo-loader');
+            const geoError = document.getElementById('geo-error');
+            const form = document.getElementById('etape-form');
+
+            function distanceGPS(lat1, lng1, lat2, lng2) {
+                const R = 6371e3;
+                const toRad = x => x * Math.PI / 180;
+                const dLat = toRad(lat2 - lat1);
+                const dLng = toRad(lng2 - lng1);
+                const a = Math.sin(dLat / 2) ** 2 + Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.sin(dLng / 2) ** 2;
+                return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
             }
-        }, function(err) {
-            geoLoader.style.display = 'none';
-            geoError.textContent = 'Erreur de géolocalisation : ' + err.message;
+
+            function checkPosition() {
+                geoLoader.style.display = 'block';
+                geoError.textContent = '';
+                navigator.geolocation.getCurrentPosition(function(pos) {
+                    geoLoader.style.display = 'none';
+                    const d = distanceGPS(pos.coords.latitude, pos.coords.longitude, etapeLat, etapeLng);
+                    if (d <= rayon) {
+                        geoMessage.innerHTML = '<span style="color:green">Vous êtes sur le lieu, la question est débloquée.</span>';
+                        form.querySelector('input[type="text"]').disabled = false;
+                        form.querySelector('button[type="submit"]').disabled = false;
+                    } else {
+                        geoMessage.innerHTML = '<span style="color:orange">Vous êtes à ' + Math.round(d) + ' m du lieu. Rendez-vous sur place pour débloquer la question.</span>';
+                        form.querySelector('input[type="text"]').disabled = true;
+                        form.querySelector('button[type="submit"]').disabled = true;
+                    }
+                }, function(err) {
+                    geoLoader.style.display = 'none';
+                    geoError.textContent = 'Erreur de géolocalisation : ' + err.message;
+                    form.querySelector('input[type="text"]').disabled = true;
+                    form.querySelector('button[type="submit"]').disabled = true;
+                });
+            }
+            // Initialisation
             form.querySelector('input[type="text"]').disabled = true;
             form.querySelector('button[type="submit"]').disabled = true;
-        });
-    }
-    // Initialisation
-    form.querySelector('input[type="text"]').disabled = true;
-    form.querySelector('button[type="submit"]').disabled = true;
-    checkPosition();
-    <?php endif; ?>
+            checkPosition();
+        <?php endif; ?>
     </script>
 </body>
+
 </html>

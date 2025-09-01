@@ -7,7 +7,9 @@ document.addEventListener('DOMContentLoaded', function() {
 			nav.classList.toggle('open');
 			menuToggle.classList.toggle('open');
 			// Accessibilité : aria-expanded
-			menuToggle.setAttribute('aria-expanded', nav.classList.contains('open'));
+			const isOpen = nav.classList.contains('open');
+			menuToggle.setAttribute('aria-expanded', isOpen);
+			menuToggle.innerHTML = isOpen ? '&times;' : '☰';
 		});
 		// Fermer le menu au clic sur un lien (mobile UX)
 		nav.querySelectorAll('a').forEach(link => {
@@ -15,6 +17,7 @@ document.addEventListener('DOMContentLoaded', function() {
 				nav.classList.remove('open');
 				menuToggle.classList.remove('open');
 				menuToggle.setAttribute('aria-expanded', 'false');
+				menuToggle.innerHTML = '☰';
 			});
 		});
 	}

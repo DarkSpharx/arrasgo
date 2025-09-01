@@ -23,22 +23,26 @@ $premiere_etape_id = !empty($etapes) ? $etapes[0]['id_etape'] : null;
 ?>
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= htmlspecialchars($parcours['nom_parcours']) ?> - Parcours</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
     <header class="main-header">
-        <div class="container">
-            <h1>Arras Go</h1>
+        <div class="logo">
+            <a href="index.php">
+                <img src="./media/logo/logo_long_white_color.svg" alt="Arras Go Logo" height="30">
+            </a>
             <button id="menu-toggle" aria-label="Ouvrir le menu">☰</button>
         </div>
         <nav id="main-nav" class="main-nav">
             <ul>
                 <li><a href="index.php">Accueil</a></li>
-                <li><a href="parcours.php" class="active">Parcours</a></li>
+                <li><a href="parcours.php">Parcours</a></li>
                 <li><a href="personnages.php">Personnages</a></li>
             </ul>
         </nav>
@@ -71,4 +75,5 @@ $premiere_etape_id = !empty($etapes) ? $etapes[0]['id_etape'] : null;
     </footer>
     <script src="js/script.js"></script>
 </body>
+
 </html>

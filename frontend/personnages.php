@@ -18,8 +18,10 @@ $personnages = get_all_personnages($pdo);
 
 <body>
     <header class="main-header">
-        <div class="container">
-            <h1>Arras Go</h1>
+        <div class="logo">
+            <a href="index.php">
+                <img src="./media/logo/logo_long_white_color.svg" alt="Arras Go Logo" height="30">
+            </a>
             <button id="menu-toggle" aria-label="Ouvrir le menu">☰</button>
         </div>
         <nav id="main-nav" class="main-nav">
@@ -27,8 +29,10 @@ $personnages = get_all_personnages($pdo);
                 <li><a href="index.php">Accueil</a></li>
                 <li><a href="parcours.php">Parcours</a></li>
                 <li><a href="personnages.php" class="active">Personnages</a></li>
+                <li><a href="contact.php">Questions</a></li>
             </ul>
         </nav>
+        <div></div>
     </header>
     <main>
         <section class="parcours-list">

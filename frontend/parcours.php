@@ -25,8 +25,10 @@ if (function_exists('readParcours')) {
 
 <body>
     <header class="main-header">
-        <div class="container">
-            <h1>Arras Go</h1>
+        <div class="logo">
+            <a href="index.php">
+                <img src="./media/logo/logo_long_white_color.svg" alt="Arras Go Logo" height="30">
+            </a>
             <button id="menu-toggle" aria-label="Ouvrir le menu">☰</button>
         </div>
         <nav id="main-nav" class="main-nav">
