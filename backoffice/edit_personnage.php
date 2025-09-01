@@ -30,6 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $nom = $_POST['nom_personnage'];
     $description = $_POST['description_personnage'];
     $image = $personnage['image_personnage'];
+    $mp3_personnage = $personnage['mp3_personnage'];
     $parcours_selectionnes = isset($_POST['parcours']) ? $_POST['parcours'] : [];
     if (isset($_FILES['image_personnage']) && $_FILES['image_personnage']['error'] == UPLOAD_ERR_OK) {
         $img_name = uniqid() . '_' . basename($_FILES['image_personnage']['name']);
@@ -40,8 +41,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $error = "Erreur lors de l'upload de l'image.";
         }
     }
+    // Gestion du MP3 personnage
+    if (isset($_FILES['mp3_personnage']) && $_FILES['mp3_personnage']['error'] == UPLOAD_ERR_OK) {
+        $mp3_name = uniqid() . '_' . basename($_FILES['mp3_personnage']['name']);
+        $mp3_path = __DIR__ . '/../data/mp3/' . $mp3_name;
+        if (move_uploaded_file($_FILES['mp3_personnage']['tmp_name'], $mp3_path)) {
+            $mp3_personnage = $mp3_name;
+        } else {
+            $error = "Erreur lors de l'upload du fichier audio.";
+        }
+    }
     if (!empty($nom) && !empty($description) && !empty($parcours_selectionnes)) {
-        $result = update_personnage($pdo, $id_personnage, $nom, $description, $image);
+        $result = update_personnage($pdo, $id_personnage, $nom, $description, $image, $mp3_personnage);
         if ($result) {
             // Mettre à jour les liens parcours_personnages
             $pdo->prepare("DELETE FROM parcours_personnages WHERE id_personnage = ?")->execute([$id_personnage]);
@@ -116,6 +127,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <label for="image_personnage" class="button-form">Choisir un fichier</label>
                     <span id="file-chosen">Aucun fichier choisi</span>
                 </div>
+                <div class="form-group-horizontal">
+                    <label for="mp3_personnage">Audio (MP3)</label>
+                    <div id="mp3-preview-container">
+                        <?php if (!empty($personnage['mp3_personnage'])): ?>
+                            <audio controls src="../data/mp3/<?= htmlspecialchars($personnage['mp3_personnage']) ?>"></audio>
+                            <br>
+                            <small id="current-mp3-name">Fichier actuel : <?= htmlspecialchars($personnage['mp3_personnage']) ?></small>
+                        <?php else: ?>
+                            <em>Aucun fichier audio</em>
+                        <?php endif; ?>
+                    </div>
+                    <input type="file" id="mp3_personnage" name="mp3_personnage" accept="audio/mp3,audio/mpeg" style="display:none;">
+                    <label for="mp3_personnage" class="button-form">Choisir un fichier audio</label>
+                    <span id="mp3-file-chosen">Aucun fichier choisi</span>
+                </div>
                 <hr>
                 <div class="form-group">
                     <label>Parcours liés</label>
@@ -158,6 +184,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             } else {
                 fileChosen.textContent = 'Aucun fichier choisi';
                 if (currentImageName) currentImageName.style.display = '';
+            }
+        });
+        // MP3
+        const mp3Input = document.getElementById('mp3_personnage');
+        const mp3FileChosen = document.getElementById('mp3-file-chosen');
+        mp3Input.addEventListener('change', function() {
+            if (this.files && this.files[0]) {
+                mp3FileChosen.textContent = this.files[0].name;
+            } else {
+                mp3FileChosen.textContent = 'Aucun fichier choisi';
             }
         });
     });

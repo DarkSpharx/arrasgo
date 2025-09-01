@@ -71,6 +71,7 @@ CREATE TABLE personnages (
     id_personnage INT AUTO_INCREMENT PRIMARY KEY,
     nom_personnage VARCHAR(255) NOT NULL,
     image_personnage VARCHAR(255),
+    mp3_personnage VARCHAR(255), -- fichier audio de retranscription
     description_personnage TEXT
 );
 

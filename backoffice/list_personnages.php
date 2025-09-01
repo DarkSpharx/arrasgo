@@ -30,7 +30,6 @@ foreach ($personnages as $perso) {
 ?>
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -42,7 +41,6 @@ foreach ($personnages as $perso) {
     <title>Liste des Personnalités</title>
     <link rel="stylesheet" href="css/alertes.css">
 </head>
-
 <body>
     <?php include 'header.php'; ?>
     <h1 class="h1-sticky">ARRAS GO - Les Personnalités</h1>
@@ -53,16 +51,13 @@ foreach ($personnages as $perso) {
                     <a href="add_personnage.php" class="button">+ Ajouter une personnalité</a>
                     <a href="dashboard.php" class="button-bis">🔙 Retour au Dashboard </a>
                 </div>
-
                 <?php foreach ($personnages as $p): ?>
                     <div class="card">
                         <h2><?= htmlspecialchars($p['nom_personnage']) ?></h2>
-
                         <div class="card-actions">
                             <a href="edit_personnage.php?id=<?= $p['id_personnage'] ?>" class="button-tab">Modifier</a>
                             <a href="delete_personnage.php?id=<?= $p['id_personnage'] ?>" class="button-tab delete-parcours" onclick="return confirm('Supprimer ce personnage ?');">Supprimer</a>
                         </div>
-
                         <h3>Illustration de la personnalité</h3>
                         <div class="card-img">
                             <?php if (!empty($p['image_personnage'])): ?>
@@ -71,11 +66,16 @@ foreach ($personnages as $perso) {
                                 <em>Non renseignée</em>
                             <?php endif; ?>
                         </div>
-
+                        <h3>Audio</h3>
+                        <div class="card-audio">
+                            <?php if (!empty($p['mp3_personnage'])): ?>
+                                <audio controls src="../data/mp3/<?= htmlspecialchars($p['mp3_personnage']) ?>"></audio>
+                            <?php else: ?>
+                                <em>Aucun audio</em>
+                            <?php endif; ?>
+                        </div>
                         <h3>Description de la personnalité</h3>
-                        <p><?= htmlspecialchars($p['description_personnage']) ?>
-                        </p>
-
+                        <p><?= htmlspecialchars($p['description_personnage']) ?></p>
                         <h3>Parcours liés</h3>
                         <?php if (!empty($personnages_parcours[$p['id_personnage']])): ?>
                             <ul>
@@ -86,9 +86,16 @@ foreach ($personnages as $perso) {
                         <?php else: ?>
                             <em>Aucun</em>
                         <?php endif; ?>
-
                     </div>
                 <?php endforeach; ?>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; <?php echo date("Y"); ?> Arras Go. Tous droits réservés.</p>
+    </footer>
+</body>
+</html>
             </div>
         </div>
     </main>

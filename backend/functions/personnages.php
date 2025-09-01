@@ -7,10 +7,10 @@ function get_all_personnages($pdo)
 }
 
 // Ajoute un personnage
-function add_personnage($pdo, $nom, $description, $image)
+function add_personnage($pdo, $nom, $description, $image, $mp3_personnage = null)
 {
-    $stmt = $pdo->prepare("INSERT INTO personnages (nom_personnage, description_personnage, image_personnage) VALUES (?, ?, ?)");
-    return $stmt->execute([$nom, $description, $image]);
+    $stmt = $pdo->prepare("INSERT INTO personnages (nom_personnage, description_personnage, image_personnage, mp3_personnage) VALUES (?, ?, ?, ?)");
+    return $stmt->execute([$nom, $description, $image, $mp3_personnage]);
 }
 
 // Récupère un personnage par son id
@@ -22,10 +22,10 @@ function get_personnage($pdo, $id_personnage)
 }
 
 // Met à jour un personnage
-function update_personnage($pdo, $id_personnage, $nom, $description, $image)
+function update_personnage($pdo, $id_personnage, $nom, $description, $image, $mp3_personnage = null)
 {
-    $stmt = $pdo->prepare("UPDATE personnages SET nom_personnage = ?, description_personnage = ?, image_personnage = ? WHERE id_personnage = ?");
-    return $stmt->execute([$nom, $description, $image, $id_personnage]);
+    $stmt = $pdo->prepare("UPDATE personnages SET nom_personnage = ?, description_personnage = ?, image_personnage = ?, mp3_personnage = ? WHERE id_personnage = ?");
+    return $stmt->execute([$nom, $description, $image, $mp3_personnage, $id_personnage]);
 }
 
 // Supprime un personnage

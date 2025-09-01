@@ -5,8 +5,8 @@ require_once '../backend/security/check_auth.php';
 require_once '../backend/functions/parcours.php';
 require_once '../backend/config/database.php'; // ajoute cette ligne si elle manque
 
-// Récupère la liste des parcours
-$parcours = get_all_parcours($pdo);
+// Récupère la liste des parcours (en ligne et brouillon)
+$parcours = get_all_parcours_backoffice($pdo);
 
 ?>
 

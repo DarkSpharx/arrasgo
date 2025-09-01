@@ -16,6 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $nom = $_POST['nom_personnage'];
     $description = $_POST['description_personnage'];
     $image = '';
+    $mp3_personnage = '';
     $parcours_selectionnes = isset($_POST['parcours']) ? $_POST['parcours'] : [];
     if (isset($_FILES['image_personnage']) && $_FILES['image_personnage']['error'] == UPLOAD_ERR_OK) {
         $img_name = uniqid() . '_' . basename($_FILES['image_personnage']['name']);
@@ -26,8 +27,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $error = "Erreur lors de l'upload de l'image.";
         }
     }
+    // Gestion du MP3 personnage
+    if (isset($_FILES['mp3_personnage']) && $_FILES['mp3_personnage']['error'] == UPLOAD_ERR_OK) {
+        $mp3_name = uniqid() . '_' . basename($_FILES['mp3_personnage']['name']);
+        $mp3_path = __DIR__ . '/../data/mp3/' . $mp3_name;
+        if (move_uploaded_file($_FILES['mp3_personnage']['tmp_name'], $mp3_path)) {
+            $mp3_personnage = $mp3_name;
+        } else {
+            $error = "Erreur lors de l'upload du fichier audio.";
+        }
+    }
     if (!empty($nom) && !empty($description) && !empty($parcours_selectionnes)) {
-        add_personnage($pdo, $nom, $description, $image);
+        add_personnage($pdo, $nom, $description, $image, $mp3_personnage);
         $id_personnage = $pdo->lastInsertId();
         // Lier le personnage aux parcours sélectionnés
         $stmt = $pdo->prepare("INSERT INTO parcours_personnages (id_parcours, id_personnage) VALUES (?, ?)");
@@ -77,11 +88,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <textarea id="description_personnage" name="description_personnage" required></textarea>
                 </div>
 
+
                 <div class="form-group-horizontal">
                     <label for="image_personnage">Image :</label>
                     <input type="file" id="image_personnage" name="image_personnage" accept="image/*" style="display:none;">
                     <label for="image_personnage" class="button-form">Choisir un fichier</label>
                     <span id="file-chosen">Aucun fichier choisi</span>
+                </div>
+
+                <div class="form-group-horizontal">
+                    <label for="mp3_personnage">Audio (MP3) :</label>
+                    <input type="file" id="mp3_personnage" name="mp3_personnage" accept="audio/mp3,audio/mpeg" style="display:none;">
+                    <label for="mp3_personnage" class="button-form">Choisir un fichier audio</label>
+                    <span id="mp3-file-chosen">Aucun fichier choisi</span>
                 </div>
 
                 <div class="form-group-horizontal">
@@ -102,6 +121,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <script>
                 document.getElementById('image_personnage').addEventListener('change', function() {
                     document.getElementById('file-chosen').textContent = this.files[0]?.name || 'Aucun fichier choisi';
+                });
+                document.getElementById('mp3_personnage').addEventListener('change', function() {
+                    document.getElementById('mp3-file-chosen').textContent = this.files[0]?.name || 'Aucun fichier choisi';
                 });
             </script>
         </div>
