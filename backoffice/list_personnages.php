@@ -30,6 +30,7 @@ foreach ($personnages as $perso) {
 ?>
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -41,6 +42,7 @@ foreach ($personnages as $perso) {
     <title>Liste des Personnalités</title>
     <link rel="stylesheet" href="css/alertes.css">
 </head>
+
 <body>
     <?php include 'header.php'; ?>
     <h1 class="h1-sticky">ARRAS GO - Les Personnalités</h1>
@@ -69,7 +71,7 @@ foreach ($personnages as $perso) {
                         <h3>Audio</h3>
                         <div class="card-audio">
                             <?php if (!empty($p['mp3_personnage'])): ?>
-                                <audio controls src="../data/mp3/<?= htmlspecialchars($p['mp3_personnage']) ?>"></audio>
+                                <audio class="audio" controls src="../data/mp3/<?= htmlspecialchars($p['mp3_personnage']) ?>"></audio>
                             <?php else: ?>
                                 <em>Aucun audio</em>
                             <?php endif; ?>
@@ -88,14 +90,6 @@ foreach ($personnages as $perso) {
                         <?php endif; ?>
                     </div>
                 <?php endforeach; ?>
-            </div>
-        </div>
-    </main>
-    <footer>
-        <p>&copy; <?php echo date("Y"); ?> Arras Go. Tous droits réservés.</p>
-    </footer>
-</body>
-</html>
             </div>
         </div>
     </main>
