@@ -42,8 +42,9 @@ if (function_exists('readParcours')) {
             </nav>
         </div>
     </header>
+
     <main>
-        <section class="parcours-list">
+        <section class="container">
             <h2>Liste des parcours</h2>
             <div class="parcours-cards">
                 <?php if (!empty($parcours)): ?>

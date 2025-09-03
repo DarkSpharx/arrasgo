@@ -55,49 +55,59 @@ if (function_exists('readParcours')) {
 		</section>
 
 		<section class="container">
-			<h2>Une expérience ludique et immersive autour de l’histoire et du patrimoine d’Arras.</h2>
+			<h2>Une expérience ludique et immersive autour<br>de l’histoire et du patrimoine d’Arras.</h2>
 			<em>Réalisé à partir des collections du Pôle culturel Saint-Vaast.</em>
-			<h2>Deux mode de jeu possible</h2>
+			<hr>
 			<div>
-				<div>
-					<h3>Mode explorateur (avec géolocalisation)</h3>
-					<p>Partez dans les rues d'Arras avec votre smartphone et vivez l'enquête en temps réel au cœur de la ville.</p>
+				<h2>2 modes de jeu</h2>
+				<div class="two-column">
+					<div class="column">
+						<h3>Le Mode explorateur<br>(avec géolocalisation)</h3>
+						<p>Partez dans les rues d'Arras avec votre smartphone et vivez l'enquête en temps réel au cœur de la ville.</p>
+					</div>
+					<div class="column">
+						<h3>Le Mode découverte<br>(sans géolocalisation)</h3>
+						<p>Explorez les énigmes depuis un ordinateur, chez vous ou en classe, sans vous déplacer physiquement.</p>
+					</div>
 				</div>
-				<div>
-					<h3>Mode découverte (sans géolocalisation)</h3>
-					<p>Explorez les énigmes depuis un ordinateur, chez vous ou en classe, sans vous déplacer physiquement.</p>
-				</div>
-				<em>Chaque étape du jeu est accompagnée d’un lecteur audio pour faciliter la jouabilité en déambulant librement dans la ville.</em>
 			</div>
+			<em>Chaque étape du jeu est accompagnée d’un lecteur audio pour faciliter la jouabilité en déambulant librement dans la ville.</em>
 		</section>
 
 		<section class="container">
-			<h2>le(s) parcours disponibles sur ARRAS GO</h2>
-			<div class="parcours-cards">
-				<?php if (!empty($parcours)): ?>
-					<?php foreach ($parcours as $p): ?>
-						<article class="parcours-card">
-							<?php if (!empty($p['image_parcours'])): ?>
-								<img src="../data/images/<?= htmlspecialchars($p['image_parcours']) ?>" alt="Image du parcours" class="parcours-img">
-							<?php else: ?>
-								<div class="parcours-img placeholder"></div>
-							<?php endif; ?>
-							<div class="parcours-content">
-								<h3><?= htmlspecialchars($p['nom_parcours'] ?? $p['name'] ?? 'Parcours') ?></h3>
-								<p><?= htmlspecialchars($p['description_parcours'] ?? $p['description'] ?? '') ?></p>
-								<a href="parcours_detail.php?id=<?= urlencode($p['id_parcours']) ?>" class="btn">Voir le parcours</a>
-							</div>
-						</article>
-					<?php endforeach; ?>
-				<?php else: ?>
-					<p>Aucun parcours disponible pour le moment.</p>
-				<?php endif; ?>
+			<div class="parcours-list">
+				<h2>Parcours disponibles</h2>
+				<div class="parcours-cards">
+					<?php 
+					$parcours_en_ligne = array_filter($parcours ?? [], function($p) {
+						return isset($p['statut']) && $p['statut'] == 1;
+					});
+					?>
+					<?php if (!empty($parcours_en_ligne)): ?>
+						<?php foreach ($parcours_en_ligne as $p): ?>
+							<article class="parcours-card">
+								<?php if (!empty($p['image_parcours'])): ?>
+									<img src="../data/images/<?= htmlspecialchars($p['image_parcours']) ?>" alt="Image du parcours" class="parcours-img">
+								<?php else: ?>
+									<div class="parcours-img placeholder"></div>
+								<?php endif; ?>
+								<div class="parcours-content">
+									<h3><?= htmlspecialchars($p['nom_parcours'] ?? $p['name'] ?? 'Parcours') ?></h3>
+									<p><?= htmlspecialchars($p['description_parcours'] ?? $p['description'] ?? '') ?></p>
+									<a href="parcours_detail.php?id=<?= urlencode($p['id_parcours']) ?>" class="btn">Voir le parcours</a>
+								</div>
+							</article>
+						<?php endforeach; ?>
+					<?php else: ?>
+						<p>Aucun parcours disponible pour le moment.</p>
+					<?php endif; ?>
+				</div>
 			</div>
 		</section>
 	</main>
 
 	<footer class="main-footer">
-		<div class="container">
+		<div>
 			<p>&copy; <?= date('Y') ?> Arras Go. Tous droits réservés.</p>
 		</div>
 	</footer>

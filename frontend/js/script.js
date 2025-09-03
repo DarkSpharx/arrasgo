@@ -4,16 +4,20 @@ document.addEventListener("DOMContentLoaded", function () {
   let lastScrollY = window.scrollY;
   const header = document.querySelector('header');
   let ticking = false;
+  const delta = 5; // tolérance pour éviter les micro-mouvements
   if (header) {
     window.addEventListener('scroll', function () {
       if (!ticking) {
         window.requestAnimationFrame(function () {
           const currentScroll = window.scrollY;
-          if (currentScroll > lastScrollY && currentScroll > 60) {
+          if (currentScroll <= 0) {
+            // Toujours afficher le header tout en haut
+            header.classList.remove('header-hide');
+          } else if (currentScroll - lastScrollY > delta && currentScroll > 60) {
             // Scroll vers le bas
             header.classList.add('header-hide');
           } else if (currentScroll < lastScrollY) {
-            // Scroll vers le haut
+            // Scroll vers le haut (même petit mouvement)
             header.classList.remove('header-hide');
           }
           lastScrollY = currentScroll;
