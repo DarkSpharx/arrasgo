@@ -1,5 +1,28 @@
 // Menu mobile responsive amélioré et accessibilité
 document.addEventListener("DOMContentLoaded", function () {
+  // Header qui disparaît au scroll vers le bas et réapparaît au scroll vers le haut
+  let lastScrollY = window.scrollY;
+  const header = document.querySelector('header');
+  let ticking = false;
+  if (header) {
+    window.addEventListener('scroll', function () {
+      if (!ticking) {
+        window.requestAnimationFrame(function () {
+          const currentScroll = window.scrollY;
+          if (currentScroll > lastScrollY && currentScroll > 60) {
+            // Scroll vers le bas
+            header.classList.add('header-hide');
+          } else if (currentScroll < lastScrollY) {
+            // Scroll vers le haut
+            header.classList.remove('header-hide');
+          }
+          lastScrollY = currentScroll;
+          ticking = false;
+        });
+        ticking = true;
+      }
+    });
+  }
   // Effet parallax souris/tactile sur tous les éléments .parallax
   const parallaxEls = document.querySelectorAll(".paralax");
   if (parallaxEls.length > 0) {

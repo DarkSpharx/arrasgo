@@ -1,3 +1,11 @@
+/* Header masqué au scroll vers le bas */
+header.header-hide {
+  transform: translateY(-110%);
+  transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
+}
+header {
+  transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
+}
 /* Effet de flottement sur les images de la section hero */
 .float {
   animation: hero-float 2s linear infinite;
@@ -48,7 +56,7 @@ main {
   flex-direction: column;
 }
 .container {
-  max-width: 1280px;
+  max-width: 1024px;
   margin: 0 auto;
 }
 
@@ -228,14 +236,7 @@ main {
   align-items: center;
   gap: 1.2rem;
 }
-.detail-img {
-  width: 220px;
-  height: 220px;
-  object-fit: cover;
-  border-radius: 50%;
-  background: #e7d8c9;
-  margin-bottom: 1rem;
-}
+
 .detail-content {
   width: 100%;
   text-align: center;
@@ -336,6 +337,7 @@ main {
   font-weight: 700;
   font-size: 72px;
 }
+
 .hero hr {
   border: none;
   width: 50%;
@@ -344,6 +346,15 @@ main {
 .hero h2 {
   font-size: 28px;
   font-weight: 600;
+}
+.container h2 {
+  font-size: 28px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+.container h3 {
+  font-size: 22px;
+  font-weight: 400;
 }
 .hero p {
   font-weight: 400;
@@ -384,6 +395,7 @@ main {
   margin-top: 0.7rem;
   font-weight: 500;
   transition: background 0.2s;
+  text-align: center;
 }
 .btn:hover {
   background: #e7d8c9;
@@ -392,83 +404,72 @@ main {
 
 /* HEADER */
 header {
-  position: relative;
   background-image: url("../media/image/bg_pc.webp");
   background-size: cover;
   background-attachment: fixed;
   background-position: top;
   background-repeat: no-repeat;
   background-color: #1d1d1b;
-  height: 3rem;
   background-blend-mode: multiply;
-}
-
-.main-header {
-  position: sticky;
-  top: 0;
   z-index: 100;
-}
-.logo {
-  & a {
-    padding: 0;
-    margin: 0;
-    height: 0;
-    & img {
-      height: 2rem;
-      width: auto;
-      z-index: 110;
-      position: absolute;
-      top: 1rem;
-      left: 1rem;
-      &:hover {
-        /* opacity: 0.5; */
-        -webkit-mask-image: #e7d8c9;
-        mask-image: #e7d8c9;
+  /* position: sticky; */
+  width: 100%;
+  top: 0;
+  & div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1024px;
+    margin: 0 auto;
+    padding: 1rem;
+    & a {
+      padding: 0;
+      margin: 0;
+      & img {
+        height: 2rem;
+        width: auto;
+        z-index: 120;
+        &:hover {
+          opacity: 0.66;
+          transition: 0.2s;
+        }
       }
+    }
+    & #menu-toggle {
+      display: block;
+      background: none;
+      border: none;
+      cursor: pointer;
+      transition: color 0.2s;
+      & i {
+        font-size: 2rem;
+        z-index: 140;
+        color: #fff;
+        &:hover {
+          color: #e7d8c9;
+        }
+      }
+    }
+    #menu-toggle:hover {
+      color: #e7d8c9;
+    }
+    #menu-toggle.open {
+      transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      overflow: hidden;
+      z-index: 150;
     }
   }
 }
-
-#menu-toggle {
-  display: block;
-  background: none;
-  border: none;
-  font-size: 2rem;
-  cursor: pointer;
-  transition: color 0.2s;
-}
-#menu-toggle i {
-  position: fixed;
-  top: 1rem;
-  right: 1rem;
-  font-size: 2rem;
-  z-index: 110;
-  color: #fff;
-  &:hover {
-    color: #e7d8c9;
-  }
-}
-
-#menu-toggle:hover {
-  color: #e7d8c9;
-}
-#menu-toggle.open {
-  transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  overflow: hidden;
-  z-index: 110;
-  font-size: 3rem;
-}
+/* MENU de navigation */
 .main-nav {
   display: none;
   width: fit-content;
   position: absolute;
-  /* padding: 1rem; */
-  /* margin: auto; */
   transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  background-color: #1d1d1b;
 }
 .main-nav.open {
-  z-index: 105;
+  background-color: #1d1d1bfa;
+  z-index: 130;
   top: 0;
   left: 0;
   height: 100vh;
@@ -478,12 +479,6 @@ header {
   justify-content: center;
   align-items: center;
   transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  background-image: url("../media/image/bg_pc.webp");
-  background-size: cover;
-  background-attachment: fixed;
-  background-position: top;
-  background-repeat: no-repeat;
-  background-blend-mode: multiply;
 }
 .main-nav ul {
   flex-direction: column;

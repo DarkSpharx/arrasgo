@@ -26,22 +26,22 @@ if (function_exists('readParcours')) {
 </head>
 
 <body>
-	<header class=" main-header">
-		<div class="logo">
+	<header>
+		<div>
 			<a href="index.php">
 				<img src="./media/logo/logo_long_monochrome_white.svg" alt="Arras Go Logo">
 			</a>
+			<button id="menu-toggle" aria-label="Ouvrir le menu"><i class="fa-solid fa-bars"></i></button>
+			<nav id="main-nav" class="main-nav">
+				<ul>
+					<li><a href="index.php">Accueil</a></li>
+					<li><a href="parcours.php">Parcours</a></li>
+					<li><a href="personnages.php">Personnages</a></li>
+					<li><a href="contact.php">Contact</a></li>
+					<li><a href="cgu.php">CGU</a></li>
+				</ul>
+			</nav>
 		</div>
-		<button id="menu-toggle" aria-label="Ouvrir le menu"><i class="fa-solid fa-bars"></i></button>
-		<nav id="main-nav" class="main-nav">
-			<ul>
-				<li><a href="index.php">Accueil</a></li>
-				<li><a href="parcours.php">Parcours</a></li>
-				<li><a href="personnages.php">Personnages</a></li>
-				<li><a href="contact.php">Contact</a></li>
-				<li><a href="cgu.php">CGU</a></li>
-			</ul>
-		</nav>
 	</header>
 
 	<main>
@@ -52,10 +52,10 @@ if (function_exists('readParcours')) {
 			<hr>
 			<h2>Jeu piéton gratuit en centre-ville d'Arras</h2>
 			<a href="parcours.php" class="btn cta">Jouer !</a>
-
 		</section>
+
 		<section class="container">
-			<h2>Des expériences ludiques et immersives autour de l’histoire et du patrimoine d’Arras.</h2>
+			<h2>Une expérience ludique et immersive autour de l’histoire et du patrimoine d’Arras.</h2>
 			<em>Réalisé à partir des collections du Pôle culturel Saint-Vaast.</em>
 			<h2>Deux mode de jeu possible</h2>
 			<div>
@@ -68,6 +68,30 @@ if (function_exists('readParcours')) {
 					<p>Explorez les énigmes depuis un ordinateur, chez vous ou en classe, sans vous déplacer physiquement.</p>
 				</div>
 				<em>Chaque étape du jeu est accompagnée d’un lecteur audio pour faciliter la jouabilité en déambulant librement dans la ville.</em>
+			</div>
+		</section>
+
+		<section class="container">
+			<h2>le(s) parcours disponibles sur ARRAS GO</h2>
+			<div class="parcours-cards">
+				<?php if (!empty($parcours)): ?>
+					<?php foreach ($parcours as $p): ?>
+						<article class="parcours-card">
+							<?php if (!empty($p['image_parcours'])): ?>
+								<img src="../data/images/<?= htmlspecialchars($p['image_parcours']) ?>" alt="Image du parcours" class="parcours-img">
+							<?php else: ?>
+								<div class="parcours-img placeholder"></div>
+							<?php endif; ?>
+							<div class="parcours-content">
+								<h3><?= htmlspecialchars($p['nom_parcours'] ?? $p['name'] ?? 'Parcours') ?></h3>
+								<p><?= htmlspecialchars($p['description_parcours'] ?? $p['description'] ?? '') ?></p>
+								<a href="parcours_detail.php?id=<?= urlencode($p['id_parcours']) ?>" class="btn">Voir le parcours</a>
+							</div>
+						</article>
+					<?php endforeach; ?>
+				<?php else: ?>
+					<p>Aucun parcours disponible pour le moment.</p>
+				<?php endif; ?>
 			</div>
 		</section>
 	</main>
