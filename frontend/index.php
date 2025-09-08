@@ -64,8 +64,6 @@ $personnages_en_ligne = $personnages;
 			<a href="parcours.php" class="btn cta">Jouer !</a>
 		</section>
 
-
-
 		<section class="container e7d8c9">
 			<div class="corps">
 				<h2>Une expérience ludique et immersive autour<br>de l’histoire et du patrimoine d’Arras.</h2>
@@ -94,7 +92,7 @@ $personnages_en_ligne = $personnages;
 					</div>
 				</div>
 				<hr>
-				<em>Chaque étape du jeu est accompagnée d’un lecteur audio pour faciliter la jouabilité en déambulant librement dans la ville.</em>
+				<em>Chaque étape du jeu est accompagnée d’un lecteur audio avec une retranscription audio du texte afin de faciliter la jouabilité de manière plus immersive.</em>
 			</div>
 		</section>
 
@@ -102,7 +100,6 @@ $personnages_en_ligne = $personnages;
 			<div class="corps">
 				<h2>Parcours disponibles</h2>
 				<hr>
-				<em>Explorez les parcours thématiques qui vous feront découvrir l’histoire et le patrimoine d’Arras, à travers des énigmes, des anecdotes, des rencontres et des lieux emblématiques.</em>
 				<div class="parcours-cards">
 					<?php
 					$parcours_en_ligne = array_filter($parcours ?? [], function ($p) {
@@ -128,9 +125,21 @@ $personnages_en_ligne = $personnages;
 						<p>Aucun parcours disponible pour le moment.</p>
 					<?php endif; ?>
 				</div>
-				<h2>les fiches personnages</h2>
+			</div>
+		</section>
+
+		<section class="container fff">
+			<div class="corps">
+				<h2>Découvrez ARRAS via ces personnalités</h2>
 				<hr>
-				<em>Découvrez les figures historiques qui ont marqué Arras à travers nos fiches personnages détaillées, enrichies d'illustrations et de récits captivants.</em>
+				<em>Chaque fiche personnage est accompagnée d’un lecteur audio avec une retranscription audio du texte afin de faciliter la découverte de ses personnalités emblématiques d'ARRAS de manière plus immersive.</em>
+			</div>
+		</section>
+
+		<section class="container e7d8c9">
+			<div class="corps">
+				<h2>les fiches des personnalités</h2>
+				<hr>
 				<div class="parcours-cards">
 					<?php if (!empty($personnages_en_ligne)): ?>
 						<?php foreach ($personnages_en_ligne as $perso): ?>
@@ -155,7 +164,7 @@ $personnages_en_ligne = $personnages;
 	</main>
 
 	<footer class="main-footer">
-		<div>
+		<div class="container">
 			<p>&copy; <?= date('Y') ?> Arras Go. Tous droits réservés.</p>
 		</div>
 	</footer>

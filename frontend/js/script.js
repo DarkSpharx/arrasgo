@@ -10,6 +10,12 @@ document.addEventListener("DOMContentLoaded", function () {
       if (!ticking) {
         window.requestAnimationFrame(function () {
           const currentScroll = window.scrollY;
+          // Ajout/Retrait de la classe header-scrolled selon la position
+          if (currentScroll > 0) {
+            header.classList.add('header-scrolled');
+          } else {
+            header.classList.remove('header-scrolled');
+          }
           if (currentScroll <= 0) {
             // Toujours afficher le header tout en haut
             header.classList.remove('header-hide');

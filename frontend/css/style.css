@@ -15,12 +15,29 @@ button {
   padding: 0;
   box-sizing: border-box;
 }
+html,
+body {
+  height: 100%;
+}
 body {
   font-family: "Montserrat", Arial, sans-serif;
   min-height: 100vh;
   scroll-behavior: smooth;
-  background-color: #1d1d1b;
+  background-color: #e7d8c9;
   overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Footer toujours en bas */
+.main-footer {
+  background: #1d1d1b;
+  color: #fff;
+  text-align: center;
+  padding: 1rem 0;
+  margin-top: auto;
+  width: 100%;
 }
 main {
   flex: 1 1 auto;
@@ -512,9 +529,19 @@ main {
 }
 .fff {
   background-color: #fff;
+  color: #1d1d1b;
 }
 .e7d8c9 {
   background-color: #e7d8c9;
+  color: #1d1d1b;
+}
+.bg-1d1d1b {
+  background-color: #1d1d1b;
+  color: #fff;
+}
+
+.minheight-100vh {
+  min-height: 100vh;
 }
 
 .container {
@@ -529,6 +556,13 @@ main {
     width: 50%;
     margin: 1rem auto;
     border-top: 1px solid #1d1d1b;
+  }
+  & h1 {
+    text-align: center;
+    font-size: 36px;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin: 5rem 0;
   }
   & h2 {
     text-align: center;
@@ -599,13 +633,13 @@ header.header-hide {
   transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-header {
+.headerall {
   z-index: 100;
   position: fixed;
   left: 0;
   top: 0;
   width: 100%;
-  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  /* transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.3s, background-image 0.3s; */
   background-image: url("../media/image/bg_pc.webp");
   background-size: cover;
   background-attachment: fixed;
@@ -613,50 +647,72 @@ header {
   background-repeat: no-repeat;
   background-blend-mode: multiply;
   background-color: #1d1d1b;
-  & div {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    max-width: 1920px;
-    margin: 0 auto;
-    padding: 1rem;
-    & a {
-      padding: 0;
-      margin: 0;
-      & img {
-        height: 2rem;
-        width: auto;
-        z-index: 120;
-        &:hover {
-          opacity: 0.66;
-          transition: 0.2s;
-        }
-      }
-    }
-    & #menu-toggle {
-      display: block;
-      background: none;
-      border: none;
-      cursor: pointer;
-      transition: color 0.2s;
-      & i {
-        font-size: 2rem;
-        z-index: 140;
-        color: #fff;
-        &:hover {
-          color: #e7d8c9;
-        }
-      }
-    }
-    #menu-toggle:hover {
-      color: #e7d8c9;
-    }
-    #menu-toggle.open {
-      transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      overflow: hidden;
-      z-index: 150;
-    }
-  }
+}
+
+header {
+  z-index: 100;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  /* transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.3s, background-image 0.3s; */
+  background-image: none;
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: top;
+  background-repeat: no-repeat;
+  background-blend-mode: multiply;
+  background-color: transparent;
+}
+
+header.header-scrolled {
+  background-image: url("../media/image/bg_pc.webp");
+  background-color: #1d1d1b;
+}
+
+header > div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1920px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+header > div a {
+  padding: 0;
+  margin: 0;
+}
+header > div a img {
+  height: 2rem;
+  width: auto;
+  z-index: 120;
+}
+header > div a img:hover {
+  opacity: 0.66;
+  transition: 0.2s;
+}
+header > div #menu-toggle {
+  display: block;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+header > div #menu-toggle i {
+  font-size: 2rem;
+  z-index: 140;
+  color: #fff;
+}
+header > div #menu-toggle i:hover {
+  color: #e7d8c9;
+}
+header > div #menu-toggle:hover {
+  color: #e7d8c9;
+}
+header > div #menu-toggle.open {
+  transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+  z-index: 150;
 }
 /* MENU de navigation */
 .main-nav {
@@ -710,22 +766,4 @@ header {
   background: #e7d8c9;
   border: #e7d8c9 1px solid;
   color: #1d1d1b;
-}
-/* Footer toujours en bas */
-html,
-body {
-  height: 100%;
-}
-body {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-}
-.main-footer {
-  background: #1d1d1b;
-  color: #fff;
-  text-align: center;
-  padding: 1rem 0;
-  margin-top: auto;
-  width: 100%;
 }

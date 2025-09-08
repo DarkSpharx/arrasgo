@@ -12,18 +12,18 @@ $personnages = get_all_personnages($pdo);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Personnages - Arras Go</title>
+    <title>Arras Go - Découverte des parcours</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
 <body>
-    <header>
+    <header class="headerall">
         <div>
             <a href="index.php">
-                <img src="./media/logo/logo_long_monochrome_white.svg" alt="Arras Go Logo">
+                <img src="./media/logo/logo_long_monochrome_white.svg" alt="Arras Go Logo" class="left">
             </a>
-            <button id="menu-toggle" aria-label="Ouvrir le menu"><i class="fa-solid fa-bars"></i></button>
+            <button id="menu-toggle" aria-label="Ouvrir le menu" class="right"><i class="fa-solid fa-bars"></i></button>
             <nav id="main-nav" class="main-nav">
                 <ul>
                     <li><a href="index.php">Accueil</a></li>
@@ -35,9 +35,10 @@ $personnages = get_all_personnages($pdo);
             </nav>
         </div>
     </header>
-    <main>
-        <section class="parcours-list">
-            <h2>Personnages</h2>
+
+    <main class="main">
+        <section class="container e7d8c9 minheight-100vh">
+            <h1>Le(s) personnalités</h1>
             <div class="parcours-cards">
                 <?php if (!empty($personnages)): ?>
                     <?php foreach ($personnages as $perso): ?>
