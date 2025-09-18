@@ -90,6 +90,12 @@ document.addEventListener("DOMContentLoaded", function () {
   const menuToggle = document.getElementById("menu-toggle");
   const nav = document.getElementById("main-nav");
   const icon = menuToggle ? menuToggle.querySelector("i") : null;
+  // Correction Edge/Chrome : forcer le display au chargement
+  if (menuToggle) {
+    menuToggle.style.display = "block";
+    menuToggle.style.visibility = "visible";
+    menuToggle.style.opacity = "1";
+  }
   if (menuToggle && nav && icon) {
     menuToggle.addEventListener("click", function () {
       const isOpen = nav.classList.toggle("open");

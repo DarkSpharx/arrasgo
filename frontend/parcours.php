@@ -5,11 +5,11 @@ require_once __DIR__ . '/../backend/functions/parcours.php';
 
 // Récupération des parcours
 if (function_exists('readParcours')) {
-    $parcours = array_filter(readParcours($pdo), function($p) {
+    $parcours = array_filter(readParcours($pdo), function ($p) {
         return isset($p['statut']) ? $p['statut'] == 1 : true;
     });
 } elseif (function_exists('get_all_parcours')) {
-    $parcours = array_filter(get_all_parcours($pdo), function($p) {
+    $parcours = array_filter(get_all_parcours($pdo), function ($p) {
         return isset($p['statut']) ? $p['statut'] == 1 : true;
     });
 } else {
@@ -48,8 +48,10 @@ if (function_exists('readParcours')) {
     </header>
 
     <main class="main">
-        <section class="container e7d8c9 minheight-100vh">
+        <section class="container fff">
             <h1>Le(s) parcours</h1>
+        </section>
+        <section class="container e7d8c9 minheight-100vh">
             <div class="parcours-cards">
                 <?php if (!empty($parcours)): ?>
                     <?php foreach ($parcours as $p): ?>

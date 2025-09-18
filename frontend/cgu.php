@@ -1,7 +1,3 @@
-<?php
-// Page Conditions Générales d'Utilisation
-include 'header.php';
-?>
 <main class="container minheight-100vh">
 	<h1>Conditions générales d'utilisations</h1>
 	<section>
@@ -55,4 +51,3 @@ include 'header.php';
 		<p>Les présentes CGU sont régies par le droit français. En cas de litige, et à défaut de solution amiable, les tribunaux compétents seront ceux du ressort de la Cour d’appel de Douai.</p>
 	</section>
 </main>
-<?php include 'main-footer.php'; ?>

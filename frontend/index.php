@@ -30,11 +30,12 @@ $personnages_en_ligne = $personnages;
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Arras Go - Découverte des parcours</title>
 	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/footer.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
 <body>
-	<header>
+	<header class="headerall">
 		<div>
 			<a href="index.php">
 				<img src="./media/logo/logo_long_monochrome_white.svg" alt="Arras Go Logo" class="left">
@@ -58,7 +59,7 @@ $personnages_en_ligne = $personnages;
 				<img src="./media/logo/pin.svg" class="float" alt="Icone de localisation">
 			</div>
 			<img src="./media/logo/cercle.svg" alt="Cercle décoratif">
-			<h1 class="right">Bienvenue sur Arras Go</h1>
+			<h1>Bienvenue sur Arras Go</h1>
 			<hr class="zoom">
 			<h2 class="left">Le jeu piéton d'Arras</h2>
 			<a href="parcours.php" class="btn cta">Jouer !</a>
@@ -163,11 +164,7 @@ $personnages_en_ligne = $personnages;
 		</section>
 	</main>
 
-	<footer class="main-footer">
-		<div class="container">
-			<p>&copy; <?= date('Y') ?> Arras Go. Tous droits réservés.</p>
-		</div>
-	</footer>
+	<?php include __DIR__ . '/footer.php'; ?>
 
 	<script src="js/script.js"></script>
 </body>
