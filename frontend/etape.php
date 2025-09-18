@@ -79,7 +79,17 @@ $etapes = get_etapes_by_parcours($pdo, $id_parcours);
                             echo '<img src="../data/images/' . htmlspecialchars($chapitre['image_chapitre']) . '" alt="Image du chapitre" style="max-width:220px;max-height:140px;display:block;margin:0.5rem auto;">';
                         }
                         if (!empty($chapitre['texte_chapitre'])) {
-                            echo '<div class="chapitre-texte">' . nl2br(htmlspecialchars($chapitre['texte_chapitre'])) . '</div>';
+                            // Autoriser uniquement les balises <iframe> YouTube, filtrer le reste
+                            $texte = $chapitre['texte_chapitre'];
+                            // On autorise uniquement les iframes YouTube
+                            $texte = preg_replace_callback(
+                                '/<iframe[^>]*src="https?:\\/\\/www\\.youtube\\.com\\/embed\\/[^"<>]+"[^>]*><\\/iframe>/i',
+                                function($matches) { return $matches[0]; },
+                                $texte
+                            );
+                            // On retire toutes les autres balises HTML
+                            $texte = strip_tags($texte, '<iframe>');
+                            echo '<div class="chapitre-texte">' . nl2br($texte) . '</div>';
                         }
                         echo '</div>';
                     }

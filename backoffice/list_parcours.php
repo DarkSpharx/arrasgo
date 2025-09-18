@@ -28,7 +28,7 @@ $parcours = get_all_parcours_backoffice($pdo);
 <body>
     <?php include 'header.php'; ?>
 
-    <h1 class="h1-sticky">ARRAS GO - Les Parcours</h1>
+    <h1 class="h1-sticky">ARRAS GO - Parcours</h1>
 
     <main>
         <div class="cards-container">

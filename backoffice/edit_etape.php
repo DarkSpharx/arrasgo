@@ -142,7 +142,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <hr>
                 <div class="form-group-horizontal">
                     <label for="indice_etape_texte">Indice texte</label>
-                    <textarea id="indice_etape_texte" name="indice_etape_texte" required><?= htmlspecialchars($etape['indice_etape_texte']) ?></textarea>
+                    <textarea id="indice_etape_texte" name="indice_etape_texte"><?= htmlspecialchars($etape['indice_etape_texte']) ?></textarea>
                 </div>
                 <hr>
                 <div class="form-group-horizontal form-img">

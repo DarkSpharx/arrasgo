@@ -45,7 +45,7 @@ foreach ($personnages as $perso) {
 
 <body>
     <?php include 'header.php'; ?>
-    <h1 class="h1-sticky">ARRAS GO - Les Personnalités</h1>
+    <h1 class="h1-sticky">ARRAS GO - Personnalités</h1>
     <main>
         <div class="cards-container">
             <div class="cards-grid">

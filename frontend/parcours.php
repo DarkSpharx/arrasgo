@@ -5,9 +5,13 @@ require_once __DIR__ . '/../backend/functions/parcours.php';
 
 // Récupération des parcours
 if (function_exists('readParcours')) {
-    $parcours = readParcours($pdo);
+    $parcours = array_filter(readParcours($pdo), function($p) {
+        return isset($p['statut']) ? $p['statut'] == 1 : true;
+    });
 } elseif (function_exists('get_all_parcours')) {
-    $parcours = get_all_parcours($pdo);
+    $parcours = array_filter(get_all_parcours($pdo), function($p) {
+        return isset($p['statut']) ? $p['statut'] == 1 : true;
+    });
 } else {
     $stmt = $pdo->query('SELECT * FROM parcours WHERE statut = 1 ORDER BY id_parcours DESC');
     $parcours = $stmt->fetchAll(PDO::FETCH_ASSOC);

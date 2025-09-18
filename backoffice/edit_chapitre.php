@@ -31,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     }
 
-    if (!empty($titre) && !empty($texte)) {
+    if (isset($texte) && trim($texte) !== '') {
         $result = update_chapitre($pdo, $id_chapitre, $titre, $texte, $ordre, $image);
         if ($result) {
             $success = true;
@@ -41,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $error = "Erreur lors de la mise à jour du chapitre.";
         }
     } else {
-        $error = "Le titre et le texte sont obligatoires.";
+        $error = "Le texte est obligatoire.";
     }
 }
 ?>
@@ -79,7 +79,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                 <div class="form-group-horizontal">
                     <label for="titre_chapitre">Titre du chapitre</label>
-                    <input type="text" id="titre_chapitre" name="titre_chapitre" value="<?= htmlspecialchars($chapitre['titre_chapitre']) ?>" required>
+                    <input type="text" id="titre_chapitre" name="titre_chapitre" value="<?= htmlspecialchars($chapitre['titre_chapitre']) ?>">
                 </div>
                 <hr>
                 <div class="form-group-horizontal">

@@ -35,6 +35,18 @@
   max-width: 400px;
   gap: 16px;
   height: fit-content;
+  background-color: #fff;
+  position: sticky;
+  top: 8.5rem; /* hauteur du h1-sticky + marge */
+  z-index: 10;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
+  background-color: #fff !important;
+}
+
+@media (max-width: 768px) {
+  .card-button {
+    top: 5.5rem; /* hauteur du h1-sticky + marge */
+  }
 }
 
 .card {
@@ -54,7 +66,7 @@
   flex-wrap: wrap;
   justify-content: center;
   img {
-    width: 66%;
+    width: 100%;
     margin: auto;
     border-radius: 5px;
     border: #1d1d1d 1px solid;
