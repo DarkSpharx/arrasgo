@@ -84,7 +84,9 @@ $etapes = get_etapes_by_parcours($pdo, $id_parcours);
                             // On autorise uniquement les iframes YouTube
                             $texte = preg_replace_callback(
                                 '/<iframe[^>]*src="https?:\\/\\/www\\.youtube\\.com\\/embed\\/[^"<>]+"[^>]*><\\/iframe>/i',
-                                function($matches) { return $matches[0]; },
+                                function ($matches) {
+                                    return $matches[0];
+                                },
                                 $texte
                             );
                             // On retire toutes les autres balises HTML
@@ -129,11 +131,8 @@ $etapes = get_etapes_by_parcours($pdo, $id_parcours);
             </div>
         </section>
     </main>
-    <footer class="main-footer">
-        <div class="container">
-            <p>&copy; <?= date('Y') ?> Arras Go. Tous droits réservés.</p>
-        </div>
-    </footer>
+    <?php include __DIR__ . '/footer.php'; ?>
+
     <script src="js/script.js"></script>
     <?php if ($geo == 1 && !empty($etape['lat']) && !empty($etape['lng'])): ?>
         <script>

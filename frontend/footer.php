@@ -82,5 +82,13 @@
             </div>
         </div>
     </div>
+    <hr>
+    <div class="footer-links">
+        <a href="index.php">Accueil</a>
+        <a href="parcours.php">Parcours</a>
+        <a href="personnages.php">Personnages</a>
+        <a href="cgu.php">CGU</a>
+    </div>
+    <hr>
     <p>&copy; <?= date('Y') ?> Arras Go. Tous droits réservés.</p>
 </footer>

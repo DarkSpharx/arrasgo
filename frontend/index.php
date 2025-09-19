@@ -27,11 +27,27 @@ $personnages_en_ligne = $personnages;
 
 <head>
 	<meta charset="UTF-8">
+	<meta
+		name="description"
+		content="Arras Go est un jeu gratuit et immersif en centre-ville d’Arras. Vivez une enquête autour de l’histoire du théâtre d’Arras !" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Arras Go - Découverte des parcours</title>
 	<link rel="stylesheet" href="css/style.css">
 	<link rel="stylesheet" href="css/footer.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<!-- Open Graph -->
+	<meta
+		property="og:title"
+		content="Arras Go - Jeu piéton gratuit en centre-ville d'Arras" />
+	<meta
+		property="og:description"
+		content="Une expérience ludique et immersive autour de l’histoire et du patrimoine d’Arras" />
+	<meta property="og:image" content="assets/photos_webp/photo_accueil.webp" />
+	<meta property="og:url" content="https://arras-go.fr/" />
+	<meta property="og:type" content="website" />
+
+	<link rel="icon" href="assets/favicon/favicon.ico" type="image/x-icon" />
+
+	<title>Arras Go - Le jeu piéton et gratuit d'Arras</title>
 </head>
 
 <body>
@@ -46,8 +62,6 @@ $personnages_en_ligne = $personnages;
 					<li><a href="index.php">Accueil</a></li>
 					<li><a href="parcours.php">Parcours</a></li>
 					<li><a href="personnages.php">Personnages</a></li>
-					<li><a href="contact.php">Contact</a></li>
-					<li><a href="cgu.php">CGU</a></li>
 				</ul>
 			</nav>
 		</div>
