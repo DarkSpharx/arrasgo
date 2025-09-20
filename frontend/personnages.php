@@ -11,10 +11,34 @@ $personnages = get_all_personnages($pdo);
 
 <head>
     <meta charset="UTF-8">
+    <meta
+        name="description"
+        content="Arras Go est un jeu gratuit et immersif en centre-ville d’Arras. Vivez une enquête autour de l’histoire du théâtre d’Arras !" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Arras Go - Découverte des parcours</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/footer.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <meta
+        property="og:title"
+        content="Arras Go - Jeu piéton gratuit en centre-ville d'Arras" />
+    <meta
+        property="og:description"
+        content="Une expérience ludique et immersive autour de l’histoire et du patrimoine d’Arras" />
+    <meta property="og:image" content="assets/photos_webp/photo_accueil.webp" />
+    <meta property="og:url" content="https://arras-go.fr/" />
+    <meta property="og:type" content="website" />
+    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="media/favicon/favicon.svg" />
+    <link rel="icon" type="image/png" href="media/favicon/favicon-96x96.png" sizes="96x96" />
+    <link rel="shortcut icon" href="media/favicon/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="media/favicon/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="Arras Go" />
+    <link rel="manifest" href="media/favicon/site.webmanifest" />
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/webfonts/fa-solid-900.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="assets/photos_webp/photo_accueil.webp" as="image">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+
+    <title>Arras Go - Les Personnalités</title>
 </head>
 
 <body>

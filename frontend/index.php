@@ -34,7 +34,6 @@ $personnages_en_ligne = $personnages;
 	<link rel="stylesheet" href="css/style.css">
 	<link rel="stylesheet" href="css/footer.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
-	<!-- Open Graph -->
 	<meta
 		property="og:title"
 		content="Arras Go - Jeu piéton gratuit en centre-ville d'Arras" />
@@ -44,9 +43,16 @@ $personnages_en_ligne = $personnages;
 	<meta property="og:image" content="assets/photos_webp/photo_accueil.webp" />
 	<meta property="og:url" content="https://arras-go.fr/" />
 	<meta property="og:type" content="website" />
-
-	<link rel="icon" href="assets/favicon/favicon.ico" type="image/x-icon" />
-
+	<link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+	<link rel="icon" type="image/svg+xml" href="media/favicon/favicon.svg" />
+	<link rel="icon" type="image/png" href="media/favicon/favicon-96x96.png" sizes="96x96" />
+	<link rel="shortcut icon" href="media/favicon/favicon.ico" />
+	<link rel="apple-touch-icon" sizes="180x180" href="media/favicon/apple-touch-icon.png" />
+	<meta name="apple-mobile-web-app-title" content="Arras Go" />
+	<link rel="manifest" href="media/favicon/site.webmanifest" />
+	<link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/webfonts/fa-solid-900.woff2" as="font" type="font/woff2" crossorigin>
+	<link rel="preload" href="assets/photos_webp/photo_accueil.webp" as="image">
+	<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
 	<title>Arras Go - Le jeu piéton et gratuit d'Arras</title>
 </head>
 
@@ -140,6 +146,8 @@ $personnages_en_ligne = $personnages;
 						<p>Aucun parcours disponible pour le moment.</p>
 					<?php endif; ?>
 				</div>
+				<meta name="robots" content="index, follow">
+				<meta name="author" content="Musée des Beaux-Arts d’Arras">
 			</div>
 		</section>
 
