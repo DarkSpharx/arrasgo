@@ -10,7 +10,7 @@ $geo = isset($_GET['geo']) ? intval($_GET['geo']) : 0;
 $etape = $id_etape ? get_etape($pdo, $id_etape) : null;
 if (!$etape || empty($etape['question_etape'])) {
     http_response_code(404);
-    echo '<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8"><title>Question introuvable</title></head><body><h1>Question introuvable</h1><p>Aucune question pour cette étape.</p></body></html>';
+    header('Location: /frontend/error404.php');
     exit;
 }
 // Validation de la réponse
@@ -33,71 +33,35 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['reponse'])) {
 
 <head>
     <meta charset="UTF-8">
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="Musée des Beaux-Arts d’Arras">
+    <meta name="description" content="Arras Go est un jeu gratuit et immersif en centre-ville d’Arras. Vivez une enquête autour de l’histoire du théâtre d’Arras !" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Question - Arras Go</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/footer.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <meta
+        property="og:title"
+        content="Arras Go - Jeu piéton gratuit en centre-ville d'Arras" />
+    <meta
+        property="og:description"
+        content="Une expérience ludique et immersive autour de l’histoire et du patrimoine d’Arras" />
+    <meta property="og:image" content="media/image/bg_pc.webp" />
+    <meta property="og:url" content="https://arras-go.fr/" />
+    <meta property="og:type" content="website" />
+    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="media/favicon/favicon.svg" />
+    <link rel="icon" type="image/png" href="media/favicon/favicon-96x96.png" sizes="96x96" />
+    <link rel="shortcut icon" href="media/favicon/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="media/favicon/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="Arras Go" />
+    <link rel="manifest" href="media/favicon/site.webmanifest" />
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/webfonts/fa-solid-900.woff2" as="font" type="font/woff2" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+
+    <title>Question - Arras Go</title>
     <style>
-        .popup-overlay {
-            position: fixed;
-            left: 0;
-            top: 0;
-            width: 100vw;
-            height: 100vh;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: 9999;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
 
-        .popup-content {
-            background: #fff;
-            border-radius: 10px;
-            max-width: 90vw;
-            max-height: 80vh;
-            padding: 1.5rem;
-            position: relative;
-            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.18);
-            overflow: auto;
-        }
-
-        .popup-close {
-            position: absolute;
-            top: 8px;
-            right: 12px;
-            font-size: 2rem;
-            color: #333;
-            background: none;
-            border: none;
-            cursor: pointer;
-        }
-
-        .popup-img {
-            max-width: 80vw;
-            max-height: 60vh;
-            display: block;
-            margin: 0 auto;
-        }
-
-        .popup-indice-texte {
-            font-size: 1.1rem;
-            color: #222;
-        }
-
-        .question-indices {
-            display: flex;
-            gap: 1.5rem;
-            margin-bottom: 1.2rem;
-            flex-wrap: wrap;
-        }
-
-        .question-indices a {
-            color: #1d1d1b;
-            text-decoration: underline;
-            cursor: pointer;
-            font-weight: 500;
-        }
     </style>
 </head>
 
@@ -113,8 +77,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['reponse'])) {
                     <li><a href="index.php">Accueil</a></li>
                     <li><a href="parcours.php">Parcours</a></li>
                     <li><a href="personnages.php">Personnages</a></li>
-                    <li><a href="contact.php">Contact</a></li>
-                    <li><a href="cgu.php">CGU</a></li>
                 </ul>
             </nav>
         </div>
@@ -186,11 +148,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['reponse'])) {
             <?php endif; ?>
         </div>
     </div>
-    <footer class="main-footer">
-        <div class="container">
-            <p>&copy; <?= date('Y') ?> Arras Go. Tous droits réservés.</p>
-        </div>
-    </footer>
+    <?php include __DIR__ . '/footer.php'; ?>
+
     <script src="js/script.js"></script>
     <script>
         function closePopup(id) {

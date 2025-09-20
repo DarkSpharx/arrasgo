@@ -1,11 +1,5 @@
 <?php
-// Connexion à la BDD
-require_once __DIR__ . '/../backend/config/database.php';
-require_once __DIR__ . '/../backend/functions/personnages.php';
-
-// Récupération des personnages
-$personnages = get_all_personnages($pdo);
-$personnages_en_ligne = $personnages;
+http_response_code(404);
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -38,11 +32,11 @@ $personnages_en_ligne = $personnages;
     <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/webfonts/fa-solid-900.woff2" as="font" type="font/woff2" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
 
-    <title>Arras Go - Les Personnalités</title>
+    <title>Page introuvable - 404</title>
 </head>
 
 <body>
-    <header class="headerall">
+    <header>
         <div>
             <a href="index.php">
                 <img src="./media/logo/logo_long_monochrome_white.svg" alt="Arras Go Logo" class="left">
@@ -59,43 +53,21 @@ $personnages_en_ligne = $personnages;
     </header>
 
     <main class="main">
-        <section class="heroNohome">
-            <h1>Le(s) personnalités</h1>
-        </section>
-        <section class="container e7d8c9">
-            <div class="corps">
-                <div class="parcours-cards">
-                    <?php if (!empty($personnages_en_ligne)): ?>
-                        <?php foreach ($personnages_en_ligne as $perso): ?>
-                            <article class="parcours-card">
-                                <?php if (!empty($perso['image_personnage'])): ?>
-                                    <img src="../data/images/<?= htmlspecialchars($perso['image_personnage']) ?>" alt="Image du personnage" class="parcours-img">
-                                <?php else: ?>
-                                    <div class="parcours-img placeholder"></div>
-                                <?php endif; ?>
-                                <div class="parcours-content">
-                                    <h3><?= htmlspecialchars($perso['nom_personnage'] ?? $perso['nom'] ?? 'Personnage') ?></h3>
-                                    <a href="personnage.php?id=<?= urlencode($perso['id_personnage']) ?>" class="btn">Voir la fiche</a>
-                                </div>
-                            </article>
-                        <?php endforeach; ?>
-                    <?php else: ?>
-                        <p>Aucun personnage disponible pour le moment.</p>
-                    <?php endif; ?>
-                </div>
+        <section class="hero">
+            <div class="down">
+                <img src="./media/logo/pin.svg" class="float" alt="Icone de localisation">
             </div>
-        </section>
-        <section class="container fff">
-            <div class="corps">
-                <h2>Découvrez ARRAS via ces personnalités</h2>
-                <hr>
-                <em>Chaque fiche personnage est accompagnée d’un lecteur audio avec une retranscription audio du texte afin de faciliter la découverte de ses personnalités emblématiques d'ARRAS de manière plus immersive.</em>
-            </div>
+            <img src="./media/logo/cercle.svg" alt="Cercle décoratif">
+            <h1><i class="fa-solid fa-triangle-exclamation"></i>404 - Page introuvable</h1>
+            <h2>Oups, la page demandée n'existe pas ou a été déplacée.</h2>
+            <a href="index.php" class="btn cta">Retour à l'accueil</a>
         </section>
     </main>
+
     <?php include __DIR__ . '/footer.php'; ?>
 
     <script src="js/script.js"></script>
+
 </body>
 
 </html>

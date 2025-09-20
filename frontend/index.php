@@ -27,9 +27,11 @@ $personnages_en_ligne = $personnages;
 
 <head>
 	<meta charset="UTF-8">
-	<meta
-		name="description"
-		content="Arras Go est un jeu gratuit et immersif en centre-ville d’Arras. Vivez une enquête autour de l’histoire du théâtre d’Arras !" />
+	<meta name="robots" content="index, follow">
+	<meta name="author" content="Musée des Beaux-Arts d’Arras">
+	<meta name="description" content="Arras Go est un jeu gratuit et immersif en centre-ville d’Arras. Vivez une enquête autour de l’histoire du théâtre d’Arras !" />
+	<meta name="robots" content="index, follow">
+	<meta name="author" content="Musée des Beaux-Arts d’Arras">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="css/style.css">
 	<link rel="stylesheet" href="css/footer.css">
@@ -40,7 +42,7 @@ $personnages_en_ligne = $personnages;
 	<meta
 		property="og:description"
 		content="Une expérience ludique et immersive autour de l’histoire et du patrimoine d’Arras" />
-	<meta property="og:image" content="assets/photos_webp/photo_accueil.webp" />
+	<meta property="og:image" content="media/image/bg_pc.webp" />
 	<meta property="og:url" content="https://arras-go.fr/" />
 	<meta property="og:type" content="website" />
 	<link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
@@ -51,13 +53,12 @@ $personnages_en_ligne = $personnages;
 	<meta name="apple-mobile-web-app-title" content="Arras Go" />
 	<link rel="manifest" href="media/favicon/site.webmanifest" />
 	<link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/webfonts/fa-solid-900.woff2" as="font" type="font/woff2" crossorigin>
-	<link rel="preload" href="assets/photos_webp/photo_accueil.webp" as="image">
 	<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
 	<title>Arras Go - Le jeu piéton et gratuit d'Arras</title>
 </head>
 
 <body>
-	<header class="headerall">
+	<header>
 		<div>
 			<a href="index.php">
 				<img src="./media/logo/logo_long_monochrome_white.svg" alt="Arras Go Logo" class="left">
@@ -146,8 +147,7 @@ $personnages_en_ligne = $personnages;
 						<p>Aucun parcours disponible pour le moment.</p>
 					<?php endif; ?>
 				</div>
-				<meta name="robots" content="index, follow">
-				<meta name="author" content="Musée des Beaux-Arts d’Arras">
+
 			</div>
 		</section>
 

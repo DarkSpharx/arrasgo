@@ -22,9 +22,9 @@ if (function_exists('readParcours')) {
 
 <head>
     <meta charset="UTF-8">
-    <meta
-        name="description"
-        content="Arras Go est un jeu gratuit et immersif en centre-ville d’Arras. Vivez une enquête autour de l’histoire du théâtre d’Arras !" />
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="Musée des Beaux-Arts d’Arras">
+    <meta name="description" content="Arras Go est un jeu gratuit et immersif en centre-ville d’Arras. Vivez une enquête autour de l’histoire du théâtre d’Arras !" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/footer.css">
@@ -35,7 +35,7 @@ if (function_exists('readParcours')) {
     <meta
         property="og:description"
         content="Une expérience ludique et immersive autour de l’histoire et du patrimoine d’Arras" />
-    <meta property="og:image" content="assets/photos_webp/photo_accueil.webp" />
+    <meta property="og:image" content="media/image/bg_pc.webp" />
     <meta property="og:url" content="https://arras-go.fr/" />
     <meta property="og:type" content="website" />
     <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
@@ -46,14 +46,13 @@ if (function_exists('readParcours')) {
     <meta name="apple-mobile-web-app-title" content="Arras Go" />
     <link rel="manifest" href="media/favicon/site.webmanifest" />
     <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/webfonts/fa-solid-900.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="preload" href="assets/photos_webp/photo_accueil.webp" as="image">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
 
     <title>Arras Go - Les Parcours</title>
 </head>
 
 <body>
-    <header class="headerall">
+    <header>
         <div>
             <a href="index.php">
                 <img src="./media/logo/logo_long_monochrome_white.svg" alt="Arras Go Logo" class="left">
@@ -64,15 +63,13 @@ if (function_exists('readParcours')) {
                     <li><a href="index.php">Accueil</a></li>
                     <li><a href="parcours.php">Parcours</a></li>
                     <li><a href="personnages.php">Personnages</a></li>
-                    <li><a href="contact.php">Contact</a></li>
-                    <li><a href="cgu.php">CGU</a></li>
                 </ul>
             </nav>
         </div>
     </header>
 
     <main class="main">
-        <section class="container fff">
+        <section class="heroNohome">
             <h1>Le(s) parcours</h1>
         </section>
         <section class="container e7d8c9 minheight-100vh">
@@ -95,6 +92,29 @@ if (function_exists('readParcours')) {
                 <?php else: ?>
                     <p>Aucun parcours disponible pour le moment.</p>
                 <?php endif; ?>
+            </div>
+        </section>
+        <section class="container fff">
+            <div class="corps">
+                <h2>2 modes de jeu</h2>
+                <div class="two-column">
+                    <div class="column">
+                        <h3>Le Mode explorateur
+                            <br>
+                            <p>(avec géolocalisation)</p>
+                        </h3>
+                        <p>Partez dans les rues d'Arras avec votre smartphone et vivez l'enquête en temps réel au cœur de la ville.</p>
+                    </div>
+                    <div class="column">
+                        <h3>Le Mode découverte
+                            <br>
+                            <p>(sans géolocalisation)</p>
+                        </h3>
+                        <p>Explorez les énigmes depuis un ordinateur, chez vous ou en classe, sans vous déplacer physiquement.</p>
+                    </div>
+                </div>
+                <hr>
+                <em>Chaque étape du jeu est accompagnée d’un lecteur audio avec une retranscription audio du texte afin de faciliter la jouabilité de manière plus immersive.</em>
             </div>
         </section>
     </main>

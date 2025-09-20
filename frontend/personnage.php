@@ -8,7 +8,7 @@ $personnage = $id ? get_personnage($pdo, $id) : null;
 
 if (!$personnage) {
     http_response_code(404);
-    echo '<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8"><title>Personnalité introuvable</title></head><body><h1>Personnalité introuvable</h1><p>Le personnage demandé n\'existe pas.</p></body></html>';
+    header('Location: /frontend/error404.php');
     exit;
 }
 ?>
@@ -17,10 +17,32 @@ if (!$personnage) {
 
 <head>
     <meta charset="UTF-8">
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="Musée des Beaux-Arts d’Arras">
+    <meta name="description" content="Arras Go est un jeu gratuit et immersif en centre-ville d’Arras. Vivez une enquête autour de l’histoire du théâtre d’Arras !" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= htmlspecialchars($personnage['nom_personnage']) ?> - Détail</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/footer.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <meta
+        property="og:title"
+        content="Arras Go - Jeu piéton gratuit en centre-ville d'Arras" />
+    <meta
+        property="og:description"
+        content="Une expérience ludique et immersive autour de l’histoire et du patrimoine d’Arras" />
+    <meta property="og:image" content="media/image/bg_pc.webp" />
+    <meta property="og:url" content="https://arras-go.fr/" />
+    <meta property="og:type" content="website" />
+    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="media/favicon/favicon.svg" />
+    <link rel="icon" type="image/png" href="media/favicon/favicon-96x96.png" sizes="96x96" />
+    <link rel="shortcut icon" href="media/favicon/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="media/favicon/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="Arras Go" />
+    <link rel="manifest" href="media/favicon/site.webmanifest" />
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/webfonts/fa-solid-900.woff2" as="font" type="font/woff2" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <title>Arras Go - Détail de <?= htmlspecialchars($personnage['nom_personnage']) ?></title>
 </head>
 
 <body>
@@ -35,13 +57,14 @@ if (!$personnage) {
                     <li><a href="index.php">Accueil</a></li>
                     <li><a href="parcours.php">Parcours</a></li>
                     <li><a href="personnages.php">Personnages</a></li>
-                    <li><a href="contact.php">Contact</a></li>
-                    <li><a href="cgu.php">CGU</a></li>
                 </ul>
             </nav>
         </div>
     </header>
     <main>
+        <section class="heroNohome">
+            <h1><?= htmlspecialchars($personnage['nom_personnage']) ?></h1>
+        </section>
         <section class="detail-personnage">
             <div class="detail-card">
                 <?php if (!empty($personnage['image_personnage'])): ?>
