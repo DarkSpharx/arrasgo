@@ -1,0 +1,92 @@
+/* Détail parcours */
+.detail-parcours {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 2rem 0 1rem 0;
+  position: relative;
+}
+
+/* Détail personnage */
+.detail-personnage {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  position: relative;
+}
+
+.detail-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-size: cover;
+  background-position: center;
+  filter: blur(16px) brightness(0.7);
+  opacity: 0.7;
+  border-radius: 14px;
+  pointer-events: none;
+}
+
+/* Carte commune */
+.detail-card {
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.09);
+  max-width: 1024px;
+  width: 100%;
+  padding: 2rem 1.5rem 1.5rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.2rem;
+  margin: 5rem 1rem;
+}
+.detail-img {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 1000px;
+  max-height: 600px;
+  height: auto;
+  display: block;
+  object-fit: contain;
+  padding: 1rem;
+  border-radius: 10px;
+}
+.detail-img-container {
+  position: relative;
+  width: 100%;
+  max-width: 1000px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.detail-img-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  filter: blur(16px) brightness(0.7);
+  opacity: 0.7;
+  border-radius: 10px;
+  pointer-events: none;
+}
+.detail-content {
+  width: 100%;
+  text-align: center;
+}
+.detail-content h2 {
+  font-size: 1.5rem;
+  margin-bottom: 0.7rem;
+}
+.detail-content p {
+  font-size: 1.1rem;
+  margin-bottom: 1.2rem;
+  text-align: start;
+}
+
+@media (max-width: 1024px) {
+  .detail-card {
+    margin: 1rem;
+    max-width: 100%;
+  }
+}

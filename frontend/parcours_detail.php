@@ -34,6 +34,7 @@ $premiere_etape_id = !empty($etapes) ? $etapes[0]['id_etape'] : null;
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="css/style.css">
         <link rel="stylesheet" href="css/footer.css">
+        <link rel="stylesheet" href="css/fichePerso.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <meta
             property="og:title"
@@ -76,10 +77,14 @@ $premiere_etape_id = !empty($etapes) ? $etapes[0]['id_etape'] : null;
         <section class="heroNohome">
             <h1><?= htmlspecialchars($parcours['nom_parcours']) ?></h1>
         </section>
-        <section class="detail-parcours">
-            <div class="detail-card">
+        <section class="detail-parcours" style="position:relative;">
+            
+            <div class="detail-card" style="position:relative;z-index:1;">
                 <?php if (!empty($parcours['image_parcours'])): ?>
-                    <img src="../data/images/<?= htmlspecialchars($parcours['image_parcours']) ?>" alt="Image du parcours" class="detail-img">
+                    <div class="detail-img-container">
+                        <div class="detail-img-bg" style="background:url('../data/images/<?= htmlspecialchars($parcours['image_parcours']) ?>') center/cover no-repeat;"></div>
+                        <img src="../data/images/<?= htmlspecialchars($parcours['image_parcours']) ?>" alt="Image du parcours" class="detail-img">
+                    </div>
                 <?php endif; ?>
                 <div class="detail-content">
                     <h2><?= htmlspecialchars($parcours['nom_parcours']) ?></h2>

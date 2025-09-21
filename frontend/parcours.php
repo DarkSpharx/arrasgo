@@ -77,12 +77,13 @@ if (function_exists('readParcours')) {
                 <?php if (!empty($parcours)): ?>
                     <?php foreach ($parcours as $p): ?>
                         <article class="parcours-card">
+                            <a href="parcours_detail.php?id=<?= urlencode($p['id_parcours']) ?>" class="parcours-card-link" tabindex="-1" aria-hidden="true" style="position:absolute;top:0;left:0;width:100%;height:100%;z-index:1;"></a>
                             <?php if (!empty($p['image_parcours'])): ?>
                                 <img src="../data/images/<?= htmlspecialchars($p['image_parcours']) ?>" alt="Image du parcours" class="parcours-img">
                             <?php else: ?>
                                 <div class="parcours-img placeholder"></div>
                             <?php endif; ?>
-                            <div class="parcours-content">
+                            <div class="parcours-content" style="position:relative;z-index:2;">
                                 <h3><?= htmlspecialchars($p['nom_parcours'] ?? $p['name'] ?? 'Parcours') ?></h3>
                                 <p><?= htmlspecialchars($p['description_parcours'] ?? $p['description'] ?? '') ?></p>
                                 <a href="parcours_detail.php?id=<?= urlencode($p['id_parcours']) ?>" class="btn">Voir le parcours</a>

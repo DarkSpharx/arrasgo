@@ -23,6 +23,7 @@ if (!$personnage) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/fichePerso.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <meta
         property="og:title"
@@ -65,24 +66,24 @@ if (!$personnage) {
         <section class="heroNohome">
             <h1><?= htmlspecialchars($personnage['nom_personnage']) ?></h1>
         </section>
-        <section class="detail-personnage">
-            <div class="detail-card">
+        <section class="detail-personnage" style="position:relative;">
+
+            <div class="detail-card" style="position:relative;z-index:1;">
                 <?php if (!empty($personnage['image_personnage'])): ?>
-                    <img src="../data/images/<?= htmlspecialchars($personnage['image_personnage']) ?>" alt="Portrait de <?= htmlspecialchars($personnage['nom_personnage']) ?>" class="detail-img">
+                    <div class="detail-img-container">
+                        <div class="detail-img-bg" style="background:url('../data/images/<?= htmlspecialchars($personnage['image_personnage']) ?>') center/cover no-repeat;"></div>
+                        <img src="../data/images/<?= htmlspecialchars($personnage['image_personnage']) ?>" alt="Portrait de <?= htmlspecialchars($personnage['nom_personnage']) ?>" class="detail-img">
+                    </div>
                 <?php endif; ?>
                 <div class="detail-content">
-                    <h2><?= htmlspecialchars($personnage['nom_personnage']) ?></h2>
                     <p><?= nl2br(htmlspecialchars($personnage['description_personnage'])) ?></p>
                     <a href="personnages.php" class="btn">← Retour à la liste</a>
                 </div>
             </div>
         </section>
     </main>
-    <footer class="main-footer">
-        <div class="container">
-            <p>&copy; <?= date('Y') ?> Arras Go. Tous droits réservés.</p>
-        </div>
-    </footer>
+    <?php include __DIR__ . '/footer.php'; ?>
+
     <script src="js/script.js"></script>
 </body>
 

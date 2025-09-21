@@ -1,3 +1,65 @@
+.footer-col.footer-map {
+  flex: 1 1 0;
+  min-width: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+}
+.footer-iframe {
+  width: 90%;
+  aspect-ratio: 16/9;
+  display: block;
+  margin: 0 auto;
+  border: none;
+  background: #fff;
+}
+.footer-flex {
+  display: flex;
+  width: 100%;
+  margin: 0 auto;
+  gap: 2rem;
+}
+.footer-col {
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+}
+.footer-map {
+  justify-content: start;
+  padding: 3rem !important;
+}
+.footer-contact {
+  justify-content: start;
+  padding: 3rem !important;
+  align-items: center;
+}
+.footer-social {
+  justify-content: start;
+  padding: 3rem !important;
+}
+@media (max-width: 1024px) {
+  .footer-flex {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+  .footer-col,
+  .footer-map,
+  .footer-social {
+    width: 100%;
+  }
+  .footer-iframe {
+    width: 90%;
+    min-width: 0;
+    padding: 0 !important;
+    margin: auto;
+  }
+}
 footer.main-footer .btn2 {
   display: inline-block;
   background: #e7d8c9;
@@ -9,16 +71,17 @@ footer.main-footer .btn2 {
   font-weight: 600;
   transition: background 0.2s;
   text-align: center;
-  & i {
-    margin-right: 1rem;
-    font-size: 1.2em;
-  }
+}
+footer.main-footer .btn2 i {
+  margin-right: 1rem;
+  font-size: 1.2em;
 }
 footer.main-footer .btn2:hover {
   background: #fff;
   color: #1d1d1b;
 }
 footer.main-footer {
+  position: static;
   background: #1d1d1b;
   color: #e7d8c9;
   width: 100%;
@@ -27,12 +90,11 @@ footer.main-footer {
 }
 
 footer.main-footer .container {
-  /* max-width: 1200px; */
   margin: 0 auto;
   flex-direction: row;
   align-items: flex-start;
 }
-@media (max-width: 900px) {
+@media (max-width: 1024px) {
   footer.main-footer .container {
     display: flex;
     flex-wrap: wrap;
@@ -69,7 +131,7 @@ footer.main-footer a:hover img {
 }
 
 footer.main-footer img {
-  height: 50px;
+  height: 35px;
   width: auto;
   vertical-align: middle;
   margin: 1rem;
@@ -81,10 +143,6 @@ footer.main-footer .container:last-child {
   margin-top: 32px;
   font-size: 0.95em;
   color: #e7d8c9;
-}
-footer iframe {
-  max-width: 500px;
-  margin-top: 3rem;
 }
 
 footer hr {
