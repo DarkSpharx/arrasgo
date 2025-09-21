@@ -3,8 +3,7 @@ session_start();
 require_once '../backend/security/check_auth.php';
 require_once '../backend/config/database.php';
 require_once '../backend/functions/chapitres.php';
-
-// Récupère id_etape depuis POST (prioritaire) ou GET
+$error = '';
 if (isset($_POST['id_etape'])) {
     $id_etape = intval($_POST['id_etape']);
 } else {
@@ -20,13 +19,11 @@ if ($id_etape > 0) {
 } else {
     $error = 'Erreur : id_etape manquant ou invalide (' . htmlspecialchars($id_etape) . ')';
 }
-$error = '';
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $titre = $_POST['titre_chapitre'];
     $texte = $_POST['texte_chapitre'];
     $ordre = $_POST['ordre_chapitre'];
     $image = '';
-
     // Gestion de l'image
     if (isset($_FILES['image_chapitre']) && $_FILES['image_chapitre']['error'] == UPLOAD_ERR_OK) {
         $img_name = uniqid() . '_' . basename($_FILES['image_chapitre']['name']);
@@ -35,7 +32,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $image = $img_name;
         }
     }
-
     if (!empty($texte)) {
         try {
             ob_start();
@@ -68,6 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $error = "Le titre et le texte du chapitre sont obligatoires.";
     }
 }
+// ...existing code...
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -82,7 +79,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <script src="js/admin.js" defer></script>
     <title>Ajouter un Chapitre</title>
     <link rel="stylesheet" href="css/alertes.css">
-    <link rel="stylesheet" href="css/alertes.css">
+    <link rel="icon" type="image/png" href="assets/favicon/favicon-96x96.png" sizes="96x96">
+    <link rel="icon" type="image/svg+xml" href="assets/favicon/favicon.svg">
+    <link rel="shortcut icon" href="assets/favicon/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/favicon/apple-touch-icon.png">
+    <meta name="apple-mobile-web-app-title" content="Arras Go Backoffice">
+    <link rel="manifest" href="assets/favicon/site.webmanifest">
 </head>
 
 <body>
@@ -146,7 +148,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     </footer>
     <script>
         document.getElementById('image_chapitre').addEventListener('change', function() {
-            document.getElementById('file-chosen').textContent = this.files[0]?.name || 'Aucun fichier choisi';
+            document.getElementById('file-chosen').textContent = this.files[0] ? this.files[0].name : 'Aucun fichier choisi';
         });
     </script>
 </body>

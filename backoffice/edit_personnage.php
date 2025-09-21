@@ -81,10 +81,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <link rel="stylesheet" href="css/style_backoffice.css">
     <link rel="stylesheet" href="css/forms.css">
     <link rel="stylesheet" href="css/header_footer.css">
+    <link rel="stylesheet" href="css/alertes.css">
     <script src="js/admin.js" defer></script>
     <title>Modifier une personnalité</title>
-    <link rel="stylesheet" href="css/alertes.css">
-    <link rel="stylesheet" href="css/alertes.css">
+    <link rel="icon" type="image/png" href="assets/favicon/favicon-96x96.png" sizes="96x96">
+    <link rel="icon" type="image/svg+xml" href="assets/favicon/favicon.svg">
+    <link rel="shortcut icon" href="assets/favicon/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/favicon/apple-touch-icon.png">
+    <meta name="apple-mobile-web-app-title" content="Arras Go Backoffice">
+    <link rel="manifest" href="assets/favicon/site.webmanifest">
 </head>
 
 <body>
@@ -166,37 +171,37 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <p>&copy; <?php echo date("Y"); ?> Arras Go. Tous droits réservés.</p>
     </footer>
     <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const input = document.getElementById('image_personnage');
-        const fileChosen = document.getElementById('file-chosen');
-        const preview = document.getElementById('image-preview');
-        const currentImageName = document.getElementById('current-image-name');
-        input.addEventListener('change', function() {
-            if (this.files && this.files[0]) {
-                fileChosen.textContent = this.files[0].name;
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    preview.src = e.target.result;
-                    preview.style.display = 'block';
-                };
-                reader.readAsDataURL(this.files[0]);
-                if (currentImageName) currentImageName.style.display = 'none';
-            } else {
-                fileChosen.textContent = 'Aucun fichier choisi';
-                if (currentImageName) currentImageName.style.display = '';
-            }
+        document.addEventListener('DOMContentLoaded', function() {
+            const input = document.getElementById('image_personnage');
+            const fileChosen = document.getElementById('file-chosen');
+            const preview = document.getElementById('image-preview');
+            const currentImageName = document.getElementById('current-image-name');
+            input.addEventListener('change', function() {
+                if (this.files && this.files[0]) {
+                    fileChosen.textContent = this.files[0].name;
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        preview.src = e.target.result;
+                        preview.style.display = 'block';
+                    };
+                    reader.readAsDataURL(this.files[0]);
+                    if (currentImageName) currentImageName.style.display = 'none';
+                } else {
+                    fileChosen.textContent = 'Aucun fichier choisi';
+                    if (currentImageName) currentImageName.style.display = '';
+                }
+            });
+            // MP3
+            const mp3Input = document.getElementById('mp3_personnage');
+            const mp3FileChosen = document.getElementById('mp3-file-chosen');
+            mp3Input.addEventListener('change', function() {
+                if (this.files && this.files[0]) {
+                    mp3FileChosen.textContent = this.files[0].name;
+                } else {
+                    mp3FileChosen.textContent = 'Aucun fichier choisi';
+                }
+            });
         });
-        // MP3
-        const mp3Input = document.getElementById('mp3_personnage');
-        const mp3FileChosen = document.getElementById('mp3-file-chosen');
-        mp3Input.addEventListener('change', function() {
-            if (this.files && this.files[0]) {
-                mp3FileChosen.textContent = this.files[0].name;
-            } else {
-                mp3FileChosen.textContent = 'Aucun fichier choisi';
-            }
-        });
-    });
     </script>
 </body>
 

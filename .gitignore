@@ -1,13 +1,14 @@
 # Fichiers/dossiers sensibles ou générés
 .env
-/vendor/
-/node_modules/
 /data/uploads/
 /data/mp3/
 /data/images/
 /sql/*.sql
 *.log
 *.tmp
+*.cache
+*~
+*.bak
 
 # Docker
 *.pid
@@ -19,4 +20,8 @@ Thumbs.db
 
 # VS Code
 .vscode/
-/arrasgo_deploiement_info.json
+arrasgo_deploiement_info.json
+
+# Dépendances (désactivé car non utilisé)
+# /vendor/
+# /node_modules/
