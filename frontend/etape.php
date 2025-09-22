@@ -36,6 +36,7 @@ $etapes = get_etapes_by_parcours($pdo, $id_parcours);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/ficheEtape.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <meta
         property="og:title"
@@ -83,41 +84,55 @@ $etapes = get_etapes_by_parcours($pdo, $id_parcours);
 
     <main>
         <section class="heroNohome">
-            <h1>Étape <?= htmlspecialchars($etape['titre_etape']) ?></h1>
+            <?php
+            // Recherche du numéro d'étape dans le parcours
+            $numero_etape = 1;
+            foreach ($etapes as $idx => $e) {
+                if ($e['id_etape'] == $id_etape) {
+                    $numero_etape = $idx + 1;
+                    break;
+                }
+            }
+            ?>
+            <h1>Étape <?= $numero_etape ?> : <?= htmlspecialchars($etape['titre_etape']) ?></h1>
         </section>
-        <section class="etape-question">
-            <div class="etape-card">
-
-                <h3>Étape : <?= htmlspecialchars($etape['titre_etape']) ?></h3>
+        <section class="etape">
+            <div class="detail-etape">
                 <?php
-                // Affichage des chapitres (titre, texte, image)
                 require_once __DIR__ . '/../backend/functions/chapitres.php';
                 $chapitres = get_chapitres_by_etape($pdo, $id_etape);
+                $titre_chapitre = '';
+                if (!empty($chapitres) && !empty($chapitres[0]['titre_chapitre'])) {
+                    $titre_chapitre = $chapitres[0]['titre_chapitre'];
+                }
                 if (!empty($chapitres)) {
                     echo '<div class="chapitres-list">';
                     foreach ($chapitres as $chapitre) {
-                        echo '<div class="etape-chapitre" style="margin-bottom:1.2rem;">';
-                        if (!empty($chapitre['titre_chapitre'])) {
-                            echo '<strong>' . htmlspecialchars($chapitre['titre_chapitre']) . '</strong><br>';
-                        }
+                        echo '<div class="etape-chapitre-grid">';
+                        // Colonne image
+                        echo '<div class="etape-chapitre-img">';
                         if (!empty($chapitre['image_chapitre'])) {
-                            echo '<img src="../data/images/' . htmlspecialchars($chapitre['image_chapitre']) . '" alt="Image du chapitre" style="max-width:220px;max-height:140px;display:block;margin:0.5rem auto;">';
+                            echo '<img src="../data/images/' . htmlspecialchars($chapitre['image_chapitre']) . '" alt="Image du chapitre">';
+                        }
+                        echo '</div>';
+                        // Colonne texte
+                        echo '<div class="etape-chapitre-txt">';
+                        if (!empty($chapitre['titre_chapitre'])) {
+                            echo '<h2>' . htmlspecialchars($chapitre['titre_chapitre']) . '</h2><br>';
                         }
                         if (!empty($chapitre['texte_chapitre'])) {
-                            // Autoriser uniquement les balises <iframe> YouTube, filtrer le reste
                             $texte = $chapitre['texte_chapitre'];
-                            // On autorise uniquement les iframes YouTube
                             $texte = preg_replace_callback(
-                                '/<iframe[^>]*src="https?:\\/\\/www\\.youtube\\.com\\/embed\\/[^"<>]+"[^>]*><\\/iframe>/i',
+                                '/<iframe[^>]*src="https?:\/\/www\.youtube\.com\/embed\/[^"<>]+"[^>]*><\/iframe>/i',
                                 function ($matches) {
                                     return $matches[0];
                                 },
                                 $texte
                             );
-                            // On retire toutes les autres balises HTML
                             $texte = strip_tags($texte, '<iframe>');
                             echo '<div class="chapitre-texte">' . nl2br($texte) . '</div>';
                         }
+                        echo '</div>';
                         echo '</div>';
                     }
                     echo '</div>';
@@ -135,13 +150,12 @@ $etapes = get_etapes_by_parcours($pdo, $id_parcours);
                 }
                 $is_last = !$etape_suivante;
 
-                echo '<div class="cta-group" style="margin-top:2rem;flex-wrap:wrap;gap:1rem;">';
+                echo '<div class="cta-group end-success" style="margin-top:2rem;">';
                 if ($is_last) {
                     echo '<div class="alert-success">Félicitations, vous avez terminé le parcours !</div>';
                     echo '<a href="parcours.php" class="btn">Choisir un autre parcours</a>';
                     echo '<a href="index.php" class="btn">Accueil</a>';
                     echo '<a href="personnages.php" class="btn">Personnages</a>';
-                    echo '<a href="contact.php" class="btn">Contact</a>';
                 } else if (!empty($etape['question_etape'])) {
                     // Vérifie qu’on n’est pas déjà sur la page question (évite boucle)
                     $currentScript = basename($_SERVER['PHP_SELF']);
@@ -158,7 +172,6 @@ $etapes = get_etapes_by_parcours($pdo, $id_parcours);
     </main>
     <?php include __DIR__ . '/footer.php'; ?>
 
-    <script src="js/script.js"></script>
     <?php if ($geo == 1 && !empty($etape['lat']) && !empty($etape['lng'])): ?>
         <script>
             // JS géolocalisation : bloquer la question si l'utilisateur n'est pas dans la zone

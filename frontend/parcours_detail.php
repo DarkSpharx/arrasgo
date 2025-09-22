@@ -75,10 +75,10 @@ $premiere_etape_id = !empty($etapes) ? $etapes[0]['id_etape'] : null;
     </header>
     <main>
         <section class="heroNohome">
-            <h1><?= htmlspecialchars($parcours['nom_parcours']) ?></h1>
+            <h1>Détail du parcours :<br><?= htmlspecialchars($parcours['nom_parcours']) ?></h1>
         </section>
         <section class="detail-parcours" style="position:relative;">
-            
+
             <div class="detail-card" style="position:relative;z-index:1;">
                 <?php if (!empty($parcours['image_parcours'])): ?>
                     <div class="detail-img-container">
@@ -87,12 +87,11 @@ $premiere_etape_id = !empty($etapes) ? $etapes[0]['id_etape'] : null;
                     </div>
                 <?php endif; ?>
                 <div class="detail-content">
-                    <h2><?= htmlspecialchars($parcours['nom_parcours']) ?></h2>
                     <p><?= nl2br(htmlspecialchars($parcours['description_parcours'])) ?></p>
                     <?php if ($premiere_etape_id): ?>
                         <div class="cta-group" style="margin-top:2rem;">
-                            <a href="etape.php?id=<?= $id ?>&etape=<?= $premiere_etape_id ?>&geo=1" class="btn cta">Démarrer avec géolocalisation</a>
-                            <a href="etape.php?id=<?= $id ?>&etape=<?= $premiere_etape_id ?>&geo=0" class="btn cta">Démarrer sans géolocalisation</a>
+                            <a href="etape.php?id=<?= $id ?>&etape=<?= $premiere_etape_id ?>&geo=1" class="btn">Démarrer avec géolocalisation</a>
+                            <a href="etape.php?id=<?= $id ?>&etape=<?= $premiere_etape_id ?>&geo=0" class="btn">Démarrer sans géolocalisation</a>
                         </div>
                     <?php else: ?>
                         <p>Aucune étape disponible pour ce parcours.</p>

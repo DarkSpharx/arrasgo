@@ -48,11 +48,10 @@
     align-items: center;
     gap: 1rem;
   }
-  .footer-col,
-  .footer-map,
-  .footer-social {
-    width: 100%;
+  .footer-map {
+    padding: 0 !important;
   }
+
   .footer-iframe {
     width: 90%;
     min-width: 0;

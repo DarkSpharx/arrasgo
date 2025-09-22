@@ -21,8 +21,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['reponse'])) {
     $reponse = trim(mb_strtolower($_POST['reponse']));
     $bonne = trim(mb_strtolower($bonne_reponse));
     if ($bonne && $reponse === $bonne) {
-        $reponse_validee = true;
-        $message = '<div class="alert-success">Bonne réponse !</div>';
+        // Recherche de l'étape suivante
+        require_once __DIR__ . '/../backend/functions/parcours.php';
+        $etapes = get_etapes_by_parcours($pdo, $id_parcours);
+        $etape_suivante = null;
+        for ($i = 0; $i < count($etapes); $i++) {
+            if ($etapes[$i]['id_etape'] == $id_etape && isset($etapes[$i + 1])) {
+                $etape_suivante = $etapes[$i + 1];
+                break;
+            }
+        }
+        if ($etape_suivante) {
+            header('Location: etape.php?id=' . $id_parcours . '&etape=' . $etape_suivante['id_etape'] . '&geo=' . $geo);
+            exit;
+        } else {
+            $reponse_validee = true;
+            $message = '<div class="alert-success">Bonne réponse !</div>';
+        }
     } else {
         $message = '<div class="alert-error">Mauvaise réponse, essayez encore.</div>';
     }
@@ -39,6 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['reponse'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/ficheEtape.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <meta
         property="og:title"
@@ -58,8 +74,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['reponse'])) {
     <link rel="manifest" href="media/favicon/site.webmanifest" />
     <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/webfonts/fa-solid-900.woff2" as="font" type="font/woff2" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
-
-    <title>Question - Arras Go</title>
+    <title>Question étape <?= $id_etape ?> - Arras Go</title>
     <style>
 
     </style>
@@ -69,9 +84,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['reponse'])) {
     <header>
         <div>
             <a href="index.php">
-                <img src="./media/logo/logo_long_monochrome_white.svg" alt="Arras Go Logo">
+                <img src="./media/logo/logo_long_monochrome_white.svg" alt="Arras Go Logo" class="left">
             </a>
-            <button id="menu-toggle" aria-label="Ouvrir le menu"><i class="fa-solid fa-bars"></i></button>
+            <button id="menu-toggle" aria-label="Ouvrir le menu" class="right"><i class="fa-solid fa-bars"></i></button>
             <nav id="main-nav" class="main-nav">
                 <ul>
                     <li><a href="index.php">Accueil</a></li>
@@ -82,52 +97,72 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['reponse'])) {
         </div>
     </header>
     <main>
-        <section class="question-section">
-            <div class="etape-card">
-                <h3>Question de l'étape</h3>
-                <div class="question-indices">
-                    <?php if (!empty($etape['indice_texte'])): ?>
-                        <a href="#" id="show-indice-texte">Indice texte</a>
-                    <?php endif; ?>
-                    <?php if (!empty($etape['indice_image'])): ?>
-                        <a href="#" id="show-indice-image">Indice visuel</a>
-                    <?php endif; ?>
+        <section>
+            <div class="heroNohome">
+                <?php
+                // Numéro de l'étape dans le parcours
+                require_once __DIR__ . '/../backend/functions/parcours.php';
+                $etapes = get_etapes_by_parcours($pdo, $id_parcours);
+                $numero_etape = 1;
+                for ($i = 0; $i < count($etapes); $i++) {
+                    if ($etapes[$i]['id_etape'] == $id_etape) {
+                        $numero_etape = $i + 1;
+                        break;
+                    }
+                }
+                ?>
+                <h1>Étape <?= $numero_etape ?> : <?= htmlspecialchars($etape['titre_etape']) ?></h1>
+            </div>
+        </section>
+        <section class="question">
+            <div class="question-card">
+                <div class="card-indice">
+                    <button type="button" class="btn" id="show-indice-image">
+                        Indice visuel
+                    </button>
+                    <button type="button" class="btn" id="show-indice-texte">
+                        Indice textuel
+                    </button>
                 </div>
-                <?= $message ?>
                 <?php if (!$reponse_validee): ?>
-                    <?php if ($geo == 1 && !empty($etape['lat']) && !empty($etape['lng'])): ?>
-                        <div id="geo-message" style="margin-bottom:0.8rem;"></div>
-                        <div id="geo-loader" style="margin-bottom:0.8rem; display:none;">Recherche de votre position...</div>
-                        <div id="geo-error" style="color:red; margin-bottom:0.8rem;"></div>
-                    <?php endif; ?>
-                    <form class="etape-form" id="etape-form" method="post" action="?id=<?= $id_parcours ?>&etape=<?= $id_etape ?>&geo=<?= $geo ?>">
-                        <div class="etape-question-txt">Question : <?= htmlspecialchars($etape['question_etape']) ?></div>
-                        <input type="text" name="reponse" placeholder="Votre réponse..." required>
-                        <button type="submit" class="btn">Valider</button>
-                    </form>
-                <?php else: ?>
-                    <div class="alert-success">Bonne réponse !</div>
-                    <?php
-                    // Recherche de l'étape suivante
-                    require_once __DIR__ . '/../backend/functions/parcours.php';
-                    $etapes = get_etapes_by_parcours($pdo, $id_parcours);
-                    $etape_suivante = null;
-                    for ($i = 0; $i < count($etapes); $i++) {
-                        if ($etapes[$i]['id_etape'] == $id_etape && isset($etapes[$i + 1])) {
-                            $etape_suivante = $etapes[$i + 1];
-                            break;
+                    <?= $message ?>
+                    <?php if (!$reponse_validee): ?>
+                        <?php if ($geo == 1 && !empty($etape['lat']) && !empty($etape['lng'])): ?>
+                            <div id="geo-message" style="margin-bottom:0.8rem;"></div>
+                            <div id="geo-loader" style="margin-bottom:0.8rem; display:none;">Recherche de votre position...</div>
+                            <div id="geo-error" style="color:red; margin-bottom:0.8rem;"></div>
+                        <?php endif; ?>
+                        <form class="question-form" id="etape-form" method="post" action="?id=<?= $id_parcours ?>&etape=<?= $id_etape ?>&geo=<?= $geo ?>">
+                            <div class="etape-question-txt"><?= htmlspecialchars($etape['question_etape']) ?></div>
+                            <br>
+                            <input type="text" name="reponse" placeholder="Votre réponse..." required>
+                            <br>
+                            <a href="#" class="btn" role="button" tabindex="0" onclick="document.getElementById('etape-form').submit(); return false;">Valider</a>
+                        </form>
+                    <?php else: ?>
+                        <?= $message ?>
+                        <?php
+                        // Recherche de l'étape suivante
+                        require_once __DIR__ . '/../backend/functions/parcours.php';
+                        $etapes = get_etapes_by_parcours($pdo, $id_parcours);
+                        $etape_suivante = null;
+                        for ($i = 0; $i < count($etapes); $i++) {
+                            if ($etapes[$i]['id_etape'] == $id_etape && isset($etapes[$i + 1])) {
+                                $etape_suivante = $etapes[$i + 1];
+                                break;
+                            }
                         }
-                    }
-                    $is_last = !$etape_suivante;
-                    echo '<div class="cta-group" style="margin-top:1.5rem;flex-wrap:wrap;gap:1rem;">';
-                    if ($is_last) {
-                        echo '<a href="parcours.php" class="btn">Choisir un autre parcours</a>';
-                        echo '<a href="index.php" class="btn">Accueil</a>';
-                    } else {
-                        echo '<a href="etape.php?id=' . $id_parcours . '&etape=' . $etape_suivante['id_etape'] . '&geo=' . $geo . '" class="btn">Étape suivante</a>';
-                    }
-                    echo '</div>';
-                    ?>
+                        $is_last = !$etape_suivante;
+                        echo '<div class="cta-group" style="margin-top:1.5rem;flex-wrap:wrap;gap:1rem;">';
+                        if ($is_last) {
+                            echo '<a href="parcours.php" class="btn">Choisir un autre parcours</a>';
+                            echo '<a href="index.php" class="btn">Accueil</a>';
+                        } else {
+                            echo '<a href="etape.php?id=' . $id_parcours . '&etape=' . $etape_suivante['id_etape'] . '&geo=' . $geo . '" class="btn">Étape suivante</a>';
+                        }
+                        echo '</div>';
+                        ?>
+                    <?php endif; ?>
                 <?php endif; ?>
             </div>
         </section>
@@ -136,15 +171,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['reponse'])) {
         <div class="popup-content">
             <button class="popup-close" onclick="closePopup('popup-indice-texte')">&times;</button>
             <div class="popup-indice-texte">
-                <?= !empty($etape['indice_texte']) ? nl2br(htmlspecialchars($etape['indice_texte'])) : '' ?>
+                <?= !empty($etape['indice_etape_texte']) ? nl2br(htmlspecialchars($etape['indice_etape_texte'])) : '<span style="color:#888">Aucun indice textuel disponible.</span>' ?>
             </div>
         </div>
     </div>
     <div id="popup-indice-image" class="popup-overlay" style="display:none;">
-        <div class="popup-content">
+        <div class="popup-content" style="position:relative;">
             <button class="popup-close" onclick="closePopup('popup-indice-image')">&times;</button>
-            <?php if (!empty($etape['indice_image'])): ?>
-                <img src="../data/images/<?= htmlspecialchars($etape['indice_image']) ?>" alt="Indice visuel" class="popup-img">
+            <?php if (!empty($etape['indice_etape_image'])): ?>
+                <div style="position:relative;">
+                    <img id="popup-img-indice" src="../data/images/<?= htmlspecialchars($etape['indice_etape_image']) ?>" alt="Indice visuel" class="popup-img" style="transition: transform 0.2s;">
+                    <div class="zoom-controls">
+                        <button type="button" id="zoom-out" class="zoom-btn">-</button>
+                        <button type="button" id="zoom-in" class="zoom-btn">+</button>
+                    </div>
+                </div>
+            <?php else: ?>
+                <span style="color:#888">Aucune image d'indice disponible.</span>
             <?php endif; ?>
         </div>
     </div>
@@ -162,6 +205,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['reponse'])) {
         document.getElementById('show-indice-image')?.addEventListener('click', function(e) {
             e.preventDefault();
             document.getElementById('popup-indice-image').style.display = 'flex';
+            // Reset zoom on open
+            const img = document.getElementById('popup-img-indice');
+            if (img) img.style.transform = 'scale(1)';
+        });
+
+        // Zoom controls
+        let zoomLevel = 1;
+        document.getElementById('zoom-in')?.addEventListener('click', function() {
+            const img = document.getElementById('popup-img-indice');
+            if (img && zoomLevel < 3) {
+                zoomLevel += 0.2;
+                img.style.transform = `scale(${zoomLevel})`;
+            }
+        });
+        document.getElementById('zoom-out')?.addEventListener('click', function() {
+            const img = document.getElementById('popup-img-indice');
+            if (img && zoomLevel > 0.4) {
+                zoomLevel -= 0.2;
+                img.style.transform = `scale(${zoomLevel})`;
+            }
         });
 
         <?php if ($geo == 1 && !empty($etape['lat']) && !empty($etape['lng'])): ?>

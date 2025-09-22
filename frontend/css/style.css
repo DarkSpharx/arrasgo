@@ -106,7 +106,6 @@ main {
   justify-content: center;
 }
 .audio-header audio {
-  max-width: 1024px;
   background: #f1f3f4;
 }
 /* Audio sticky sous le header */
@@ -125,7 +124,7 @@ main {
   background: #fff;
   border-radius: 12px;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.07);
-  max-width: 500px;
+  /* max-width: 500px; */
   width: 100%;
   padding: 1.5rem 1rem 1.2rem 1rem;
   display: flex;
@@ -245,6 +244,7 @@ main {
 @media (max-width: 768px) {
   .parcours-cards {
     grid-template-columns: 1fr;
+    margin-bottom: 2rem;
   }
   .parcours-card {
     min-width: 0;
@@ -567,6 +567,9 @@ main {
   align-items: center;
   margin: 0 auto;
   padding: 4rem 0;
+  @media (max-width: 768px) {
+    padding: 0;
+  }
   & hr {
     border: none;
     width: 50%;
@@ -585,7 +588,9 @@ main {
     font-size: 28px;
     font-weight: 600;
     text-transform: uppercase;
-    /* margin-bottom: 1rem; */
+    @media (max-width: 768px) {
+      margin-top: 2rem;
+    }
   }
   & h3 {
     background-color: #e7d8c9;
