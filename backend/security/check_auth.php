@@ -1,4 +1,5 @@
 <?php
+// Contrôle d'accès : démarrer la session, vérifier l'authentification, sinon rediriger vers la connexion
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }

@@ -44,6 +44,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/style_backoffice.css">
     <link rel="stylesheet" href="css/forms.css">
+    <link rel="stylesheet" href="css/header_footer.css">
+    <script src="js/admin.js" defer></script>
     <title>Ajouter un Parcours</title>
     <link rel="stylesheet" href="css/alertes.css">
     <link rel="icon" type="image/png" href="assets/favicon/favicon-96x96.png" sizes="96x96" />

@@ -40,7 +40,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (!empty($nom) && !empty($description) && !empty($parcours_selectionnes)) {
         add_personnage($pdo, $nom, $description, $image, $mp3_personnage);
         $id_personnage = $pdo->lastInsertId();
-        // Lier le personnage aux parcours sélectionnés
+        // Liaison N–N : création des associations Parcours ↔ Personnage
+        // Requête PDO préparée (placeholders), exécutée en boucle pour chaque parcours sélectionné.
         $stmt = $pdo->prepare("INSERT INTO parcours_personnages (id_parcours, id_personnage) VALUES (?, ?)");
         foreach ($parcours_selectionnes as $id_parcours) {
             $stmt->execute([$id_parcours, $id_personnage]);

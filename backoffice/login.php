@@ -16,7 +16,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = trim($_POST['username']);
     $password = trim($_POST['password']);
 
-    // Préparer la requête pour vérifier les informations d'identification
+    // Requête préparée : recherche de l'admin par email,
+    // vérification du mot de passe et ouverture de la session.
     $sql = "SELECT * FROM users_admins WHERE email_user = :username";
 
     if ($stmt = $pdo->prepare($sql)) {
