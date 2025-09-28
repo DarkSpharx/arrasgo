@@ -125,7 +125,6 @@ header {
     background-color: #e7d8c9;
     color: #fff;
     padding: 13px;
-    /* margin-top: 42px; */
     position: fixed;
     & #logo-nav {
       background-color: #1d1d1d;

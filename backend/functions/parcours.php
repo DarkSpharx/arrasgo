@@ -18,7 +18,7 @@ function readParcours($pdo)
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
-// Fonction pour mettre à jour un parcours (y compris le statut)
+// Fonction pour mettre à jour un parcours
 function updateParcours($pdo, $id, $name, $description, $image = '', $statut = 0)
 {
     $stmt = $pdo->prepare("UPDATE parcours SET nom_parcours = :name, description_parcours = :description, image_parcours = :image, statut = :statut WHERE id_parcours = :id");

@@ -167,20 +167,18 @@ $personnages_en_ligne = $personnages;
 				<div class="parcours-cards">
 					<?php if (!empty($personnages_en_ligne)): ?>
 						<?php foreach ($personnages_en_ligne as $perso): ?>
-							<a href="personnage.php?id=<?= urlencode($perso['id_personnage']) ?>" class="parcours-card-link">
-								<article class="parcours-card">
-									<a href="personnage.php?id=<?= urlencode($perso['id_personnage']) ?>" class="parcours-card-link" tabindex="-1" aria-hidden="true" style="position:absolute;top:0;left:0;width:100%;height:100%;z-index:1;"></a>
-									<?php if (!empty($perso['image_personnage'])): ?>
-										<img src="../data/images/<?= htmlspecialchars($perso['image_personnage']) ?>" alt="Image du personnage" class="parcours-img">
-									<?php else: ?>
-										<div class="parcours-img placeholder"></div>
-									<?php endif; ?>
-									<div class="parcours-content" style="position:relative;z-index:2;">
-										<h3><?= htmlspecialchars($perso['nom_personnage'] ?? $perso['nom'] ?? 'Personnage') ?></h3>
-										<a href="personnage.php?id=<?= urlencode($perso['id_personnage']) ?>" class="btn">Voir la fiche</a>
-									</div>
-								</article>
-							</a>
+							<article class="parcours-card">
+								<a href="personnage.php?id=<?= urlencode($perso['id_personnage']) ?>" class="parcours-card-link" tabindex="-1" aria-hidden="true" style="position:absolute;top:0;left:0;width:100%;height:100%;z-index:1;"></a>
+								<?php if (!empty($perso['image_personnage'])): ?>
+									<img src="../data/images/<?= htmlspecialchars($perso['image_personnage']) ?>" alt="Image du personnage" class="parcours-img">
+								<?php else: ?>
+									<div class="parcours-img placeholder"></div>
+								<?php endif; ?>
+								<div class="parcours-content" style="position:relative;z-index:2;">
+									<h3><?= htmlspecialchars($perso['nom_personnage'] ?? $perso['nom'] ?? 'Personnage') ?></h3>
+									<a href="personnage.php?id=<?= urlencode($perso['id_personnage']) ?>" class="btn">Voir la fiche</a>
+								</div>
+							</article>
 						<?php endforeach; ?>
 					<?php else: ?>
 						<p>Aucun personnage disponible pour le moment.</p>

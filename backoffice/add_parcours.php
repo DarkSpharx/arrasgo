@@ -7,7 +7,7 @@ require_once __DIR__ . '/../backend/security/check_auth.php';
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $nom_parcours = $_POST['nom_parcours'];
     $description = $_POST['description'];
-    $id_user = $_SESSION['admin_id']; // récupère l'id de l'admin connecté
+    $id_user = $_SESSION['admin_id'];
 
     // Gestion de l'image
     $image_parcours = '';

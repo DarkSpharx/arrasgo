@@ -35,7 +35,7 @@ function add_etape($pdo, $id_parcours, $titre, $mp3, $image_header, $image_quest
 
 function update_etape($pdo, $id_etape, $titre, $mp3, $image_header, $image_question, $indice_texte, $indice_image, $question, $reponse, $lat, $lng, $ordre, $type_validation)
 {
-    // Correction : transformer les champs vides en null
+    // Transformer les champs vides en null
     $lat = ($lat === '' ? null : $lat);
     $lng = ($lng === '' ? null : $lng);
 

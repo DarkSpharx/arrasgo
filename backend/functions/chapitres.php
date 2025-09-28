@@ -14,7 +14,7 @@ function get_chapitres_by_etape($pdo, $id_etape)
 
 function add_chapitre($pdo, $id_etape, $titre, $texte, $ordre, $image)
 {
-    $stmt = $pdo->prepare("INSERT INTO chapitres (id_etape, titre_chapitre, texte_chapitre, ordre_chapitre, image_chapitre) VALUES (?, ?, ?, ?, ?)");
+    $stmt = $pdo->prepare("rRT INTO chapitres (id_etape, titre_chapitre, texte_chapitre, ordre_chapitre, image_chapitre) VALUES (?, ?, ?, ?, ?)");
     return $stmt->execute([$id_etape, $titre, $texte, $ordre, $image]);
 }
 // Récupère un chapitre par son id

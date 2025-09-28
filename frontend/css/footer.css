@@ -88,31 +88,6 @@ footer.main-footer {
   text-align: center;
 }
 
-footer.main-footer .container {
-  margin: 0 auto;
-  flex-direction: row;
-  align-items: flex-start;
-}
-@media (max-width: 1024px) {
-  footer.main-footer .container {
-    display: flex;
-    flex-wrap: wrap;
-    width: 90%;
-  }
-}
-footer.main-footer .columns {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  margin-bottom: 24px;
-}
-
-footer.main-footer .column {
-  width: 100%;
-  text-align: center;
-}
-
 footer.main-footer p {
   margin: 8px 0;
   line-height: 1.5;
@@ -135,13 +110,6 @@ footer.main-footer img {
   vertical-align: middle;
   margin: 1rem;
   transition: opacity 0.2s;
-}
-
-footer.main-footer .container:last-child {
-  text-align: center;
-  margin-top: 32px;
-  font-size: 0.95em;
-  color: #e7d8c9;
 }
 
 footer hr {

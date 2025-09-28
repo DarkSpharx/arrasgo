@@ -64,7 +64,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $error = "Le titre et le texte du chapitre sont obligatoires.";
     }
 }
-// ...existing code...
 ?>
 <!DOCTYPE html>
 <html lang="fr">

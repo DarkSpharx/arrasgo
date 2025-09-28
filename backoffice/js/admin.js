@@ -1,5 +1,3 @@
-// File: c:\Users\RESTOS-ADBTS01\Desktop\Arras Go\arrasgo\backoffice\js\admin.js
-
 document.addEventListener("DOMContentLoaded", function () {
   // Fonction pour afficher une modale
   function showModal(modalId) {
@@ -40,7 +38,7 @@ document.addEventListener("DOMContentLoaded", function () {
   deleteButtons.forEach((button) => {
     button.addEventListener("click", function (event) {
       const confirmation = confirm(
-        "Êtes-vous sûr de vouloir supprimer ce parcours ?"
+        "Êtes-vous sûr de vouloir supprimer cet élément ?"
       );
       if (!confirmation) {
         event.preventDefault();

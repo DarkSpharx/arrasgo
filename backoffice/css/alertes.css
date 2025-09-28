@@ -35,7 +35,7 @@
   cursor: pointer;
 }
 
-/* alertes.css : styles pour messages d'erreur et de succès dans le backoffice Arras Go */
+/* messages d'erreur et de succès */
 .alert {
   background: #fff3cd;
   color: red;

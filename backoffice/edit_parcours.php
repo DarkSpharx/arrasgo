@@ -14,7 +14,6 @@ $error = '';
 $success = false;
 
 // Récupère les infos du parcours
-
 $stmt = $pdo->prepare("SELECT nom_parcours, description_parcours, image_parcours, statut FROM parcours WHERE id_parcours = ?");
 $stmt->execute([$id]);
 $parcours = $stmt->fetch(PDO::FETCH_ASSOC);

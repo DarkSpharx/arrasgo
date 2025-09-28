@@ -14,7 +14,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $lat = $_POST['latitude'];
     $lng = $_POST['longitude'];
 
-    // Correction : transformer les champs vides en NULL
     $lat = ($lat === '' ? null : $lat);
     $lng = ($lng === '' ? null : $lng);
     $ordre = $_POST['ordre_etape'];
