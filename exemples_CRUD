@@ -1,0 +1,76 @@
+Exemples CRUD (1 create / 1 read / 1 update / 1 delete)
+
+1. Create — Ajouter un parcours (backoffice)
+
+- Fichier : `backoffice/add_parcours.php`
+- Page : `backoffice/add_parcours.php`
+- URL de test : http://localhost:8000/backoffice/add_parcours.php (connexion au backoffice requise)
+- Ce que ça fait : formulaire POST qui crée une nouvelle entrée dans la table `parcours` via un `INSERT` en base (sous-jacent : `prepare` + `execute`).
+- Tester :
+  1.  Se connecter au backoffice (`backoffice/login.php`).
+  2.  Aller sur la page `add_parcours.php`.
+  3.  Remplir le formulaire (titre, description, image si présent) et soumettre.
+  4.  Vérifier dans `backoffice/list_parcours.php` que le parcours apparaît.
+
+2. Read — Lister les chapitres / parcours (backoffice)
+
+- Fichier : `backoffice/list_parcours.php` (ou `backoffice/list_chapitres.php`)
+- Page : `backoffice/list_parcours.php`
+- URL de test : http://localhost:8000/backoffice/list_parcours.php
+- Ce que ça fait : exécute une requête `SELECT` et affiche les lignes récupérées (boucle `while ($row = $stmt->fetch(...))`), affiche les données dans un tableau HTML.
+- Tester :
+  1.  Se connecter au backoffice.
+  2.  Ouvrir `list_parcours.php` et vérifier que les éléments existants sont listés.
+  3.  Après un create (voir #1), vérifier que la nouvelle ligne est présente.
+
+3. Update — Éditer une étape / parcours (backoffice)
+
+- Fichier : `backoffice/edit_parcours.php` (ou `backoffice/edit_etape.php`)
+- Page : `backoffice/edit_parcours.php`
+- URL de test : http://localhost:8000/backoffice/edit_parcours.php?id=<id>
+- Ce que ça fait : récupère la ligne via `SELECT WHERE id = ?`, affiche un formulaire pré-rempli, puis effectue un `UPDATE` sur submit.
+- Tester :
+  1.  Se connecter au backoffice.
+  2.  Ouvrir `list_parcours.php`, cliquer sur "Éditer" pour un parcours existant.
+  3.  Modifier un champ (titre/description) et soumettre.
+  4.  Vérifier que les changements apparaissent dans la liste et sur la page publique si applicable.
+
+4. Delete — Supprimer un personnage / parcours (backoffice)
+
+- Fichier : `backoffice/delete_parcours.php` (ou `backoffice/delete_personnage.php`)
+- Page : `backoffice/list_parcours.php` (l'action delete est habituellement déclenchée depuis la liste)
+- URL de test : http://localhost:8000/backoffice/list_parcours.php
+- Ce que ça fait : supprime une ligne via `DELETE FROM ... WHERE id = ?` après confirmation (JS `confirm()` ou formulaire POST).
+- Tester :
+  1.  Se connecter au backoffice.
+  2.  Ouvrir `list_parcours.php` ou la page de gestion correspondante.
+  3.  Cliquer sur le bouton "Supprimer" pour un élément (confirmer la boîte de dialogue si présente).
+  4.  Vérifier que l'élément n'apparaît plus dans la liste.
+Extraits (3-6 lignes) prêts à copier :
+
+Create (formulaire POST) :
+```html
+<form method="post" action="add_parcours.php">
+  <input name="titre" required>
+  <button type="submit">Créer</button>
+</form>
+```
+
+Read (boucle fetch PHP) :
+```php
+$stmt = $pdo->query('SELECT id,titre FROM parcours');
+while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+  echo '<li>' . htmlspecialchars($row['titre']) . '</li>';
+}
+```
+
+Update (pré-remplir + UPDATE) :
+```php
+$stmt = $pdo->prepare('UPDATE parcours SET titre=? WHERE id=?');
+$stmt->execute([$_POST['titre'], $_GET['id']]);
+```
+
+Delete (lien/bouton avec confirm) :
+```html
+<a href="delete_parcours.php?id=123" onclick="return confirm('Confirmer suppression ?')">Supprimer</a>
+```

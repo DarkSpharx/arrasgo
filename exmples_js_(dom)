@@ -1,25 +1,89 @@
-JS (manipulation du DOM)
+JS (manipulation du DOM) — extraits utiles trouvés dans le projet
 
 1. Menu mobile / toggle (ajout/suppression de classes, aria)
 
-- Fichier JS : frontend/js/script.js
-- Page : frontend/index.php (header présent sur toutes les pages)
+- Fichier JS : `frontend/js/script.js`
+- Page : `frontend/index.php` (header présent sur toutes les pages)
 - URL de test : http://localhost:8000/index.php
-- Ce que fait le code : sélectionne #menu-toggle et #main-nav, écoute le click, bascule la classe "open", change l'icône (fa-bars <-> fa-xmark), et met à jour aria-expanded. Bon exemple d'accessibilité + DOM classList toggle.
+- Ce que fait le code : sélectionne `#menu-toggle` et `#main-nav`, écoute le click, bascule la classe `open`, change l'icône (fa-bars <-> fa-xmark), et met à jour `aria-expanded`. Ferme le menu au clic hors zone / au scroll / au resize.
+- Pourquoi c'est utile : montre `classList.toggle`, gestion d'état et considérations d'accessibilité.
 - Comment tester : ouvrir la page, cliquer l'icône burger, cliquer un lien, réduire la fenêtre pour tester comportement mobile.
 
-2. Popup d'indice + zoom image (show/hide, style transform)
+Extrait (3 lignes) :
+```js
+const menuToggle = document.getElementById('menu-toggle');
+menuToggle.addEventListener('click', () => document.getElementById('main-nav').classList.toggle('open'));
+```
 
-- Fichier : frontend/question.php (script inline à la fin du fichier)
-- Page : frontend/question.php (vue question d'étape)
-- URL de test : http://localhost:8000/question.php?id=1&etape=1 (adapter id/etape à une étape existante si nécessaire)
-- Ce que fait le code : écouteurs sur #show-indice-texte et #show-indice-image pour afficher des overlays, contrôle zoom (+/-) en modifiant style.transform, reset du zoom à l'ouverture. Exemple concret de manipulation d'éléments, prevention de l'action par défaut et interaction with CSS transitions.
-- Comment tester : ouvrir la page d'une question, cliquer "Indice visuel" / "Indice textuel", utiliser les boutons + et -.
+2. Popup d'indice + zoom image (show/hide, style.transform)
 
-3. Backoffice : modales et confirmation suppression (événements, confirm)
+- Fichier : `frontend/question.php` (script inline à la fin du fichier)
+- Page : `frontend/question.php` (vue question d'étape)
+- URL de test : http://localhost:8000/question.php?id=1&etape=1 (adapter id/etape)
+- Ce que fait le code : écouteurs sur `#show-indice-texte` et `#show-indice-image` pour afficher des overlays (`element.style.display = 'flex'`), gestion du close via `closePopup(id)` qui fait `style.display = 'none'`, et zoom via `img.style.transform = 'scale(x)'` contrôlé par `#zoom-in` / `#zoom-out`.
+- Pourquoi c'est utile : combine prévention du comportement par défaut, manipulation de style, reset d'état et transitions CSS.
+- Comment tester : ouvrir la page d'une question, cliquer "Indice visuel/textuel", utiliser les boutons + et -.
 
-- Fichier JS : backoffice/js/admin.js
-- Page : backoffice/dashboard.php ou backoffice/list_parcours.php
+Extrait (4 lignes) :
+```js
+document.getElementById('show-indice-image')?.addEventListener('click', e => {
+	e.preventDefault(); document.getElementById('popup-indice-image').style.display = 'flex';
+});
+```
+
+3. Backoffice : modales et confirmation suppression (querySelectorAll, addEventListener, confirm)
+
+- Fichier JS : `backoffice/js/admin.js`
+- Page : `backoffice/dashboard.php` ou listes du backoffice
 - URL de test : http://localhost:8000/backoffice/dashboard.php
-- Ce que fait le code : fonctions showModal/closeModal qui changent style.display, gestion des boutons [data-modal-open] et [data-modal-close], et un exemple simple de confirmation via window.confirm() pour prévenir une suppression. Bon exemple de pattern CRUD admin minimal.
-- Comment tester : ouvrir le backoffice (login si nécessaire), cliquer sur un bouton ouvrant une modale et sur un bouton "supprimer" pour voir la confirmation.
+- Ce que fait le code : fonctions `showModal(modalId)`/`closeModal(modalId)` qui changent `modal.style.display`, gestion des boutons `[data-modal-open]` et `[data-modal-close]`, et `confirm()` pour valider une suppression.
+- Pourquoi c'est utile : pattern CRUD minimal pour administrateur (modales sans dépendance externe).
+- Comment tester : ouvrir le backoffice (login si nécessaire), cliquer sur un bouton ouvrant une modale et essayer de supprimer un élément.
+
+Extrait (4 lignes) :
+```js
+document.querySelectorAll('[data-modal-open]').forEach(btn =>
+	btn.addEventListener('click', () => document.getElementById(btn.dataset.modalOpen).style.display = 'block')
+);
+```
+
+4. Parallax / effet souris tactile (dataset + style.transform)
+
+- Fichier JS : `frontend/js/script.js`
+- Page : `index.php` (ou toute page contenant un élément `.paralax`)
+- Ce que fait le code : lit `el.dataset.parallaxSpeed`, gère `mousemove` et `touchmove`, calcule des valeurs et applique `el.style.transform = translate(...)` pour créer un effet de parallaxe.
+- Pourquoi c'est utile : montre lecture de `dataset`, gestion d'événements souris/tactile, et application performante via `requestAnimationFrame`.
+- Comment tester : ouvrir une page avec un élément `.paralax`, bouger la souris et observer le déplacement.
+
+Extrait (5 lignes) :
+```js
+const el = document.querySelector('.paralax');
+document.addEventListener('mousemove', e => el.style.transform = `translate(${(e.clientX-window.innerWidth/2)/20}px, ${(e.clientY-window.innerHeight/2)/20}px)`);
+```
+
+6. Soumission programmatique du formulaire via un lien (onclick submit)
+
+- Fichier : `frontend/question.php`
+- Page : `question.php`
+- Ce que fait le code : un élément `<a href="#" onclick="document.getElementById('etape-form').submit(); return false;">` déclenche le submit du formulaire en JS et empêche le comportement par défaut.
+- Pourquoi c'est utile : exemple simple d'utilisation de `document.getElementById(...).submit()` et de prévention d'action par défaut.
+- Comment tester : remplir le champ et cliquer le lien "Valider".
+
+Extrait (3 lignes) :
+```html
+<a href="#" onclick="document.getElementById('etape-form').submit(); return false;">Valider</a>
+```
+
+7. Détection du lien actif et mise en forme (location + classList.add)
+
+- Fichier JS : `frontend/js/script.js`
+- Page : header inclus sur toutes les pages
+- Ce que fait le code : calcule le `path = window.location.pathname.split("/").pop()` et ajoute `.active` au lien correspondant (`link.classList.add('active')`), plus `aria-current`.
+- Pourquoi c'est utile : illustre comment synchroniser l'état du menu avec l'URL.
+- Comment tester : naviguer sur différentes pages et vérifier que le lien approprié reçoit la classe `active`.
+
+Extrait (4 lignes) :
+```js
+const path = window.location.pathname.split('/').pop();
+document.querySelectorAll('#main-nav a').forEach(a => { if (a.getAttribute('href')===path) a.classList.add('active'); });
+```
