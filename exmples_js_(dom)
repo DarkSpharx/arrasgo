@@ -1,0 +1,25 @@
+JS (manipulation du DOM)
+
+1. Menu mobile / toggle (ajout/suppression de classes, aria)
+
+- Fichier JS : frontend/js/script.js
+- Page : frontend/index.php (header présent sur toutes les pages)
+- URL de test : http://localhost:8000/index.php
+- Ce que fait le code : sélectionne #menu-toggle et #main-nav, écoute le click, bascule la classe "open", change l'icône (fa-bars <-> fa-xmark), et met à jour aria-expanded. Bon exemple d'accessibilité + DOM classList toggle.
+- Comment tester : ouvrir la page, cliquer l'icône burger, cliquer un lien, réduire la fenêtre pour tester comportement mobile.
+
+2. Popup d'indice + zoom image (show/hide, style transform)
+
+- Fichier : frontend/question.php (script inline à la fin du fichier)
+- Page : frontend/question.php (vue question d'étape)
+- URL de test : http://localhost:8000/question.php?id=1&etape=1 (adapter id/etape à une étape existante si nécessaire)
+- Ce que fait le code : écouteurs sur #show-indice-texte et #show-indice-image pour afficher des overlays, contrôle zoom (+/-) en modifiant style.transform, reset du zoom à l'ouverture. Exemple concret de manipulation d'éléments, prevention de l'action par défaut et interaction with CSS transitions.
+- Comment tester : ouvrir la page d'une question, cliquer "Indice visuel" / "Indice textuel", utiliser les boutons + et -.
+
+3. Backoffice : modales et confirmation suppression (événements, confirm)
+
+- Fichier JS : backoffice/js/admin.js
+- Page : backoffice/dashboard.php ou backoffice/list_parcours.php
+- URL de test : http://localhost:8000/backoffice/dashboard.php
+- Ce que fait le code : fonctions showModal/closeModal qui changent style.display, gestion des boutons [data-modal-open] et [data-modal-close], et un exemple simple de confirmation via window.confirm() pour prévenir une suppression. Bon exemple de pattern CRUD admin minimal.
+- Comment tester : ouvrir le backoffice (login si nécessaire), cliquer sur un bouton ouvrant une modale et sur un bouton "supprimer" pour voir la confirmation.

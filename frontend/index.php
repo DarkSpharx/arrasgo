@@ -4,22 +4,51 @@ require_once __DIR__ . '/../backend/config/database.php';
 require_once __DIR__ . '/../backend/functions/parcours.php';
 require_once __DIR__ . '/../backend/functions/personnages.php';
 
-// Récupération des parcours
-if (function_exists('readParcours')) {
-	$parcours = readParcours($pdo);
-} elseif (function_exists('get_all_parcours')) {
-	$parcours = get_all_parcours($pdo);
+// Si la connexion PDO n'est pas disponible, afficher un message lisible et éviter les erreurs fatales
+if (!isset($pdo) || $pdo === null) {
+	// Mode dégradé : afficher un message pour l'utilisateur et définir des tableaux vides
+	$parcours = [];
+	$personnages_en_ligne = [];
+	$db_error = true;
 } else {
-	// fallback : requête directe
-	$stmt = $pdo->query('SELECT * FROM parcours WHERE statut = 1 ORDER BY id_parcours DESC');
-	$parcours = $stmt->fetchAll(PDO::FETCH_ASSOC);
+	$db_error = false;
+}
+
+// Récupération des parcours (si BDD disponible)
+if (!$db_error) {
+	if (function_exists('readParcours')) {
+		$parcours = readParcours($pdo);
+	} elseif (function_exists('get_all_parcours')) {
+		$parcours = get_all_parcours($pdo);
+	} else {
+		// fallback : requête directe
+		if (is_object($pdo)) {
+			$stmt = $pdo->query('SELECT * FROM parcours WHERE statut = 1 ORDER BY id_parcours DESC');
+			$parcours = $stmt ? $stmt->fetchAll(PDO::FETCH_ASSOC) : [];
+		} else {
+			$parcours = [];
+		}
+	}
+} else {
+	$parcours = [];
 }
 
 // Récupération des personnages (en ligne uniquement)
-$personnages = function_exists('get_all_personnages')
-	? get_all_personnages($pdo)
-	: $pdo->query('SELECT * FROM personnages WHERE statut = 1 ORDER BY id_personnage DESC')->fetchAll(PDO::FETCH_ASSOC);
-$personnages_en_ligne = $personnages;
+if (!$db_error) {
+	if (function_exists('get_all_personnages')) {
+		$personnages = get_all_personnages($pdo);
+	} else {
+		if (is_object($pdo)) {
+			$stmt2 = $pdo->query('SELECT * FROM personnages WHERE statut = 1 ORDER BY id_personnage DESC');
+			$personnages = $stmt2 ? $stmt2->fetchAll(PDO::FETCH_ASSOC) : [];
+		} else {
+			$personnages = [];
+		}
+	}
+	$personnages_en_ligne = $personnages;
+} else {
+	$personnages_en_ligne = [];
+}
 ?>
 
 <!DOCTYPE html>

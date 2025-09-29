@@ -7,18 +7,25 @@ require_once __DIR__ . '/../backend/functions/etapes.php';
 $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
 $parcours = $id ? (function_exists('get_parcours') ? get_parcours($pdo, $id) : null) : null;
 if (!$parcours) {
-    // fallback direct
-    $stmt = $pdo->prepare('SELECT * FROM parcours WHERE id_parcours = ?');
-    $stmt->execute([$id]);
-    $parcours = $stmt->fetch(PDO::FETCH_ASSOC);
+    // fallback direct (protégé si pas de connexion PDO)
+    if (is_object($pdo)) {
+        $stmt = $pdo->prepare('SELECT * FROM parcours WHERE id_parcours = ?');
+        $stmt->execute([$id]);
+        $parcours = $stmt->fetch(PDO::FETCH_ASSOC);
+    } else {
+        $parcours = null;
+    }
 }
 if (!$parcours) {
     http_response_code(404);
     header('Location: /frontend/error404.php');
     exit;
 }
-// Récupérer la première étape du parcours
-$etapes = get_etapes_by_parcours($pdo, $id);
+// Récupérer la première étape du parcours (protégé si BDD indisponible)
+$etapes = [];
+if (is_object($pdo) && function_exists('get_etapes_by_parcours')) {
+    $etapes = get_etapes_by_parcours($pdo, $id);
+}
 $premiere_etape_id = !empty($etapes) ? $etapes[0]['id_etape'] : null;
 ?>
 <!DOCTYPE html>

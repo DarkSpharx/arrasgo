@@ -5,10 +5,13 @@ require_once '../backend/config/database.php';
 require_once '../backend/functions/personnages.php';
 
 // Récupérer tous les parcours pour la sélection
+// Récupération sûre des parcours pour la sélection
 $parcours = [];
-$stmt = $pdo->query("SELECT id_parcours, nom_parcours FROM parcours ORDER BY nom_parcours");
-if ($stmt) {
-    $parcours = $stmt->fetchAll(PDO::FETCH_ASSOC);
+if (is_object($pdo)) {
+    $stmt = $pdo->query("SELECT id_parcours, nom_parcours FROM parcours ORDER BY nom_parcours");
+    if ($stmt) {
+        $parcours = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }
 
 $id_personnage = isset($_GET['id']) ? intval($_GET['id']) : 0;
@@ -19,10 +22,14 @@ if (!$personnage) {
 }
 // Récupérer les parcours liés à ce personnage
 $parcours_lies = [];
-$stmt = $pdo->prepare("SELECT id_parcours FROM parcours_personnages WHERE id_personnage = ?");
-$stmt->execute([$id_personnage]);
-while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-    $parcours_lies[] = $row['id_parcours'];
+if (is_object($pdo)) {
+    $stmt = $pdo->prepare("SELECT id_parcours FROM parcours_personnages WHERE id_personnage = ?");
+    if ($stmt) {
+        $stmt->execute([$id_personnage]);
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $parcours_lies[] = $row['id_parcours'];
+        }
+    }
 }
 $error = '';
 $success = false;
@@ -54,11 +61,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (!empty($nom) && !empty($description) && !empty($parcours_selectionnes)) {
         $result = update_personnage($pdo, $id_personnage, $nom, $description, $image, $mp3_personnage);
         if ($result) {
-            // Mettre à jour les liens parcours_personnages
-            $pdo->prepare("DELETE FROM parcours_personnages WHERE id_personnage = ?")->execute([$id_personnage]);
-            $stmt = $pdo->prepare("INSERT INTO parcours_personnages (id_parcours, id_personnage) VALUES (?, ?)");
-            foreach ($parcours_selectionnes as $id_parcours) {
-                $stmt->execute([$id_parcours, $id_personnage]);
+            // Mettre à jour les liens parcours_personnages (si BDD disponible)
+            if (is_object($pdo)) {
+                $del = $pdo->prepare("DELETE FROM parcours_personnages WHERE id_personnage = ?");
+                if ($del) { $del->execute([$id_personnage]); }
+                $stmt = $pdo->prepare("INSERT INTO parcours_personnages (id_parcours, id_personnage) VALUES (?, ?)");
+                if ($stmt) {
+                    foreach ($parcours_selectionnes as $id_parcours) {
+                        $stmt->execute([$id_parcours, $id_personnage]);
+                    }
+                }
             }
             $success = true;
             $personnage = get_personnage($pdo, $id_personnage);

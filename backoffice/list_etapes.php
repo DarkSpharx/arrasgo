@@ -5,7 +5,10 @@ require_once '../backend/config/database.php';
 require_once '../backend/functions/etapes.php';
 
 $id_parcours = isset($_GET['id_parcours']) ? intval($_GET['id_parcours']) : 0;
-$etapes = get_etapes_by_parcours($pdo, $id_parcours);
+$etapes = [];
+if (is_object($pdo) && function_exists('get_etapes_by_parcours')) {
+    $etapes = get_etapes_by_parcours($pdo, $id_parcours);
+}
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -33,13 +36,15 @@ $etapes = get_etapes_by_parcours($pdo, $id_parcours);
 
 
     <?php
-    // Récupérer le nom du parcours pour l'affichage du titre
-    $nom_parcours = '';
-    if ($id_parcours) {
-        $stmt = $pdo->prepare('SELECT nom_parcours FROM parcours WHERE id_parcours = ?');
-        $stmt->execute([$id_parcours]);
-        $nom_parcours = $stmt->fetchColumn();
-    }
+        // Récupérer le nom du parcours pour l'affichage du titre (si BDD disponible)
+        $nom_parcours = '';
+        if ($id_parcours && is_object($pdo)) {
+            $stmt = $pdo->prepare('SELECT nom_parcours FROM parcours WHERE id_parcours = ?');
+            if ($stmt) {
+                $stmt->execute([$id_parcours]);
+                $nom_parcours = $stmt->fetchColumn();
+            }
+        }
     ?>
     <h1 class="h1-sticky">Étapes du parcours "<?= $nom_parcours ? htmlspecialchars($nom_parcours) : '' ?>"</h1>
 

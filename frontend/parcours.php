@@ -13,8 +13,12 @@ if (function_exists('readParcours')) {
         return isset($p['statut']) ? $p['statut'] == 1 : true;
     });
 } else {
-    $stmt = $pdo->query('SELECT * FROM parcours WHERE statut = 1 ORDER BY id_parcours DESC');
-    $parcours = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    if (is_object($pdo)) {
+        $stmt = $pdo->query('SELECT * FROM parcours WHERE statut = 1 ORDER BY id_parcours DESC');
+        $parcours = $stmt ? $stmt->fetchAll(PDO::FETCH_ASSOC) : [];
+    } else {
+        $parcours = [];
+    }
 }
 ?>
 <!DOCTYPE html>

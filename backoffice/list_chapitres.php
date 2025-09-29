@@ -5,13 +5,21 @@ require_once '../backend/config/database.php';
 require_once '../backend/functions/chapitres.php';
 
 $id_etape = isset($_GET['id_etape']) ? intval($_GET['id_etape']) : 0;
-// Récupérer l'id_parcours pour le lien retour
-$stmt = $pdo->prepare("SELECT id_parcours FROM etapes WHERE id_etape = ?");
-$stmt->execute([$id_etape]);
-$id_parcours = $stmt->fetchColumn();
-$titre_etape = $stmt->fetchColumn();
+// Récupérer l'id_parcours pour le lien retour (si BDD disponible)
+$id_parcours = null;
+$titre_etape = '';
+if (is_object($pdo)) {
+    $stmt = $pdo->prepare("SELECT id_parcours FROM etapes WHERE id_etape = ?");
+    if ($stmt) {
+        $stmt->execute([$id_etape]);
+        $id_parcours = $stmt->fetchColumn();
+    }
+}
 
-$chapitres = get_chapitres_by_etape($pdo, $id_etape);
+$chapitres = [];
+if (is_object($pdo) && function_exists('get_chapitres_by_etape')) {
+    $chapitres = get_chapitres_by_etape($pdo, $id_etape);
+}
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -37,12 +45,18 @@ $chapitres = get_chapitres_by_etape($pdo, $id_etape);
 <body>
     <?php include 'header.php'; ?>
     <?php
-    // Récupérer le titre de l'étape
-    $stmt = $pdo->prepare("SELECT id_parcours, titre_etape FROM etapes WHERE id_etape = ?");
-    $stmt->execute([$id_etape]);
-    $row = $stmt->fetch(PDO::FETCH_ASSOC);
-    $id_parcours = $row ? $row['id_parcours'] : null;
-    $titre_etape = $row ? $row['titre_etape'] : '';
+    // Récupérer le titre de l'étape (si BDD disponible)
+    $id_parcours = $id_parcours ?? null;
+    $titre_etape = '';
+    if (is_object($pdo)) {
+        $stmt = $pdo->prepare("SELECT id_parcours, titre_etape FROM etapes WHERE id_etape = ?");
+        if ($stmt) {
+            $stmt->execute([$id_etape]);
+            $row = $stmt->fetch(PDO::FETCH_ASSOC);
+            $id_parcours = $row ? $row['id_parcours'] : $id_parcours;
+            $titre_etape = $row ? $row['titre_etape'] : '';
+        }
+    }
     ?>
     <h1 class="h1-sticky">Chapitres de l'étape "<?= htmlspecialchars($titre_etape) ?>"</h1>
 

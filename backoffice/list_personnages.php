@@ -4,28 +4,38 @@ require_once '../backend/security/check_auth.php';
 require_once '../backend/config/database.php';
 require_once '../backend/functions/personnages.php';
 
-// Récupérer tous les personnages
-$personnages = get_all_personnages($pdo);
+// Récupérer tous les personnages (fallback si BDD indisponible)
+$personnages = [];
+if (is_object($pdo) && function_exists('get_all_personnages')) {
+    $personnages = get_all_personnages($pdo);
+}
 
-// Récupérer tous les parcours
+// Récupérer tous les parcours (si possible)
 $parcours = [];
-$stmt = $pdo->query("SELECT id_parcours, nom_parcours FROM parcours");
-if ($stmt) {
-    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-        $parcours[$row['id_parcours']] = $row['nom_parcours'];
+if (is_object($pdo)) {
+    $stmt = $pdo->query("SELECT id_parcours, nom_parcours FROM parcours");
+    if ($stmt) {
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $parcours[$row['id_parcours']] = $row['nom_parcours'];
+        }
     }
 }
 
 // Récupérer les parcours liés à chaque personnage
 $personnages_parcours = [];
-foreach ($personnages as $perso) {
-    $stmt = $pdo->prepare("SELECT id_parcours FROM parcours_personnages WHERE id_personnage = ?");
-    $stmt->execute([$perso['id_personnage']]);
-    $ids = $stmt->fetchAll(PDO::FETCH_COLUMN);
-    $noms = array_map(function ($id) use ($parcours) {
-        return $parcours[$id] ?? '';
-    }, $ids);
-    $personnages_parcours[$perso['id_personnage']] = $noms;
+if (is_object($pdo)) {
+    foreach ($personnages as $perso) {
+        $ids = [];
+        $stmt = $pdo->prepare("SELECT id_parcours FROM parcours_personnages WHERE id_personnage = ?");
+        if ($stmt) {
+            $stmt->execute([$perso['id_personnage']]);
+            $ids = $stmt->fetchAll(PDO::FETCH_COLUMN);
+        }
+        $noms = array_map(function ($id) use ($parcours) {
+            return $parcours[$id] ?? '';
+        }, $ids);
+        $personnages_parcours[$perso['id_personnage']] = $noms;
+    }
 }
 ?>
 <!DOCTYPE html>

@@ -1,0 +1,25 @@
+RESPONSIVE (CSS)
+
+1. HERO (texte, tailles, image responsive)
+
+- Fichier CSS : frontend/css/style.css
+- Page : frontend/index.php
+- URL de test (serveur dev) : http://localhost:8000/index.php
+- Pourquoi c'est intéressant : les media queries adaptent les tailles de police, le background et l'affichage du hero (breakpoints 1024px / 768px). Utile pour montrer adaptation du design entre desktop/tablette/mobile.
+- Comment tester : ouvrir la page et réduire la largeur de la fenêtre (<=1024 puis <=768) pour observer la réduction des titres et du layout.
+
+2. CARTES PARCOURS (grille flexible)
+
+- Fichier CSS : frontend/css/style.css (sélecteurs .parcours-cards, .parcours-card, @media max-width:768px)
+- Page : frontend/parcours.php
+- URL de test : http://localhost:8000/parcours.php
+- Pourquoi c'est intéressant : layout en flex/grid qui passe d'une grille multi-colonne à une colonne unique sur petits écrans; montre gestion d'images et card scaling.
+- Comment tester : ouvrir la page et basculer en narrow width pour voir les cartes empilées et images qui s'ajustent.
+
+3. FOOTER / PIED DE PAGE (layout réactif)
+
+- Fichier CSS : frontend/css/footer.css
+- Page : inclus sur toutes les pages (ex : frontend/index.php ou frontend/parcours.php)
+- URL de test : http://localhost:8000/index.php (aller en bas de page)
+- Pourquoi c'est intéressant : exemple classique de réarrangement des éléments du footer selon la largeur écran (colonnes -> pile).
+- Comment tester : ouvrir la page, descendre au footer et réduire la largeur pour voir les éléments se réordonner.

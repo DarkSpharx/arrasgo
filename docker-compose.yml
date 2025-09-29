@@ -26,3 +26,7 @@ services:
       DB_NAME: arrasgo
       DB_USER: fred
       DB_PASS: '@dminFred123'
+      # reCAPTCHA keys (empty by default). Fill with real keys or use the scripts in /scripts to run locally with test keys.
+      RECAPTCHA_SITE_KEY: ""
+      RECAPTCHA_SECRET: ""
+      RECAPTCHA_MIN_SCORE: 0.5

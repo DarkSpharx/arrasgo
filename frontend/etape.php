@@ -8,20 +8,30 @@ $id_parcours = isset($_GET['id']) ? intval($_GET['id']) : 0;
 $id_etape = isset($_GET['etape']) ? intval($_GET['etape']) : 0;
 $geo = isset($_GET['geo']) ? intval($_GET['geo']) : 0;
 
-$parcours = $id_parcours ? (function_exists('get_parcours') ? get_parcours($pdo, $id_parcours) : null) : null;
-if (!$parcours) {
+// Récupération du parcours (protégé)
+$parcours = null;
+if ($id_parcours && is_object($pdo) && function_exists('get_parcours')) {
+    $parcours = get_parcours($pdo, $id_parcours);
+} elseif ($id_parcours && is_object($pdo)) {
     $stmt = $pdo->prepare('SELECT * FROM parcours WHERE id_parcours = ?');
     $stmt->execute([$id_parcours]);
     $parcours = $stmt->fetch(PDO::FETCH_ASSOC);
 }
-$etape = $id_etape ? get_etape($pdo, $id_etape) : null;
+// Récupération de l'étape (protégé)
+$etape = null;
+if ($id_etape && is_object($pdo) && function_exists('get_etape')) {
+    $etape = get_etape($pdo, $id_etape);
+}
 if (!$etape) {
     http_response_code(404);
     header('Location: /frontend/error404.php');
     exit;
 }
-// Pour la navigation entre étapes
-$etapes = get_etapes_by_parcours($pdo, $id_parcours);
+// Pour la navigation entre étapes (protégé)
+$etapes = [];
+if (is_object($pdo) && function_exists('get_etapes_by_parcours')) {
+    $etapes = get_etapes_by_parcours($pdo, $id_parcours);
+}
 
 // Calcul de la distance (JS côté client)
 ?>
