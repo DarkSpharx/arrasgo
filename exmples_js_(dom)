@@ -1,4 +1,4 @@
-JS (manipulation du DOM) — extraits utiles trouvés dans le projet
+JS (manipulation du DOM)
 
 1. Menu mobile / toggle (ajout/suppression de classes, aria)
 
@@ -10,9 +10,12 @@ JS (manipulation du DOM) — extraits utiles trouvés dans le projet
 - Comment tester : ouvrir la page, cliquer l'icône burger, cliquer un lien, réduire la fenêtre pour tester comportement mobile.
 
 Extrait (3 lignes) :
+
 ```js
-const menuToggle = document.getElementById('menu-toggle');
-menuToggle.addEventListener('click', () => document.getElementById('main-nav').classList.toggle('open'));
+const menuToggle = document.getElementById("menu-toggle");
+menuToggle.addEventListener("click", () =>
+  document.getElementById("main-nav").classList.toggle("open")
+);
 ```
 
 2. Popup d'indice + zoom image (show/hide, style.transform)
@@ -25,9 +28,11 @@ menuToggle.addEventListener('click', () => document.getElementById('main-nav').c
 - Comment tester : ouvrir la page d'une question, cliquer "Indice visuel/textuel", utiliser les boutons + et -.
 
 Extrait (4 lignes) :
+
 ```js
-document.getElementById('show-indice-image')?.addEventListener('click', e => {
-	e.preventDefault(); document.getElementById('popup-indice-image').style.display = 'flex';
+document.getElementById("show-indice-image")?.addEventListener("click", (e) => {
+  e.preventDefault();
+  document.getElementById("popup-indice-image").style.display = "flex";
 });
 ```
 
@@ -41,27 +46,20 @@ document.getElementById('show-indice-image')?.addEventListener('click', e => {
 - Comment tester : ouvrir le backoffice (login si nécessaire), cliquer sur un bouton ouvrant une modale et essayer de supprimer un élément.
 
 Extrait (4 lignes) :
+
 ```js
-document.querySelectorAll('[data-modal-open]').forEach(btn =>
-	btn.addEventListener('click', () => document.getElementById(btn.dataset.modalOpen).style.display = 'block')
-);
+document
+  .querySelectorAll("[data-modal-open]")
+  .forEach((btn) =>
+    btn.addEventListener(
+      "click",
+      () =>
+        (document.getElementById(btn.dataset.modalOpen).style.display = "block")
+    )
+  );
 ```
 
-4. Parallax / effet souris tactile (dataset + style.transform)
-
-- Fichier JS : `frontend/js/script.js`
-- Page : `index.php` (ou toute page contenant un élément `.paralax`)
-- Ce que fait le code : lit `el.dataset.parallaxSpeed`, gère `mousemove` et `touchmove`, calcule des valeurs et applique `el.style.transform = translate(...)` pour créer un effet de parallaxe.
-- Pourquoi c'est utile : montre lecture de `dataset`, gestion d'événements souris/tactile, et application performante via `requestAnimationFrame`.
-- Comment tester : ouvrir une page avec un élément `.paralax`, bouger la souris et observer le déplacement.
-
-Extrait (5 lignes) :
-```js
-const el = document.querySelector('.paralax');
-document.addEventListener('mousemove', e => el.style.transform = `translate(${(e.clientX-window.innerWidth/2)/20}px, ${(e.clientY-window.innerHeight/2)/20}px)`);
-```
-
-6. Soumission programmatique du formulaire via un lien (onclick submit)
+5. Soumission programmatique du formulaire via un lien (onclick submit)
 
 - Fichier : `frontend/question.php`
 - Page : `question.php`
@@ -70,11 +68,16 @@ document.addEventListener('mousemove', e => el.style.transform = `translate(${(e
 - Comment tester : remplir le champ et cliquer le lien "Valider".
 
 Extrait (3 lignes) :
+
 ```html
-<a href="#" onclick="document.getElementById('etape-form').submit(); return false;">Valider</a>
+<a
+  href="#"
+  onclick="document.getElementById('etape-form').submit(); return false;"
+  >Valider</a
+>
 ```
 
-7. Détection du lien actif et mise en forme (location + classList.add)
+6. Détection du lien actif et mise en forme (location + classList.add)
 
 - Fichier JS : `frontend/js/script.js`
 - Page : header inclus sur toutes les pages
@@ -83,7 +86,10 @@ Extrait (3 lignes) :
 - Comment tester : naviguer sur différentes pages et vérifier que le lien approprié reçoit la classe `active`.
 
 Extrait (4 lignes) :
+
 ```js
-const path = window.location.pathname.split('/').pop();
-document.querySelectorAll('#main-nav a').forEach(a => { if (a.getAttribute('href')===path) a.classList.add('active'); });
+const path = window.location.pathname.split("/").pop();
+document.querySelectorAll("#main-nav a").forEach((a) => {
+  if (a.getAttribute("href") === path) a.classList.add("active");
+});
 ```
