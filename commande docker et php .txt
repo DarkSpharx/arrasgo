@@ -2,4 +2,4 @@ Pour Docker :
 docker-compose up -d
 
 Pour PHP natif :
-php -S localhost:8000 -t
+php -S localhost:8000 -t .

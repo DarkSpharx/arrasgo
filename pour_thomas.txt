@@ -1,0 +1,47 @@
+# Commandes pour démarrer le projet Arrasgo (à copier-coller)
+
+# --- Avec Docker (recommandé) -------------------------------------------
+# 1) depuis le dossier du projet
+cd /c/arrasgo
+
+# 2) build + démarrer en avant-plan (logs visibles)
+docker compose build
+docker compose up
+
+# OU pour démarrer en arrière-plan (detach)
+docker compose up -d --build
+
+# 3) voir les logs (suivre) ou d'un service précis
+docker compose logs -f
+docker compose logs -f php
+
+# 4) ouvrir un shell dans le conteneur PHP
+docker compose exec php bash
+
+# 5) arrêter et supprimer les conteneurs
+docker compose down
+
+# 6) (optionnel) supprimer aussi les volumes (perd les données persistantes)
+docker compose down -v
+
+# --- Sans Docker (local, nécessite PHP >=8.1 et pdo_mysql) ----------------
+# depuis le dossier du projet (contenant index.php)
+cd /c/arrasgo
+
+# 1) créer un fichier .env à la racine (exemple) :
+# DB_HOST=127.0.0.1
+# DB_NAME=arrasgo
+# DB_USER=fred
+# DB_PASS=@dminFred123
+
+# 2) lancer le serveur PHP intégré
+php -S 0.0.0.0:8000 -t .
+
+# --- Import SQL (si nécessaire) -----------------------------------------
+# Si MariaDB dans le container (map 3307 -> 3306)
+mysql -h 127.0.0.1 -P 3307 -u root -pHrus1q8u@123 arrasgo < sql/dump-arrasgo-202509210410.sql
+
+# Si MySQL local
+# mysql -u fred -p'<mot_de_passe>' arrasgo < dump-arrasgo-202509210410.sql
+
+# Fin
